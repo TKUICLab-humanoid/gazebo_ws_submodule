@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<launch>
+  <node name="SimmpkgRobot1" pkg="simmotionpackage" type="simmotionpackage">
+	<remap from="/robot1/neck_yaw_position_controller/command" to="/kidsize/neck_yaw_position_controller/command"/>
+	<remap from="/robot1/head_pitch_position_controller/command" to="/kidsize/head_pitch_position_controller/command"/>
+
+	<remap from="/robot1/left_shoulder_pitch_position_controller/command" to="/kidsize/left_shoulder_pitch_position_controller/command"/>
+	<remap from="/robot1/left_shoulder_roll_position_controller/command" to="/kidsize/left_shoulder_roll_position_controller/command"/>
+	<remap from="/robot1/left_middle_yaw_position_controller/command" to="/kidsize/left_middle_yaw_position_controller/command"/>
+	<remap from="/robot1/left_elbow_pitch_position_controller/command" to="/kidsize/left_elbow_pitch_position_controller/command"/>
+
+	<remap from="/robot1/right_shoulder_pitch_position_controller/command" to="/kidsize/right_shoulder_pitch_position_controller/command"/>
+	<remap from="/robot1/right_shoulder_roll_position_controller/command" to="/kidsize/right_shoulder_roll_position_controller/command"/>
+	<remap from="/robot1/right_middle_yaw_position_controller/command" to="/kidsize/right_middle_yaw_position_controller/command"/>
+	<remap from="/robot1/right_elbow_pitch_position_controller/command" to="/kidsize/right_elbow_pitch_position_controller/command"/>
+	<remap from="/robot1/waist_yaw_position_controller/command" to="/kidsize/waist_yaw_position_controller/command"/>
+
+	<remap from="/robot1/left_hip_yaw_position_controller/command" to="/kidsize/left_hip_yaw_position_controller/command"/>
+	<remap from="/robot1/left_hip_roll_position_controller/command" to="/kidsize/left_hip_roll_position_controller/command"/>
+	<remap from="/robot1/left_hip_pitch_position_controller/command" to="/kidsize/left_hip_pitch_position_controller/command"/>
+	<remap from="/robot1/left_knee_pitch_position_controller/command" to="/kidsize/left_knee_pitch_position_controller/command"/>
+	<remap from="/robot1/left_ankle_pitch_position_controller/command" to="/kidsize/left_ankle_pitch_position_controller/command"/>
+	<remap from="/robot1/left_ankle_roll_position_controller/command" to="/kidsize/left_ankle_roll_position_controller/command"/>
+
+	<remap from="/robot1/right_hip_yaw_position_controller/command" to="/kidsize/right_hip_yaw_position_controller/command"/>
+	<remap from="/robot1/right_hip_roll_position_controller/command" to="/kidsize/right_hip_roll_position_controller/command"/>
+	<remap from="/robot1/right_hip_pitch_position_controller/command" to="/kidsize/right_hip_pitch_position_controller/command"/>
+	<remap from="/robot1/right_knee_pitch_position_controller/command" to="/kidsize/right_knee_pitch_position_controller/command"/>
+	<remap from="/robot1/right_ankle_pitch_position_controller/command" to="/kidsize/right_ankle_pitch_position_controller/command"/>
+	<remap from="/robot1/right_ankle_roll_position_controller/command" to="/kidsize/right_ankle_roll_position_controller/command"/>
+  </node>
+</launch>

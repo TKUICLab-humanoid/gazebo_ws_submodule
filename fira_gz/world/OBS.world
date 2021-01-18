@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <!-- We use a custom world for the rrbot so that the camera angle is launched correctly -->
+
+  <world name="OBS_world">
+
+    <physics type="ode">
+      <real_time_update_rate>2000</real_time_update_rate>
+      <max_step_size>0.0005</max_step_size>
+    </physics>
+
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <include>
+      <uri>model://FIRA_Ground</uri>
+      <pose>1.75 0.15 0.001 0.0 0.0 1.5708</pose>
+    </include>
+
+    <!-- Global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <include>
+      <uri>model://SP_Goal</uri>
+      <pose>3 0 0.25 0.0 0.0 1.5708</pose>
+    </include>
+
+    <!--include>
+      <uri>model://unit_cylinder</uri>
+      <pose>0.086998 -0.029801 0.535189 1.582104 -0.321713 -0.021098</pose>
+    </include-->
+   
+    <!--plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so"/-->
+    <!--plugin name="kidsize" filename="libkidsize.so"/-->
+  </world>
+</sdf>

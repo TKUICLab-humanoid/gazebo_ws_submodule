@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <model name="aruco">
+    <pose>1.165203 0.033734 0.077975  0.583358 0 -1.578856</pose>
+     <static>true</static>
+    <link name="link">
+      <collision name="collision">
+        <geometry>
+          <mesh> 
+            <uri>model://aruco/aruco.DAE</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model://aruco/aruco.DAE</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+</sdf>

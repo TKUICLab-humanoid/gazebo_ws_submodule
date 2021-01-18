@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <!-- We use a custom world for the rrbot so that the camera angle is launched correctly -->
+
+  <world name="kidsize_world">
+
+    <physics type="ode">
+      <real_time_update_rate>2000</real_time_update_rate>
+      <max_step_size>0.0005</max_step_size>
+    </physics>
+
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <include>
+      <uri>model://FIRA_Ground</uri>
+      <pose>1.75 0.15 0.001 0.0 0.0 1.5708</pose>
+    </include>
+    
+    <include>
+      <uri>model://aruco</uri>
+    </include>
+
+    <!-- Global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <include>
+      <uri>model://yellow_box</uri>
+      <pose>-0.007403 -1.894870 0.023500 0 0 -0.000198</pose>
+    </include>
+
+    <include>
+      <uri>model://red_box</uri>
+      <pose>0.076577 -1.885190 0 0 -0.000028</pose>
+    </include>
+
+    <include>
+      <uri>model://blue_box</uri>
+      <pose>0.000071 -1.885190 0.1 0 -0.000304</pose>
+    </include>
+   
+  </world>
+</sdf>

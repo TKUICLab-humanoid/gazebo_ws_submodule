@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <model name="GoStraight_arrow">
+    <static>true</static>
+    <link name="GoStraight_link">
+      <pose>0 0 0.0012 0 0 0</pose>
+      <visual name="visual">
+        <cast_shadows>0</cast_shadows>
+        <geometry>
+          <mesh>
+            <uri>model://GoStraight_arrow/GoStraight_arrow.DAE</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+</sdf>

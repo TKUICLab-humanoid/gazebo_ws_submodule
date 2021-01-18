@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<launch>
+  <node name="WalkingGaitRobot2" pkg="walkinggait" type="walkinggait">
+	<remap from="/ContinousMode_Topic" to="/ContinousMode_Topic/10th_robot2"/>
+	<remap from="/ChangeContinuousValue_Topic" to="/ChangeContinuousValue_Topic/10th_robot2"/>
+	<remap from="SendBodyAuto_Topic" to="SendBodyAuto_Topic/10th_robot2"/>
+	<remap from="web/parameter_Topic" to="web/parameter_Topic/10th_robot2"/>
+	<remap from="web/LoadWalkingGaitParameter" to="web/LoadWalkingGaitParameter/10th_robot2"/>
+	<remap from="/WaveRequest_Topic" to="/WaveRequest_Topic/10th_robot2"/>
+	<remap from="/package/walkack" to="/package/walkack/10th_robot2"/>
+	<remap from="/walkinggait/Continuousback" to="/walkinggait/Continuousback/10th_robot2"/>
+	<remap from="/wave" to="/wave/10th_robot2"/>
+	<remap from="/package/walkingdata" to="/package/walkingdata/10th_robot2"/>
+	<remap from="/package/save" to="/package/save/10th_robot2"/>
+  </node>
+</launch>
