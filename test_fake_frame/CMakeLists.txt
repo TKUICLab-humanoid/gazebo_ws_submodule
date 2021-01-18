@@ -17,7 +17,7 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
 )
 set(TKU_LIBRARIES ${CATKIN_DEVEL_PREFIX}/lib/libtku_libs.so)
-set(STRATEGYBASE_LIBRARIES ${CATKIN_DEVEL_PREFIX}/lib/libstrategybase.so)
+set(ROSCOMMUNICATION_LIBRARIES ${CATKIN_DEVEL_PREFIX}/lib/libroscommunication.so)
 set(TKU_GZ_LIBRARIES ${CATKIN_DEVEL_PREFIX}/lib/libtku_gz_libs.so)
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
