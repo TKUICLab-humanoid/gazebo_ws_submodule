@@ -5,14 +5,46 @@ ros.on('connection', function () {
   console.log('Connection made!');
   createTopics();
   resetfunction();
+  document.getElementById('resetButton').disabled = false;
   document.getElementById('connected').style.display = 'inline';
 });
 ros.on('error', function (error) {
   console.log('Error connecting to websocket server: ', error);
+  document.getElementById('SaveButton').disabled = true;
+  document.getElementById('ReadButton').disabled = true;
+  document.getElementById('SaveStandButton').disabled = true;
+  document.getElementById('ReadStandButton').disabled = true;
+  document.getElementById('SendButton').disabled = true;
+  document.getElementById('executeButton').disabled = true;
+  document.getElementById('standButton').disabled = true;
+  document.getElementById('MultipleButton').disabled = true;
+  document.getElementById('MergeButton').disabled = true;
+  document.getElementById('AddButton').disabled = true;
+  document.getElementById('DeleteButton').disabled = true;
+  document.getElementById('ReverseButton').disabled = true;
+  document.getElementById('CopyButton').disabled = true;
+  document.getElementById('CheckSumButton').disabled = true;
+  document.getElementById('resetButton').disabled = true;
+  document.getElementById('connected').style.display = 'none';
   enterAddress();
 });
 ros.on('close', function () {
   console.log('Connection to websocket server closed.');
+  document.getElementById('SaveButton').disabled = true;
+  document.getElementById('ReadButton').disabled = true;
+  document.getElementById('SaveStandButton').disabled = true;
+  document.getElementById('ReadStandButton').disabled = true;
+  document.getElementById('SendButton').disabled = true;
+  document.getElementById('executeButton').disabled = true;
+  document.getElementById('standButton').disabled = true;
+  document.getElementById('MultipleButton').disabled = true;
+  document.getElementById('MergeButton').disabled = true;
+  document.getElementById('AddButton').disabled = true;
+  document.getElementById('DeleteButton').disabled = true;
+  document.getElementById('ReverseButton').disabled = true;
+  document.getElementById('CopyButton').disabled = true;
+  document.getElementById('CheckSumButton').disabled = true;
+  document.getElementById('resetButton').disabled = true;
   document.getElementById('connected').style.display = 'none';
 });
 
@@ -57,6 +89,10 @@ var ExecuteCallBack;
 var firstConnectFlag = true;
 var myaddress = "172.17.121.10";
 
+var doSendFlag = false;
+var doExecuteFlag = false;
+var doStandFlag = false;
+
 var FirstSend = true;
 
 function createTopics()
@@ -68,23 +104,11 @@ function createTopics()
   });
   SendPackageCallBack.subscribe(function(msg)
   {
+    sleep(200);//wait for motionpackage 1000/60 = 166
     console.log("SendPackageCallBack");
     if(msg.data == true)
     {
-      document.getElementById('label').innerHTML = "Send sector is successful !!";
-      document.getElementById('SaveButton').disabled = false;
-      document.getElementById('ReadButton').disabled = false;
-      document.getElementById('SaveStandButton').disabled = false;
-      document.getElementById('ReadStandButton').disabled = false;
-      document.getElementById('executeButton').disabled = false;
-      document.getElementById('standButton').disabled = false;
-      document.getElementById('MultipleButton').disabled = false;
-      document.getElementById('MergeButton').disabled = false;
-      document.getElementById('AddButton').disabled = false;
-      document.getElementById('DeleteButton').disabled = false;
-      document.getElementById('ReverseButton').disabled = false;
-      document.getElementById('CopyButton').disabled = false;
-      document.getElementById('CheckSumButton').disabled = false;
+      CheckSector(Number(document.getElementById('Sector').value));
     }
     else if(msg.data == false)
     {
@@ -99,8 +123,10 @@ function createTopics()
   });
   ExecuteCallBack.subscribe(function (msg)
   {
-    if (msg.data == true) {
+    if(msg.data == true)
+    {
       document.getElementById('label').innerHTML = "Execute is finish !!";
+      document.getElementById('stand_label').innerHTML = "not standing";
       document.getElementById('SaveButton').disabled = false;
       document.getElementById('ReadButton').disabled = false;
       document.getElementById('SaveStandButton').disabled = false;
@@ -125,8 +151,6 @@ function createTopics()
 
 function enterAddress() 
 {
-  document.getElementById('label').innerHTML = ""
-  document.getElementById('stand_label').innerHTML = ""
   if(!firstConnectFlag)
   {
     ros.close();
@@ -136,7 +160,7 @@ function enterAddress()
     firstConnectFlag = false;
   }
   myaddress = document.getElementById("addressSelect").value;
-  console.log("Connecting address is", myaddress)
+  console.log("Connecting address is", myaddress);
   ros.connect("ws://" + myaddress + ":9090");
 }
 
@@ -148,9 +172,93 @@ function sleep(ms)
   }while((new Date().getTime() - starttime) < ms)
 }
 
+function CheckSector(sectordata)
+{
+  var LoadParameterClient = new ROSLIB.Service({
+    ros : ros,
+    name : '/package/InterfaceCheckSector',
+    serviceType: 'tku_msgs/CheckSector'
+  });
+  var parameter_request = new ROSLIB.ServiceRequest({
+    data : sectordata
+  });
+  LoadParameterClient.callService(parameter_request , function(srv){
+    console.log("CheckSector")
+    if(srv.checkflag == true)
+    {
+      if(doSendFlag == true)
+      {
+        document.getElementById('label').innerHTML = "Send sector is successful !!";
+        document.getElementById('SaveButton').disabled = false;
+        document.getElementById('ReadButton').disabled = false;
+        document.getElementById('SaveStandButton').disabled = false;
+        document.getElementById('ReadStandButton').disabled = false;
+        document.getElementById('executeButton').disabled = false;
+        document.getElementById('standButton').disabled = false;
+        document.getElementById('MultipleButton').disabled = false;
+        document.getElementById('MergeButton').disabled = false;
+        document.getElementById('AddButton').disabled = false;
+        document.getElementById('DeleteButton').disabled = false;
+        document.getElementById('ReverseButton').disabled = false;
+        document.getElementById('CopyButton').disabled = false;
+        document.getElementById('CheckSumButton').disabled = false;
+        doSendFlag = false;
+      }
+      else if(doExecuteFlag == true)
+      {
+        SendSectorPackage.data = sectordata;
+        SectorPackage.publish(SendSectorPackage);
+
+        doExecuteFlag = false;
+      }
+      else if(doStandFlag == true)
+      {
+        SendSectorPackage.data = sectordata;
+        SectorPackage.publish(SendSectorPackage);
+        
+        document.getElementById('stand_label').innerHTML = "is standing";
+        document.getElementById('standButton').disabled = false;
+        doStandFlag = false;
+      }
+    }
+    else
+    {
+      if(doSendFlag == true)
+      {
+        document.getElementById('label').innerHTML = "Sector is not correct !! Please try again !!";
+        doSendFlag = false;
+      }
+      else if(doExecuteFlag == true)
+      {
+        document.getElementById('label').innerHTML = "Sector is not correct !! Please check your sector file !!";
+        document.getElementById('SaveButton').disabled = false;
+        document.getElementById('ReadButton').disabled = false;
+        document.getElementById('SaveStandButton').disabled = false;
+        document.getElementById('ReadStandButton').disabled = false;
+        document.getElementById('SendButton').disabled = false;
+        document.getElementById('executeButton').disabled = false;
+        document.getElementById('standButton').disabled = false;
+        document.getElementById('MultipleButton').disabled = false;
+        document.getElementById('MergeButton').disabled = false;
+        document.getElementById('AddButton').disabled = false;
+        document.getElementById('DeleteButton').disabled = false;
+        document.getElementById('ReverseButton').disabled = false;
+        document.getElementById('CopyButton').disabled = false;
+        document.getElementById('CheckSumButton').disabled = false;
+        doExecuteFlag = false;
+      }
+      else if(doStandFlag == true)
+      {
+        document.getElementById('label').innerHTML = "Sector is not correct !! Please check your sector file !!";
+        document.getElementById('standButton').disabled = false;
+        doStandFlag = false;
+      }
+    }
+  });
+}
+
 function Save()
 {
-  document.getElementById('stand_label').innerHTML = ""
   SaveMotionData.savestate = 0;
   SaveMotionData.name = document.getElementById('filename').value;
   for(var i = 0;i < document.getElementById('MotionTable').getElementsByTagName('div').length;i+=2)
@@ -208,7 +316,6 @@ function Save()
 
 function Read()
 {
-  document.getElementById('stand_label').innerHTML = ""
   var LoadParameterClient = new ROSLIB.Service({
     ros : ros,
     name : '/package/InterfaceReadSaveMotion',
@@ -227,13 +334,10 @@ function Read()
     var absolutespeedcnt = 0;
     for(var i = 0; i < MotionData.VectorCnt; i++)
     {
-      //console.log(MotionData.VectorCnt);
-      //console.log(MotionData.motionstate[i]);
       switch(MotionData.motionstate[i])
       {
         case 0:
           NewMotionList();
-          //console.log(MotionData.ID[i]);
           document.getElementById('MotionTable').getElementsByTagName('div')[motionlistcnt*2].getElementsByClassName('textbox')[0].value = MotionData.ID[i];
           for(var j = 0; j < 40; j++)
           {
@@ -244,7 +348,6 @@ function Read()
           break;
         case 1:
           NewRelativePosition();
-          //console.log(MotionData.ID[i]);
           document.getElementById('RelativePositionTable').getElementsByTagName('div')[relativepositioncnt*2].getElementsByClassName('textbox')[0].value = MotionData.ID[i];
           for(var j = 0; j < 21; j++)
           {
@@ -254,7 +357,6 @@ function Read()
           break;
         case 2:
           NewRelativeSpeed();
-          //console.log(MotionData.ID[i]);
           document.getElementById('RelativeSpeedTable').getElementsByTagName('div')[relativespeedcnt*2].getElementsByClassName('textbox')[0].value = MotionData.ID[i];
           for(var j = 0; j < 21; j++)
           {
@@ -264,7 +366,6 @@ function Read()
           break;
         case 3:
           NewAbsolutePosition();
-          //console.log(MotionData.ID[i]);
           document.getElementById('AbsolutePositionTable').getElementsByTagName('div')[absolutepositioncnt*2].getElementsByClassName('textbox')[0].value = MotionData.ID[i];
           for(var j = 0; j < 21; j++)
           {
@@ -274,7 +375,6 @@ function Read()
           break;
         case 4:
           NewAbsoluteSpeed();
-          //console.log(MotionData.ID[i]);
           document.getElementById('AbsoluteSpeedTable').getElementsByTagName('div')[absolutespeedcnt*2].getElementsByClassName('textbox')[0].value = MotionData.ID[i];
           for(var j = 0; j < 21; j++)
           {
@@ -290,7 +390,6 @@ function Read()
 
 function SaveStand()
 {
-  document.getElementById('stand_label').innerHTML = ""
   SaveMotionData.savestate = 1;
   SaveMotionData.name = document.getElementById('filename').value;
   for(var i = 0;i < document.getElementById('MotionTable').getElementsByTagName('div').length;i+=2)
@@ -337,7 +436,6 @@ function SaveStand()
     {
       SaveMotionData.MotorData[j] = Number(document.getElementById('AbsoluteSpeedTable').getElementsByTagName('div')[i+1].getElementsByClassName('textbox')[j+1].value);
     }
-
     InterfaceSaveMotionData.publish(SaveMotionData);
   }
   SaveMotionData.saveflag = true;
@@ -348,7 +446,6 @@ function SaveStand()
 
 function ReadStand()
 {
-  document.getElementById('stand_label').innerHTML = ""
   var LoadParameterClient = new ROSLIB.Service({
     ros : ros,
     name : '/package/InterfaceReadSaveMotion',
@@ -430,8 +527,8 @@ function ReadStand()
 
 function Send()
 {
-  document.getElementById('label').innerHTML = ""
-  document.getElementById('stand_label').innerHTML = ""
+  doSendFlag = true;
+  document.getElementById('label').innerHTML = "";
   document.getElementById('SaveButton').disabled = true;
   document.getElementById('ReadButton').disabled = true;
   document.getElementById('SaveStandButton').disabled = true;
@@ -449,8 +546,6 @@ function Send()
   var ID = Number(document.getElementById('SendID').value);
   var Sector = Number(document.getElementById('Sector').value);
   var count = 0;
-  var MotorSum = 0;
-  var sum = 0;
   var checksum = 0;
   var checksum_Lhand = 0;
   var checksum_Rhand = 0;
@@ -459,7 +554,7 @@ function Send()
   SendPackage.sectorname = document.getElementById('Sector').value;
   MotionList[count++] = 83;
   MotionList[count++] = 84;
-  if (document.getElementById('Locked29').checked && Number(document.getElementById('Sector').value) == 29)
+  if (document.getElementById('Locked29').checked && Sector == 29)
   {
     alert("Sector 29 is Locked. Please try again. ");
   }
@@ -473,7 +568,6 @@ function Send()
     {
       if (ID == document.getElementById('AbsolutePositionTable').getElementsByTagName('div')[i].getElementsByClassName('textbox')[0].value) 
       {
-        MotorSum = 21;
         MotionList[count++] = 242;
         for (var j = 0; j < 21; j++) 
         {
@@ -523,28 +617,14 @@ function Send()
           sleep(2);
         }
 		    console.log("242 publish end");
-        if (FirstSend) 
-        {
-          for (var a = 0; a < MotionList.length; a++) 
-          {
-            SendPackage.Package = MotionList[a];
-            interface.publish(SendPackage);
-            console.log(SendPackage.Package);
-            sleep(2);
-          }
-          FirstSend = false;
-		    console.log("242 FirstSend publish end");
-        }
         break;
       }
-      
     }
 
     for (var i = 0; i < document.getElementById('RelativePositionTable').getElementsByTagName('div').length; i++) 
     {
       if (ID == document.getElementById('RelativePositionTable').getElementsByTagName('div')[i].getElementsByClassName('textbox')[0].value) 
       {
-        MotorSum = 21;
         MotionList[count++] = 243;
         for (var j = 0; j < 21; j++) 
         {
@@ -573,7 +653,6 @@ function Send()
             checksum += MotionList[count];
             count++;
           }
-          //MotionList[count++] = Number(document.getElementById('RelativePositionTable').getElementsByTagName('div')[i+1].getElementsByClassName('textbox')[j + 1].value);
           if (j < 4) 
           {
             checksum_Lhand = checksum;
@@ -609,18 +688,6 @@ function Send()
           sleep(2);
         }
 		    console.log("243 publish end");
-        if (FirstSend) 
-        {
-          for (var a = 0; a < MotionList.length; a++) 
-          {
-            SendPackage.Package = MotionList[a];
-            interface.publish(SendPackage);
-            console.log(SendPackage.Package);
-            sleep(2);
-          }
-          FirstSend = false;
-		      console.log("243 FirstSend publish end");
-        }
         break;
       }   
     }
@@ -629,7 +696,6 @@ function Send()
     {
       if (ID == document.getElementById('MotionTable').getElementsByTagName('div')[i].getElementsByClassName('textbox')[0].value) 
       {
-        MotorSum = 21;
         MotionList[count++] = 244;
         for (var j = 1; j <= 20; j++) 
         {
@@ -654,7 +720,6 @@ function Send()
                     MotionList[count++] = x & 0xff;
                     MotionList[count++] = ((x >> 8) & 0xff) | 0x80;
                   }
-                  //MotionList[count++] = Number(document.getElementById('RelativePositionTable').getElementsByTagName('div')[i+1].getElementsByClassName('textbox')[j + 1].value);
                 }
                 MotionList[count++] = 68;
                 MotionList[count++] = 89;
@@ -681,18 +746,6 @@ function Send()
             sleep(2);
           }
           console.log("244 publish end");
-          if (FirstSend) 
-          {
-            for (var a = 0; a < MotionList.length; a++) 
-            {
-              SendPackage.Package = MotionList[a];
-              interface.publish(SendPackage);
-              console.log(SendPackage.Package);
-              sleep(2);
-            }
-            FirstSend = false;
-            console.log("244 FirstSend publish end");
-          }
           break;
         }
         else
@@ -707,7 +760,6 @@ function Send()
 
 function Locked()
 {
-  document.getElementById('stand_label').innerHTML = ""
   if (!document.getElementById('Locked29').checked)
   {
     document.getElementById('label').innerHTML = "Sector 29 is Unlocked";
@@ -718,10 +770,10 @@ function Locked()
   }
 }
 
-var stand_flag=false;
 function execute()
 {
-  document.getElementById('label').innerHTML = ""
+  doExecuteFlag = true;
+  document.getElementById('label').innerHTML = "";
   document.getElementById('SaveButton').disabled = true;
   document.getElementById('ReadButton').disabled = true;
   document.getElementById('SaveStandButton').disabled = true;
@@ -737,28 +789,21 @@ function execute()
   document.getElementById('CopyButton').disabled = true;
   document.getElementById('CheckSumButton').disabled = true;
 
-  SendSectorPackage.data = Number(document.getElementById('Sector').value);
-  SectorPackage.publish(SendSectorPackage);
-  document.getElementById('stand_label').innerHTML = "not standing";
+  CheckSector(Number(document.getElementById('Sector').value));
 }
 
 function stand()
 {
-  document.getElementById('label').innerHTML = ""
+  doStandFlag = true;
+  document.getElementById('label').innerHTML = "";
   document.getElementById('standButton').disabled = true;
 
-  SendSectorPackage.data = 29;
-  SectorPackage.publish(SendSectorPackage);
-  stand_flag=true;
-  
-  document.getElementById('stand_label').innerHTML = "is standing";
-  document.getElementById('standButton').disabled = false;
+  CheckSector(29);
 }
 
 function resetfunction()
 {
-  document.getElementById('label').innerHTML = ""
-  document.getElementById('stand_label').innerHTML = ""
+  document.getElementById('label').innerHTML = "";
   document.getElementById('SaveButton').disabled = false;
   document.getElementById('ReadButton').disabled = false;
   document.getElementById('SaveStandButton').disabled = false;
