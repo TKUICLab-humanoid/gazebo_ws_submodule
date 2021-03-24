@@ -17,6 +17,7 @@
 #include "tku_msgs/SaveMotion.h"
 #include "tku_msgs/ReadMotion.h"
 #include "tku_msgs/InterfaceSend2Sector.h"
+#include "tku_msgs/CheckSector.h"
 
 enum class HeadMotorID {neck_yaw = 1, head_pitch};
 enum class MotorID {left_shoulder_pitch, left_shoulder_roll, left_middle_yaw, left_elbow_pitch,
@@ -277,7 +278,8 @@ public:
 		ExecuteCallBack_pub = nh.advertise<std_msgs::Bool>("/package/executecallback", 1000);
 	    InterfaceCallBack_pub = nh.advertise<std_msgs::Bool>("/package/motioncallback", 1000);
 
-        InterfaceReadData_ser = nh.advertiseService("/package/InterfaceReadSaveMotion",&SimMotionPackage::InterfaceReadDataFunction, this);
+        InterfaceReadData_ser = nh.advertiseService("/package/InterfaceReadSaveMotion", &SimMotionPackage::InterfaceReadDataFunction, this);
+		InterfaceCheckSector_ser = nh.advertiseService("/package/InterfaceCheckSector", &SimMotionPackage::InterfaceCheckSectorFunction, this);
         // speed_control_timer = nhPrivate.createTimer(ros::Duration(0.01), &SimMotionPackage::speedControlTimer, this, false, false);
 
         stand_data.angle[(int)MotorID::left_shoulder_pitch] 	= 3044;
@@ -336,8 +338,10 @@ public:
 	void readStandFunction();
 	void speedControl(SectorData &sector_data);
 	void speedControlTimer(const ros::TimerEvent& e);
+	void initparameterpath();
 
 	bool InterfaceReadDataFunction(tku_msgs::ReadMotion::Request &Motion_req, tku_msgs::ReadMotion::Response &Motion_res);
+	bool InterfaceCheckSectorFunction(tku_msgs::CheckSector::Request &req, tku_msgs::CheckSector::Response &res);
 
 	ros::Publisher head_control[3];
 	ros::Publisher motor_control[21];
@@ -352,6 +356,7 @@ public:
 	ros::Subscriber InterfaceSend2Sector_sub;
 
 	ros::ServiceServer InterfaceReadData_ser;
+	ros::ServiceServer InterfaceCheckSector_ser;
 	// ros::Timer speed_control_timer;
 
 	std_msgs::Float64 motor_angle[21];
@@ -382,4 +387,6 @@ public:
 	string robot_ganeration;
 	// InverseKinematics inversekinematics;
 	InverseKinematic inversekinematic;
+
+	string parameter_path = "N";
 };

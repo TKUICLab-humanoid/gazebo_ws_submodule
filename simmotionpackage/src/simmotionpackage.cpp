@@ -311,21 +311,12 @@ void SimMotionPackage::SectorSend2GazeboFunction(const std_msgs::Int16 &msg)
     char path[200];
     int packagecnt;
     this->sector_data.init();
-    // if(msg.data == 29)
-    // {
-    //     strcpy(path, STANDPATH);
-    //     strcat(pathend, filename);
-    //     strcat(path, pathend);
-    //     strcat(path, pathend2);
-    // }
-    // else
-    {
-        string PATH = tool->getPackagePath("strategy");
-        strcpy(path, PATH.c_str());
-        strcat(pathend, filename);
-        strcat(path, pathend);
-        strcat(path, pathend2);
-    }
+
+    strcpy(path, parameter_path.c_str());
+    strcat(pathend, filename);
+    strcat(path, pathend);
+    strcat(path, pathend2);
+
     fstream fin;
     fin.open(path, ios::in);
     if(!fin)
@@ -397,6 +388,7 @@ bool SimMotionPackage::InterfaceReadDataFunction(tku_msgs::ReadMotion::Request &
     char str[10];
     int datacnt;
     int num;
+
     if(Motion_req.readstate == 1)
     {
         strcpy(path, STANDPATH);
@@ -405,13 +397,12 @@ bool SimMotionPackage::InterfaceReadDataFunction(tku_msgs::ReadMotion::Request &
     }
     else
     {
-        std::string PATH = tool->getPackagePath("strategy");
-        strcpy(path, PATH.c_str());
+        strcpy(path, parameter_path.c_str());
         strcat(pathend, filename.c_str());
         strcat(path, pathend);
     }
-    fstream fin;
 
+    fstream fin;
     fin.open(path, ios::in);
     if(!fin)
     {
@@ -545,6 +536,7 @@ void SimMotionPackage::InterfaceSaveDataFunction(const tku_msgs::SaveMotion &msg
         string filename = msg.name;
         char pathend[20] = "/";
         char path[200];
+
         if(msg.savestate == 1)
         {
             strcpy(path, STANDPATH);
@@ -553,11 +545,11 @@ void SimMotionPackage::InterfaceSaveDataFunction(const tku_msgs::SaveMotion &msg
         }
         else
         {
-            std::string PATH = tool->getPackagePath("strategy");
-            strcpy(path, PATH.c_str());
+            strcpy(path, parameter_path.c_str());
             strcat(pathend, filename.c_str());
             strcat(path, pathend);
         }
+        
         ofstream OutFile(path);
         ROS_INFO("SaveBegin");
         OutFile << "VectorCnt = ";
@@ -727,21 +719,12 @@ void SimMotionPackage::InterfaceSend2SectorFunction(const tku_msgs::InterfaceSen
         char pathend2[20] = ".ini";
         char path[200];
         string filename = msg.sectorname;
-        // if(filename == "29")
-        // {
-        //     strcpy(path, STANDPATH);
-        //     strcat(pathend, filename.c_str());
-        //     strcat(path, pathend);
-        //     strcat(path, pathend2);
-        // }
-        // else
-        {
-            std::string PATH = tool->getPackagePath("strategy");
-            strcpy(path, PATH.c_str());
-            strcat(pathend, filename.c_str());
-            strcat(path, pathend);
-            strcat(path, pathend2);
-        }
+
+        strcpy(path, parameter_path.c_str());
+        strcat(pathend, filename.c_str());
+        strcat(path, pathend);
+        strcat(path, pathend2);
+
         ofstream OutFile(path);
         ROS_INFO("SaveSectorBegin");
         OutFile << "PackageCnt = ";
@@ -845,6 +828,121 @@ void SimMotionPackage::InterfaceSend2SectorFunction(const tku_msgs::InterfaceSen
     }
 }
 
+bool InterfaceCheckSectorFunction(tku_msgs::CheckSector::Request &req, tku_msgs::CheckSector::Response &res)
+{
+    CheckSectorPackage.clear();
+    printf("CheckSectorStart\n");
+    char filename[10];
+    sprintf(filename,"%d",req.data);
+    char pathend[20] = "/sector/";
+    char pathend2[20] = ".ini";
+    char path[200];
+    int packagecnt;
+    int returnvalue;
+    bool motionlist_flag = true;
+    int cnt_tmp = 84;
+
+    if(req.data == 29)
+    {
+        strcpy(path, STANDPATH);
+        strcat(pathend, filename);
+        strcat(path, pathend);
+        strcat(path, pathend2);
+    }
+    else
+    {
+        strcpy(path, parameter_path.c_str());
+        strcat(pathend, filename);
+        strcat(path, pathend);
+        strcat(path, pathend2);
+    }
+
+    fstream fin;
+    fin.open(path, ios::in);
+    if(!fin)
+    {
+        printf("Filename Error!!\n");
+    }
+    else
+    {
+        packagecnt = tool->readvalue(fin, "PackageCnt", 0);
+        returnvalue = tool->readvalue(fin, "Package", 4);
+        if(returnvalue != -1)
+        {
+            CheckSectorPackage.push_back(returnvalue);
+        }
+        else
+        {
+            res.checkflag = false;
+            return true;
+        }
+        printf("mode = %d\n",CheckSectorPackage[0]);
+        for(int i = 1; i < packagecnt; i++)
+        {
+            returnvalue = tool->readvalue(fin, "|", 5);
+            if(returnvalue != -1)
+            {
+                CheckSectorPackage.push_back(returnvalue);
+            }
+            else
+            {
+                res.checkflag = false;
+                return true;
+            }
+        }
+        switch(CheckSectorPackage[0])
+        {
+            case 242:
+            case 243:
+                if(packagecnt != 85)
+                {
+                    printf("\033[0;31m242 243 Packagecnt is not correct!!\033[0m\n");
+                    res.checkflag = false;
+                    return true;
+                }
+                printf("Sector %d is correct!!\n",req.data);
+                printf("CheckSectorEnd\n");
+                res.checkflag = true;
+                return true;
+                break;
+            case 244:
+                while(motionlist_flag)
+                {
+                    if(cnt_tmp+5 > packagecnt)
+                    {
+                        printf("\033[0;31m244 count of Package is not the same as Packagecnt!!\033[0m\n");
+                        res.checkflag = false;
+                        return true;
+                    }
+                    if(CheckSectorPackage[cnt_tmp+1] == 68 && CheckSectorPackage[cnt_tmp+2] == 89)
+                    {
+                        if(CheckSectorPackage[cnt_tmp+4] == 69 && CheckSectorPackage[cnt_tmp+5] == 78)
+                        {
+                            motionlist_flag = false;
+                        }
+                        cnt_tmp += 87;
+                    }
+                    else
+                    {
+                        printf("\033[0;31m244 Package have not 68 89!!\033[0m\n");
+                        res.checkflag = false;
+                        return true;
+                    }
+                }
+                printf("Sector %d is correct!!\n",req.data);
+                printf("CheckSectorEnd\n");
+                res.checkflag = true;
+                return true;
+                break;
+            default:
+                printf("\033[0;31m%d is not correct mode!!\033[0m\n",SendSectorPackage[0]);
+                res.checkflag = false;
+                return true;
+                break;
+        }
+    }
+}
+
 void SimMotionPackage::readStandFunction()
 {
     ROS_INFO("read_stand_data");
@@ -852,11 +950,12 @@ void SimMotionPackage::readStandFunction()
     char pathend2[20] = ".ini";
     char path[200];
     int packagecnt;
-    string PATH = tool->getPackagePath("strategy");
-    strcpy(path, PATH.c_str());
+
+    strcpy(path, parameter_path.c_str());
     strcat(pathend, "29");
     strcat(path, pathend);
     strcat(path, pathend2);
+
     fstream fin;
     fin.open(path, ios::in);
     if(!fin)
@@ -960,8 +1059,20 @@ void SimMotionPackage::speedControlTimer(const ros::TimerEvent& e)
     // if(this->speed_control_cnts_count >= this->speed_control_cnts_max_count)this->speed_control_timer.stop();
 }
 
+void initparameterpath()
+{
+	while(parameter_path == "N")
+	{
+		parameter_path = tool->getPackagePath("strategy");
+	}
+	printf("parameter_path is %s\n", parameter_path.c_str());
+}
+
 int main(int argc, char *argv[])
 {
+    //Initial
+	initparameterpath();
+
 	ros::init(argc, argv, "simmotionpackage");
 	ros::NodeHandle nh;
 	ros::NodeHandle nhPrivate("~");
