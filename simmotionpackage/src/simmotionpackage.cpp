@@ -828,7 +828,7 @@ void SimMotionPackage::InterfaceSend2SectorFunction(const tku_msgs::InterfaceSen
     }
 }
 
-bool InterfaceCheckSectorFunction(tku_msgs::CheckSector::Request &req, tku_msgs::CheckSector::Response &res)
+bool SimMotionPackage::InterfaceCheckSectorFunction(tku_msgs::CheckSector::Request &req, tku_msgs::CheckSector::Response &res)
 {
     CheckSectorPackage.clear();
     printf("CheckSectorStart\n");
@@ -1059,7 +1059,7 @@ void SimMotionPackage::speedControlTimer(const ros::TimerEvent& e)
     // if(this->speed_control_cnts_count >= this->speed_control_cnts_max_count)this->speed_control_timer.stop();
 }
 
-void initparameterpath()
+void SimMotionPackage::initparameterpath()
 {
 	while(parameter_path == "N")
 	{
@@ -1070,9 +1070,6 @@ void initparameterpath()
 
 int main(int argc, char *argv[])
 {
-    //Initial
-	initparameterpath();
-
 	ros::init(argc, argv, "simmotionpackage");
 	ros::NodeHandle nh;
 	ros::NodeHandle nhPrivate("~");
