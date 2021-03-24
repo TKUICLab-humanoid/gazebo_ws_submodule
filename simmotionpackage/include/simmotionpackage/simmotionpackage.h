@@ -225,6 +225,9 @@ class SimMotionPackage
 public:
 	SimMotionPackage(ros::NodeHandle &nh, ros::NodeHandle &nhPrivate)
 	{
+		//Initial
+		initparameterpath();
+		
 		inversekinematic.initial_angle_gain();
 		inversekinematic.initial_speed_gain();
 		inversekinematic.initial_inverse_kinematic();
@@ -374,6 +377,7 @@ public:
 	vector<unsigned int> SaveSectorPackage;
 	vector<unsigned int> SendSectorPackage;
 	vector<unsigned int> handspeedpackage;
+	vector<int> CheckSectorPackage;
 	// vector<SectorData> vscetor_data;
 
 	uint8_t motorpackage[27] = {0};
