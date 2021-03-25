@@ -725,17 +725,17 @@
 
 		function showHorizontalPosition(newValue) {
 			if (window.event.keyCode == 13) {
-				if (newValue < document.getElementById("HorizontalPositionRange").min)
+				if (Number(newValue) < Number(document.getElementById("HorizontalPositionRange").min))
 				{
-					newValue = document.getElementById("HorizontalPositionRange").min;
-					document.getElementById("HorizontalPositionValue").value = newValue;
+					newValue = Number(document.getElementById("HorizontalPositionRange").min);
+					document.getElementById("HorizontalPositionValue").value = Number(newValue);
 				}
-				else if (newValue > document.getElementById("HorizontalPositionRange").max)
+				else if (Number(newValue) > Number(document.getElementById("HorizontalPositionRange").max))
 				{
-					newValue = document.getElementById("HorizontalPositionRange").max;
-					document.getElementById("HorizontalPositionValue").value = newValue;
+					newValue = Number(document.getElementById("HorizontalPositionRange").max);
+					document.getElementById("HorizontalPositionValue").value = Number(newValue);
 				}
-				document.getElementById("HorizontalPositionRange").value = newValue;
+				document.getElementById("HorizontalPositionRange").value = Number(newValue);
 				HeadPackagecmd.ID = Number(1);
 				HeadPackagecmd.Position = Number(document.getElementById("HorizontalPositionValue").value);
 				HeadPackagecmd.Speed = Number(document.getElementById("HorizontalSpeedValue").value);
@@ -743,7 +743,7 @@
 			}
 		}
 		function rangeHorizontalPosition(newValue) {
-			document.getElementById("HorizontalPositionValue").value = newValue;
+			document.getElementById("HorizontalPositionValue").value = Number(newValue);
 			HeadPackagecmd.ID = Number(1);
 			HeadPackagecmd.Position = Number(document.getElementById("HorizontalPositionValue").value);
 			HeadPackagecmd.Speed = Number(document.getElementById("HorizontalSpeedValue").value);
@@ -751,17 +751,17 @@
 		}
 		function showHorizontalSpeed(newValue) {
 			if (window.event.keyCode == 13) {
-				if (newValue < document.getElementById("HorizontalSpeedRange").min)
+				if (Number(newValue) < Number(document.getElementById("HorizontalSpeedRange").min))
 				{
-					newValue = document.getElementById("HorizontalSpeedRange").min;
-					document.getElementById("HorizontalSpeedValue").value = newValue;
+					newValue = Number(document.getElementById("HorizontalSpeedRange").min);
+					document.getElementById("HorizontalSpeedValue").value = Number(newValue);
 				}
-				else if (newValue > document.getElementById("HorizontalSpeedRange").max)
+				else if (Number(newValue) > Number(document.getElementById("HorizontalSpeedRange").max))
 				{
-					newValue = document.getElementById("HorizontalSpeedRange").max;
-					document.getElementById("HorizontalSpeedValue").value = newValue;
+					newValue = Number(document.getElementById("HorizontalSpeedRange").max);
+					document.getElementById("HorizontalSpeedValue").value = Number(newValue);
 				}
-				document.getElementById("HorizontalSpeedRange").value = newValue;
+				document.getElementById("HorizontalSpeedRange").value = Number(newValue);
 				HeadPackagecmd.ID = Number(1);
 				HeadPackagecmd.Position = Number(document.getElementById("HorizontalPositionValue").value);
 				HeadPackagecmd.Speed = Number(document.getElementById("HorizontalSpeedValue").value);
@@ -769,26 +769,26 @@
 			}
 		}
 		function rangeHorizontalSpeed(newValue) {
-			document.getElementById("HorizontalSpeedValue").value = newValue;
+			document.getElementById("HorizontalSpeedValue").value = Number(newValue);
 			HeadPackagecmd.ID = Number(1);
 			HeadPackagecmd.Position = Number(document.getElementById("HorizontalPositionValue").value);
-			HeadPackagecmd.Speed = Number(document.getElementById("HorizontalSpeedValue").valutde);
+			HeadPackagecmd.Speed = Number(document.getElementById("HorizontalSpeedValue").value);
 			Head_Topic.publish(HeadPackagecmd);
 		}
 
 		function showVerticalPosition(newValue) {
 			if (window.event.keyCode == 13) {
-				if (newValue < document.getElementById("VerticalPositionRange").min)
+				if (Number(newValue) < Number(document.getElementById("VerticalPositionRange").min))
 				{
-					newValue = document.getElementById("VerticalPositionRange").min;
-					document.getElementById("VerticalPositionValue").value = newValue;
+					newValue = Number(document.getElementById("VerticalPositionRange").min);
+					document.getElementById("VerticalPositionValue").value = Number(newValue);
 				}
-				else if (newValue > document.getElementById("VerticalPositionRange").max)
+				else if (Number(newValue) > Number(document.getElementById("VerticalPositionRange").max))
 				{
-					newValue = document.getElementById("VerticalPositionRange").max;
-					document.getElementById("VerticalPositionValue").value = newValue;
+					newValue = Number(document.getElementById("VerticalPositionRange").max);
+					document.getElementById("VerticalPositionValue").value = Number(newValue);
 				}
-				document.getElementById("VerticalPositionRange").value = newValue;
+				document.getElementById("VerticalPositionRange").value = Number(newValue);
 				HeadPackagecmd.ID = Number(2);
 				HeadPackagecmd.Position = Number(document.getElementById("VerticalPositionValue").value);
 				HeadPackagecmd.Speed = Number(document.getElementById("VerticalSpeedValue").value);
@@ -796,7 +796,7 @@
 			}
 		}
 		function rangeVerticalPosition(newValue) {
-			document.getElementById("VerticalPositionValue").value = newValue;
+			document.getElementById("VerticalPositionValue").value = Number(newValue);
 			HeadPackagecmd.ID = Number(2);
 			HeadPackagecmd.Position = Number(document.getElementById("VerticalPositionValue").value);
 			HeadPackagecmd.Speed = Number(document.getElementById("VerticalSpeedValue").value);
@@ -804,17 +804,17 @@
 		}
 		function showVerticalSpeed(newValue) {
 			if (window.event.keyCode == 13) {
-				if (newValue < document.getElementById("VerticalSpeedRange").min)
+				if (Number(newValue) < Number(document.getElementById("VerticalSpeedRange").min))
 				{
-					newValue = document.getElementById("VerticalSpeedRange").min;
-					document.getElementById("VerticalSpeedValue").value = newValue;
+					newValue = Number(document.getElementById("VerticalSpeedRange").min);
+					document.getElementById("VerticalSpeedValue").value = Number(newValue);
 				}
-				else if (newValue > document.getElementById("VerticalSpeedRange").max)
+				else if (Number(newValue) > Number(document.getElementById("VerticalSpeedRange").max))
 				{
-					newValue = document.getElementById("VerticalSpeedRange").max;
-					document.getElementById("VerticalSpeedValue").value = newValue;
+					newValue = Number(document.getElementById("VerticalSpeedRange").max);
+					document.getElementById("VerticalSpeedValue").value = Number(newValue);
 				}
-				document.getElementById("VerticalSpeedRange").value = newValue;
+				document.getElementById("VerticalSpeedRange").value = Number(newValue);
 				HeadPackagecmd.ID = Number(2);
 				HeadPackagecmd.Position = Number(document.getElementById("VerticalPositionValue").value);
 				HeadPackagecmd.Speed = Number(document.getElementById("VerticalSpeedValue").value);
@@ -822,7 +822,7 @@
 			}
 		}
 		function rangeVerticalSpeed(newValue) {
-			document.getElementById("VerticalSpeedValue").value = newValue;
+			document.getElementById("VerticalSpeedValue").value = Number(newValue);
 			HeadPackagecmd.ID = Number(2);
 			HeadPackagecmd.Position = Number(document.getElementById("VerticalPositionValue").value);
 			HeadPackagecmd.Speed = Number(document.getElementById("VerticalSpeedValue").value);
