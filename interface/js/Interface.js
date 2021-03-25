@@ -83,14 +83,13 @@ var SaveMotionData = new ROSLIB.Message({
 });
 
 //-----
-var keycode = 0;
 var count = 0;
 
 document.onkeydown = getKeyBoard;
 
 function getKeyBoard(e)
 {
-  switch(window.event.which || window.event.keyCode)
+  switch(window.event.keyCode)
   {
     case 87:	//W, Select Up
       count = -1;
