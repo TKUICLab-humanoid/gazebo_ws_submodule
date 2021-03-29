@@ -1061,10 +1061,19 @@ void SimMotionPackage::speedControlTimer(const ros::TimerEvent& e)
 
 void SimMotionPackage::initparameterpath()
 {
-	while(parameter_path == "N")
+    std::string package_path = ros::package::command("find strategy"); 
+    // scrape any newlines out of it
+    for (size_t newline = package_path.find('\n'); newline != std::string::npos; newline = package_path.find('\n'))
+    {
+        package_path.erase(newline, 1);
+    }
+	printf("package_path is %s\n", package_path.c_str());
+	if(package_path.empty())
 	{
-		parameter_path = tool->getPackagePath("strategy");
+		printf("Tool getPath is empty\n");
+		exit(1);
 	}
+    parameter_path = package_path + "/Parameter";
 	printf("parameter_path is %s\n", parameter_path.c_str());
 }
 

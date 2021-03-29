@@ -15,6 +15,8 @@
 		<material name="orange">
 			<color rgba="${255/255} ${108/255} ${10/255} 1.0" />
 		</material>
+      <link name="dummy">
+   </link>
   <link
     name="waist_link">
     <inertial>
@@ -55,6 +57,13 @@
       </geometry>
     </collision>
   </link>
+  <joint name="dummy_joint" type="fixed">
+    <origin
+      xyz="0 0 -0.028"
+      rpy="0 0 0" />
+     <parent link="dummy"/>
+     <child link="waist_link"/>
+   </joint>
   <link
     name="trunk_link">
     <inertial>
@@ -848,6 +857,65 @@
     <dynamics
       damping="0.0"
       friction="0.7" />
+  </joint>
+  <link
+    name="left_bottom_foot_fake_link"><inertial>
+      <origin
+        xyz="0.0832407016442707 -0.0275030808874214 -0.0302963318842118"
+        rpy="0 0 0" />
+      <mass
+        value="0.0001" />
+      <inertia
+        ixx="1.04719755119654E-22"
+        ixy="-1.06581097908222E-67"
+        ixz="3.63206357723254E-51"
+        iyy="1.04719755119654E-22"
+        iyz="-3.03551380010738E-55"
+        izz="1.57079632679485E-22" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/left_bottom_foot_fake_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/left_bottom_foot_fake_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_bottom_foot_fake_joint"
+    type="fixed">
+    <origin
+      xyz="0.04476 -0.00049 -0.02556"
+      rpy="0 0 0" />
+    <parent
+      link="left_foot_link" />
+    <child
+      link="left_bottom_foot_fake_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="${-pi}"
+      upper="${pi}"
+      effort="10"
+      velocity="0.1" />
+    <dynamics
+      friction="1" />
   </joint>
   <link
     name="left_thigh_link">

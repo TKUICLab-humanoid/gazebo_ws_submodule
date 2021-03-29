@@ -1,5 +1,6 @@
 <?xml version="1.0" ?>
 <launch>
+  <node name="simmotionpackage" pkg="simmotionpackage" type="simmotionpackage"/>
   <node name="SimmpkgRobot1" pkg="simmotionpackage" type="simmotionpackage">
 	<remap from="/robot1/neck_yaw_position_controller/command" to="/kidsize/neck_yaw_position_controller/command"/>
 	<remap from="/robot1/head_pitch_position_controller/command" to="/kidsize/head_pitch_position_controller/command"/>
