@@ -122,30 +122,6 @@ void SimMotionPackage::getHeadAngle(const tku_msgs::HeadPackage &msg)
     }
 }
 
-// void SimMotionPackage::SectorControlFuntion(unsigned int mode, SectorData &sector_data)
-// {
-//     switch(mode)
-//     {
-//         case (unsigned int)SectorMode::AbsoluteAngle:
-//             for(int i = 0; i < MotorSum; i++)this->stand_data.angle[i] = sector_data.angle[i];
-//             for(int i = 0; i < MotorSum; i++)motor_angle[i].data = this->stand_data.angle[i].toPI_G();
-//             for(int i = 0; i < MotorSum; i++)motor_control[i].publish(this->motor_angle[i]);
-//         break;
-//         case (unsigned int)SectorMode::RelativeAngle:
-//             for(int i = 0; i < MotorSum; i++)this->stand_data.angle[i] += sector_data.angle[i];
-//             for(int i = 0; i < MotorSum; i++)motor_angle[i].data = this->stand_data.angle[i].toPI_G();
-//             for(int i = 0; i < MotorSum; i++)motor_control[i].publish(this->motor_angle[i]);
-//             // for(int i = 0; i < MotorSum; i++)ROS_INFO("speed = %d\tangle = %d", stand_data.speed[i].toDec(), stand_data.angle[i].toDec());
-//         break;
-//         case (unsigned int)SectorMode::MotionList:
-//             for(int i = 0; i < MotorSum; i++)this->stand_data.angle[i] += sector_data.angle[i];
-//             for(int i = 0; i < MotorSum; i++)motor_angle[i].data = this->stand_data.angle[i].toPI_G();
-//             for(int i = 0; i < MotorSum; i++)motor_control[i].publish(this->motor_angle[i]);
-//             tool_gz.simDelay(sector_data.delay);
-//         break;
-//     }
-// }
-
 void SimMotionPackage::SectorControlFuntion(unsigned int mode, SectorData &sector_data)
 {
     double j = 0;
@@ -187,7 +163,6 @@ void SimMotionPackage::SectorControlFuntion(unsigned int mode, SectorData &secto
                     {
                         motor_angle[i].data = this->stand_data.angle[i].toPI_G();
                         k++;
-                        // ROS_INFO("%d",k);
                     }
                 }
                 this->motor_angle[10].data = -this->motor_angle[10].data;
@@ -222,7 +197,6 @@ void SimMotionPackage::SectorControlFuntion(unsigned int mode, SectorData &secto
                             motor_angle[i].data = now_motion_data.angle[i].toPI_G() - (sector_data.speed[i].toPI()*j/10.0);
                         }
                         k = 0;
-                        // ROS_INFO("%f",j);
                     }
                     else if(abs(motor_angle[i].data - (this->stand_data.angle[i].toPI_G())) < (sector_data.speed[i].toPI()/10.0) && motor_angle[i].data != (this->stand_data.angle[i].toPI_G()) && sector_data.angle[i].toPI() != 0 && sector_data.speed[i].toPI() > 0)
                     {
@@ -235,7 +209,6 @@ void SimMotionPackage::SectorControlFuntion(unsigned int mode, SectorData &secto
                         now_motion_data.angle[i] = this->stand_data.angle[i];
                         motor_angle[i].data = now_motion_data.angle[i].toPI_G();
                         k++;
-                        // ROS_INFO("%d",k);
                     }
                 }
                 this->motor_angle[10].data = -this->motor_angle[10].data;
@@ -312,7 +285,7 @@ void SimMotionPackage::SectorSend2GazeboFunction(const std_msgs::Int16 &msg)
     int packagecnt;
     this->sector_data.init();
 
-    strcpy(path, parameter_path.c_str());
+    strcpy(path, tool->parameterPath.c_str());
     strcat(pathend, filename);
     strcat(path, pathend);
     strcat(path, pathend2);
@@ -333,7 +306,6 @@ void SimMotionPackage::SectorSend2GazeboFunction(const std_msgs::Int16 &msg)
             for(int i = 1; i < packagecnt; i++)
             {
                 SendSectorPackage.push_back(tool->readvalue(fin, "|", 3));
-                //ROS_INFO("%d",SendSectorPackage[i]);
             }
             for(int i = 1, j = 0; i < packagecnt; i+=4)
             {
@@ -391,13 +363,13 @@ bool SimMotionPackage::InterfaceReadDataFunction(tku_msgs::ReadMotion::Request &
 
     if(Motion_req.readstate == 1)
     {
-        strcpy(path, STANDPATH);
+        strcpy(path, tool->standPath);
         strcat(pathend, filename.c_str());
         strcat(path, pathend);
     }
     else
     {
-        strcpy(path, parameter_path.c_str());
+        strcpy(path, tool->parameterPath.c_str());
         strcat(pathend, filename.c_str());
         strcat(path, pathend);
     }
@@ -539,13 +511,13 @@ void SimMotionPackage::InterfaceSaveDataFunction(const tku_msgs::SaveMotion &msg
 
         if(msg.savestate == 1)
         {
-            strcpy(path, STANDPATH);
+            strcpy(path, tool->standPath);
             strcat(pathend, filename.c_str());
             strcat(path, pathend);
         }
         else
         {
-            strcpy(path, parameter_path.c_str());
+            strcpy(path, tool->parameterPath.c_str());
             strcat(pathend, filename.c_str());
             strcat(path, pathend);
         }
@@ -720,7 +692,7 @@ void SimMotionPackage::InterfaceSend2SectorFunction(const tku_msgs::InterfaceSen
         char path[200];
         string filename = msg.sectorname;
 
-        strcpy(path, parameter_path.c_str());
+        strcpy(path, tool->parameterPath.c_str());
         strcat(pathend, filename.c_str());
         strcat(path, pathend);
         strcat(path, pathend2);
@@ -819,7 +791,6 @@ void SimMotionPackage::InterfaceSend2SectorFunction(const tku_msgs::InterfaceSen
                 break;
             }
             OutFile << SaveSectorPackage[i];
-            //ROS_INFO("%d",SaveSectorPackage[i]);
             OutFile <<"|| ";
         }
         ROS_INFO("SaveSectorEnd");
@@ -844,14 +815,14 @@ bool SimMotionPackage::InterfaceCheckSectorFunction(tku_msgs::CheckSector::Reque
 
     if(req.data == 29)
     {
-        strcpy(path, STANDPATH);
+        strcpy(path, tool->standPath);
         strcat(pathend, filename);
         strcat(path, pathend);
         strcat(path, pathend2);
     }
     else
     {
-        strcpy(path, parameter_path.c_str());
+        strcpy(path, tool->parameterPath.c_str());
         strcat(pathend, filename);
         strcat(path, pathend);
         strcat(path, pathend2);
@@ -951,7 +922,7 @@ void SimMotionPackage::readStandFunction()
     char path[200];
     int packagecnt;
 
-    strcpy(path, parameter_path.c_str());
+    strcpy(path, tool->parameterPath.c_str());
     strcat(pathend, "29");
     strcat(path, pathend);
     strcat(path, pathend2);
@@ -1001,7 +972,6 @@ void SimMotionPackage::readStandFunction()
                 ROS_INFO("stand_speed = %d\tstand_angle = %d", stand_data.speed[j].toDec(), stand_data.angle[j].toDec());
                 j++;
             }
-            // SectorControlFuntion((unsigned int)SectorMode::AbsoluteAngle, stand_data);
             execute_ack.data = true;
             ExecuteCallBack_pub.publish(execute_ack);
         }
@@ -1011,61 +981,6 @@ void SimMotionPackage::readStandFunction()
     }
     ROS_INFO("end_read_stand_data");
     SendSectorPackage.clear();
-}
-
-void SimMotionPackage::speedControl(SectorData &sector_data)
-{
-    // this->speed_control_cnts_max_count = 1;
-    // for(int i = 0; i < MotorSum; i++)
-    // {
-    //     if(sector_data.speed[i].toDec() > 0)
-    //     {
-    //         if(sector_data.speed[i].toDec() > abs(sector_data.angle[i].toDec()))
-    //         {
-    //             this->speed_control_cnts[i] = 1;
-    //         }
-    //         else
-    //         {
-    //             this->speed_control_cnts[i] = sector_data.angle[i].toDec()/sector_data.speed[i].toDec();
-    //             if(speed_control_cnts[i] > this->speed_control_cnts_max_count)this->speed_control_cnts_max_count = this->speed_control_cnts[i];
-    //         }
-    //     }
-    //     else
-    //     {
-    //         this->speed_control_cnts[i] = 1;
-    //     }
-    // }
-
-    // if(!this->speed_control_timer.isValid())
-    // {
-    //     this->speed_control_timer.stop();
-    //     this->speed_control_cnts_count = 0;
-
-    // }
-    // this->speed_control_timer.start();
-}
-
-void SimMotionPackage::speedControlTimer(const ros::TimerEvent& e)
-{
-    // SectorData _temp_sector_data;
-    // this->speed_control_cnts_count++;
-    // for(int i = 0; i < MotorSum; i++)
-    // {
-    //     // _temp_sector_data.angle[i] = this->sector_data.angle[i]/speed_control_cnts[i];
-    //     // this->sector_data.angle[i].remainder = (float)this->sector_data.angle[i].toDec()/speed_control_cnts[i] - (int)this->sector_data.angle[i].toDec()/speed_control_cnts[i];
-    //     this->stand_data.angle[i] += _temp_sector_data.angle[i];
-    // }
-    // for(int i = 0; i < MotorSum; i++)this->motor_angle[i].data = this->stand_data.angle[i].toPI_G();
-    // if(this->speed_control_cnts_count >= this->speed_control_cnts_max_count)this->speed_control_timer.stop();
-}
-
-void SimMotionPackage::initparameterpath()
-{
-	while(parameter_path == "N")
-	{
-		parameter_path = tool->getPackagePath("strategy");
-	}
-	printf("parameter_path is %s\n", parameter_path.c_str());
 }
 
 int main(int argc, char *argv[])
@@ -1080,23 +995,10 @@ int main(int argc, char *argv[])
     ros::AsyncSpinner s(1);
     s.start();
 	SimMotionPackage simmotionpackage(nh, nhPrivate);
-    // tool_gz->set_Client(nh);
-    // tool_gz->get_modelproperties("kidsize");
 
 	ros::Rate loop_rate(5);
 	while(nh.ok())
 	{
-        // if(simmotionpackage.init_stand_times == 2)
-        // {
-        //     simmotionpackage.init_stand_times++;
-        //     ROS_WARN("success to stand!");
-        // }
-        // else if(simmotionpackage.init_stand_times < 2)
-        // {
-        //     ROS_WARN("wait to stand...");
-        //     simmotionpackage.init_stand_times++;
-        //     simmotionpackage.SectorControlFuntion((unsigned int)SectorMode::AbsoluteAngle, simmotionpackage.stand_data);
-        // }
 		loop_rate.sleep();
 	}
 
