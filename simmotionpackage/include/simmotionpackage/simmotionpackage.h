@@ -1,8 +1,6 @@
 #include <ros/ros.h>
 #include <ros/callback_queue.h>
 #include <ros/package.h>
-// #include "walkinggait/InverseKinematics.hpp"
-// #include "walkinggait/parameterinfo.hpp"
 #include "simmotionpackage/Inverse_kinematic.h"
 #include "tku_libs/TKU_tool.h"
 #include "tku_libs/modelinfo.h"
@@ -28,7 +26,6 @@ enum class MotorID {left_shoulder_pitch, left_shoulder_roll, left_middle_yaw, le
 enum class SectorMode {AbsoluteAngle = 242, RelativeAngle, MotionList};
 
 #define MotorSum 21
-// #define SPEED_CONTROL_MAX_CNTS 1000
 
 class SectorDataBase
 {
@@ -56,7 +53,6 @@ public:
 	double toPI_G()
 	{
 		int temp = this->toDec();
-		// ROS_INFO("temp = %d", temp);
 		if(temp >= 4096)
 		{
 			this->L_D = 255;
@@ -226,8 +222,6 @@ public:
 	SimMotionPackage(ros::NodeHandle &nh, ros::NodeHandle &nhPrivate)
 	{
 		//Initial
-		initparameterpath();
-		
 		inversekinematic.initial_angle_gain();
 		inversekinematic.initial_speed_gain();
 		inversekinematic.initial_inverse_kinematic();
@@ -283,7 +277,6 @@ public:
 
         InterfaceReadData_ser = nh.advertiseService("/package/InterfaceReadSaveMotion", &SimMotionPackage::InterfaceReadDataFunction, this);
 		InterfaceCheckSector_ser = nh.advertiseService("/package/InterfaceCheckSector", &SimMotionPackage::InterfaceCheckSectorFunction, this);
-        // speed_control_timer = nhPrivate.createTimer(ros::Duration(0.01), &SimMotionPackage::speedControlTimer, this, false, false);
 
         stand_data.angle[(int)MotorID::left_shoulder_pitch] 	= 3044;
         stand_data.angle[(int)MotorID::left_shoulder_roll]		= 466;
@@ -325,10 +318,8 @@ public:
 		ik_ref_data.angle[(int)MotorID::right_knee_pitch]		= 1460;
 		ik_ref_data.angle[(int)MotorID::right_ankle_pitch]		= 1753;
 		ik_ref_data.angle[(int)MotorID::right_ankle_roll]		= 2048;
-		// ROS_INFO("%f", (ik_ref_data.angle[9]-stand_data.angle[9]).toPI());
+
 		readStandFunction();
-		// ROS_INFO("%d", speed_control_timer.isValid());
-		// tool_gz.set_Client(nh);
 	};
 	~SimMotionPackage(){};
 
@@ -339,9 +330,6 @@ public:
 	void InterfaceSend2SectorFunction(const tku_msgs::InterfaceSend2Sector &msg);
 	void SectorControlFuntion(unsigned int mode, SectorData &sector_data);
 	void readStandFunction();
-	void speedControl(SectorData &sector_data);
-	void speedControlTimer(const ros::TimerEvent& e);
-	void initparameterpath();
 
 	bool InterfaceReadDataFunction(tku_msgs::ReadMotion::Request &Motion_req, tku_msgs::ReadMotion::Response &Motion_res);
 	bool InterfaceCheckSectorFunction(tku_msgs::CheckSector::Request &req, tku_msgs::CheckSector::Response &res);
@@ -360,7 +348,6 @@ public:
 
 	ros::ServiceServer InterfaceReadData_ser;
 	ros::ServiceServer InterfaceCheckSector_ser;
-	// ros::Timer speed_control_timer;
 
 	std_msgs::Float64 motor_angle[21];
 	std_msgs::Float64 head_angle[3];
@@ -378,19 +365,12 @@ public:
 	vector<unsigned int> SendSectorPackage;
 	vector<unsigned int> handspeedpackage;
 	vector<int> CheckSectorPackage;
-	// vector<SectorData> vscetor_data;
 
 	uint8_t motorpackage[27] = {0};
 	uint8_t torquePackage[13] = {0};
 	uint8_t packageMotorData[87] = {0}; 	// address||R MotorSum (id angleL angleH speedL speedH)*MotorSum DelayL DelayH checksum2
 	int InterfaceFlag = 0;
-	// int init_stand_times = 0;
-	// float speed_control_cnts[MotorSum];
-	// int speed_control_cnts_count;
-	// int speed_control_cnts_max_count;
 	string robot_ganeration;
-	// InverseKinematics inversekinematics;
-	InverseKinematic inversekinematic;
 
-	string parameter_path = "N";
+	InverseKinematic inversekinematic;
 };

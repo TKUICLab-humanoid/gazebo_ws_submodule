@@ -142,6 +142,8 @@ include_directories(
  add_executable(${PROJECT_NAME} src/test_fake_frame.cpp)
  add_executable(get_rviz_abs_pos src/get_rviz_abs_pos.cpp)
  add_executable(get_rviz_abs_pos2 src/get_rviz_abs_pos2.cpp)
+ add_executable(get_rviz_abs_pos3 src/get_rviz_abs_pos3.cpp)
+
  add_executable(test_fake_frame_twowheeler src/test_fake_frame_twowheeler.cpp)
 
 
@@ -164,6 +166,9 @@ include_directories(
    ${catkin_LIBRARIES}
  )
  target_link_libraries(get_rviz_abs_pos2
+   ${catkin_LIBRARIES}
+ )
+ target_link_libraries(get_rviz_abs_pos3
    ${catkin_LIBRARIES}
  )
  target_link_libraries(test_fake_frame_twowheeler

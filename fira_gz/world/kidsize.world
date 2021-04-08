@@ -7,6 +7,8 @@
     <physics type="ode">
       <real_time_update_rate>2000</real_time_update_rate>
       <max_step_size>0.0005</max_step_size>
+      <!-- <mu1>100000.0</mu1> -->
+			<!-- <mu2>100000.0</mu2> -->
     </physics>
 
     <include>
