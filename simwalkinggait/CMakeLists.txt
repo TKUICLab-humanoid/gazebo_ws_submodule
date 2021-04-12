@@ -121,10 +121,10 @@ include_directories(
 
 ## Declare a C++ library
  add_library(${PROJECT_NAME}_libs
-   WalkingGaitUnit/InverseKinematics/InverseKinematics.cpp
+   ParameterInfo/parameterinfo.cpp
    WalkingGaitUnit/WalkingCycle/WalkingCycle.cpp
    WalkingGaitUnit/WalkingTrajectory/WalkingTrajectory.cpp
-   ParameterInfo/parameterinfo.cpp
+   WalkingGaitUnit/WalkingGaitByLIPM/WalkingGaitByLIPM.cpp
  )
 add_dependencies(${PROJECT_NAME}_libs ${catkin_EXPORTED_TARGETS})
 target_link_libraries(${PROJECT_NAME}_libs ${catkin_LIBRARIES})

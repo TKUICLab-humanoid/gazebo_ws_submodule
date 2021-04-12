@@ -226,17 +226,6 @@ public:
 		inversekinematic.initial_speed_gain();
 		inversekinematic.initial_inverse_kinematic();
 
-		robot_ganeration = "11th";
-		nhPrivate.getParam("robot", robot_ganeration);
-	    nhPrivate.deleteParam("robot");
-    	// if(robot_ganeration == "10th")
-    	// {
-        // 	parameterinfo->parameters.COM_Height = 21.7;
-    	// }
-    	// else //if(robot_ganeration == "11th")
-    	// {
-    	//     parameterinfo->parameters.COM_Height = 24.3;//robocup robot
-    	// }
 		tool_gz.set_Client(nh);
 		tool = ToolInstance::getInstance();
 		head_control[(int)HeadMotorID::neck_yaw] 			= nh.advertise<std_msgs::Float64>("/robot1/neck_yaw_position_controller/command", 1);
@@ -278,47 +267,6 @@ public:
         InterfaceReadData_ser = nh.advertiseService("/package/InterfaceReadSaveMotion", &SimMotionPackage::InterfaceReadDataFunction, this);
 		InterfaceCheckSector_ser = nh.advertiseService("/package/InterfaceCheckSector", &SimMotionPackage::InterfaceCheckSectorFunction, this);
 
-        stand_data.angle[(int)MotorID::left_shoulder_pitch] 	= 3044;
-        stand_data.angle[(int)MotorID::left_shoulder_roll]		= 466;
-		stand_data.angle[(int)MotorID::left_middle_yaw]			= 511;
-		stand_data.angle[(int)MotorID::left_elbow_pitch]		= 464;
-
-		stand_data.angle[(int)MotorID::right_shoulder_pitch]	= 1044;
-		stand_data.angle[(int)MotorID::right_shoulder_roll]		= 511;
-		stand_data.angle[(int)MotorID::right_middle_yaw]		= 511;
-		stand_data.angle[(int)MotorID::right_elbow_pitch]		= 564;
-		stand_data.angle[(int)MotorID::waist_yaw]				= 2048;
-
-		stand_data.angle[(int)MotorID::left_hip_yaw]			= 2048;
-		stand_data.angle[(int)MotorID::left_hip_roll]			= 2048;
-		stand_data.angle[(int)MotorID::left_hip_pitch]			= 1753;
-		stand_data.angle[(int)MotorID::left_knee_pitch]			= 2637;
-		stand_data.angle[(int)MotorID::left_ankle_pitch]		= 2343;
-		stand_data.angle[(int)MotorID::left_ankle_roll]			= 2048;
-
-		stand_data.angle[(int)MotorID::right_hip_yaw]			= 2048;
-		stand_data.angle[(int)MotorID::right_hip_roll]			= 2048;
-		stand_data.angle[(int)MotorID::right_hip_pitch]			= 2343;
-		stand_data.angle[(int)MotorID::right_knee_pitch]		= 1460;
-		stand_data.angle[(int)MotorID::right_ankle_pitch]		= 1753;
-		stand_data.angle[(int)MotorID::right_ankle_roll]		= 2048;
-
-		for(int i = 0; i < MotorSum; i++)stand_data.speed[i]	= 50;
-		//-------------------------------------------------------------
-		ik_ref_data.angle[(int)MotorID::left_hip_yaw]			= 2048;
-		ik_ref_data.angle[(int)MotorID::left_hip_roll]			= 2048;
-		ik_ref_data.angle[(int)MotorID::left_hip_pitch]			= 1753;
-		ik_ref_data.angle[(int)MotorID::left_knee_pitch]		= 2637;
-		ik_ref_data.angle[(int)MotorID::left_ankle_pitch]		= 2343;
-		ik_ref_data.angle[(int)MotorID::left_ankle_roll]		= 2048;
-
-		ik_ref_data.angle[(int)MotorID::right_hip_yaw]			= 2048;
-		ik_ref_data.angle[(int)MotorID::right_hip_roll]			= 2048;
-		ik_ref_data.angle[(int)MotorID::right_hip_pitch]		= 2343;
-		ik_ref_data.angle[(int)MotorID::right_knee_pitch]		= 1460;
-		ik_ref_data.angle[(int)MotorID::right_ankle_pitch]		= 1753;
-		ik_ref_data.angle[(int)MotorID::right_ankle_roll]		= 2048;
-
 		readStandFunction();
 	};
 	~SimMotionPackage(){};
@@ -336,7 +284,7 @@ public:
 
 	ros::Publisher head_control[3];
 	ros::Publisher motor_control[21];
-	// ---
+
 	ros::Publisher ExecuteCallBack_pub;
 	ros::Publisher InterfaceCallBack_pub;
 
