@@ -849,16 +849,16 @@ void WalkingGait::computerWalkingGaitFunction()
 {
     switch(parameterinfo->walking_mode)
     {
-        case 0://Single Step
         case 2://LC Up
         case 3://LC Down
         case 4://Long Jump
-        case 5://Single Wood
-        case 6://Single Third
             walkingCycle.walkingKindFunction(parameterinfo->walking_mode);
             walkingTrajectory.walkingProcess(parameterinfo->walking_mode);
             break;
+        case 0://Single Step
         case 1://Continuous
+        case 5://Single Wood
+        case 6://Single Third
         case 7://Continuous Second
         case 8://Continuous Third
             walkingGaitByLIPM.process();
