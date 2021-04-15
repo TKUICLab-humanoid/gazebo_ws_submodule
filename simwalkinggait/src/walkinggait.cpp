@@ -355,6 +355,20 @@ void WalkingGait::getParameter(const tku_msgs::Interface& msg)
     {
         parameterinfo->complan.walking_state = StopStep;
         parameterinfo->WalkFlag = false;
+        
+        switch(parameterinfo->walking_mode)
+        {
+            case 0://Single Step
+            case 1://Continuous
+            case 5://Single Wood
+            case 6://Single Third
+            case 7://Continuous Second
+            case 8://Continuous Third
+                walkingGaitByLIPM.ready_to_stop_ = true;
+                break;
+            default:
+                break;
+        }
     }
 
     parameterinfo->cpgack = true;
