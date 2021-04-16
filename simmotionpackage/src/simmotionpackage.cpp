@@ -3,12 +3,12 @@
 extern struct Points_Struct Points;
 extern struct Parameters_Struct Parameters;
 
-void SimMotionPackage::motionCallback (const tku_msgs::IKinfo_message& msg)
+void SimMotionPackage::motionCallback(const tku_msgs::IKinfo_message& msg)
 {
-    Points.Inverse_PointR_X = msg.IK_Point_RX;              //Parameters.COM_X_Offset + Parameters.R_X_Offset;
+    Points.Inverse_PointR_X = msg.IK_Point_RX;
 	Points.Inverse_PointR_Y = msg.IK_Point_RY;
 	Points.Inverse_PointR_Z = msg.IK_Point_RZ;
-	Points.Inverse_PiontR_Thta = msg.IK_Point_RThta;                       //-pi/2~pi/2
+	Points.Inverse_PiontR_Thta = msg.IK_Point_RThta;
 	
 	Points.Inverse_PointL_X = msg.IK_Point_LX;
 	Points.Inverse_PointL_Y = msg.IK_Point_LY;
@@ -20,6 +20,10 @@ void SimMotionPackage::motionCallback (const tku_msgs::IKinfo_message& msg)
     Parameters.Sample_Time = msg.Sampletime;
     inversekinematic.calculate_inverse_kinematic(Parameters.Period_T / Parameters.Sample_Time);
     
+    for(int i = 9; i < 21; i++)
+    {
+        ik_ref_data.angle[i] = inversekinematic.thta_base_[i];
+    }
     SectorData output;
     for(int i = 9; i < 21; i++)
     {
@@ -894,7 +898,6 @@ void SimMotionPackage::readStandFunction()
                 ROS_INFO("stand_speed = %d\tstand_angle = %d", stand_data.speed[j].toDec(), stand_data.angle[j].toDec());
                 j++;
             }
-            // SectorControlFuntion((unsigned int)SectorMode::AbsoluteAngle, stand_data);
             execute_ack.data = true;
             ExecuteCallBack_pub.publish(execute_ack);
         }
