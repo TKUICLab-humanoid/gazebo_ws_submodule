@@ -978,7 +978,7 @@ void WalkingTrajectory::SaveData()
                        "R_Theta\tL_Theta\tPoint\n";
     char path[200];
     strcpy(path, tool->parameterPath.c_str());
-    strcat(path, "/Trajectory_Record.ods");
+    strcat(path, "/data/Trajectory_Record.ods");
 
     fstream fp;
     fp.open(path, ios::out);

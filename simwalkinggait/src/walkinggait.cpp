@@ -862,7 +862,8 @@ void WalkingGait::timerCallBack(const ros::TimerEvent&)
 void WalkingGait::computerWalkingGaitFunction()
 {
     switch(parameterinfo->walking_mode)
-    {
+    {   
+        
         case 2://LC Up
         case 3://LC Down
         case 4://Long Jump
@@ -885,7 +886,6 @@ void WalkingGait::computerWalkingGaitFunction()
         default:
             break;
     }
-
     walkingData.IK_Point_RX = parameterinfo->points.IK_Point_RX;
     walkingData.IK_Point_RY = parameterinfo->points.IK_Point_RY;
     walkingData.IK_Point_RZ = parameterinfo->points.IK_Point_RZ;
@@ -901,7 +901,7 @@ void WalkingGait::computerWalkingGaitFunction()
     walkingData.Sensor_Mode = parameterinfo->sensor_mode;
 
     parameterinfo->CPGalready = true;
-
+    
     if(parameterinfo->complan.walking_stop)
     {
         saveData.data = true;

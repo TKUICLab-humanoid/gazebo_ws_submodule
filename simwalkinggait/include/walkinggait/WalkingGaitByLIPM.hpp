@@ -21,7 +21,7 @@
 using namespace std;
 
 #define PI 3.1415926535897932384626433832795
-
+#define START_STEP_COUNT 2
 class WalkingGaitByLIPM
 {
     public:
@@ -55,7 +55,9 @@ class WalkingGaitByLIPM
         int period_t_;
         int time_point_, sample_point_, sample_time_;
         int now_step_, pre_step_;
+        int StartStepCount_, StartHeight_;
         int g_;
+        double T_DSP_;
         int step_, left_step_, right_step_;
         double TT_, t_;
         double Tc_;

@@ -53,17 +53,17 @@
   <build_depend>std_msgs</build_depend>
   <build_depend>tku_libs</build_depend>
   <build_depend>tku_msgs</build_depend>
-  <build_depend>walkinggait</build_depend>
+  <build_depend>simwalkinggait</build_depend>
   <build_export_depend>roscpp</build_export_depend>
   <build_export_depend>std_msgs</build_export_depend>
   <build_export_depend>tku_libs</build_export_depend>
   <build_export_depend>tku_msgs</build_export_depend>
-  <build_export_depend>walkinggait</build_export_depend>
+  <build_export_depend>simwalkinggait</build_export_depend>
   <exec_depend>roscpp</exec_depend>
   <exec_depend>std_msgs</exec_depend>
   <exec_depend>tku_libs</exec_depend>
   <exec_depend>tku_msgs</exec_depend>
-  <exec_depend>walkinggait</exec_depend>
+  <exec_depend>simwalkinggait</exec_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->

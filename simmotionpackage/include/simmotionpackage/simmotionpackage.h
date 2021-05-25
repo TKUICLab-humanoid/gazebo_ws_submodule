@@ -16,6 +16,11 @@
 #include "tku_msgs/ReadMotion.h"
 #include "tku_msgs/InterfaceSend2Sector.h"
 #include "tku_msgs/CheckSector.h"
+#include <sensor_msgs/Imu.h>
+#include "tku_msgs/SensorSet.h"
+#include "tku_msgs/SensorPackage.h"
+
+
 
 enum class HeadMotorID {neck_yaw = 1, head_pitch};
 enum class MotorID {left_shoulder_pitch, left_shoulder_roll, left_middle_yaw, left_elbow_pitch,
@@ -216,6 +221,7 @@ public:
 	SectorDataBase *speed;
 };
 
+
 class SimMotionPackage
 {
 public:
@@ -261,8 +267,13 @@ public:
 		SectorSend2FPGA_sub = nh.subscribe("/package/Sector", 1000, &SimMotionPackage::SectorSend2GazeboFunction, this);
 	    InterfaceSaveData_sub = nh.subscribe("/package/InterfaceSaveMotion", 1000, &SimMotionPackage::InterfaceSaveDataFunction, this);
         InterfaceSend2Sector_sub = nh.subscribe("/package/InterfaceSend2Sector", 1000, &SimMotionPackage::InterfaceSend2SectorFunction, this);
+		imu_sub	= nh.subscribe("/imu", 10, &SimMotionPackage::getImuData, this);
+		SensorSet_sub = nh.subscribe("/sensorset", 100, &SimMotionPackage::SensorSetFunction, this);
+		Savedata_sub = nh.subscribe("/package/save", 100, &SimMotionPackage::Savedata, this);
 		ExecuteCallBack_pub = nh.advertise<std_msgs::Bool>("/package/executecallback", 1000);
 	    InterfaceCallBack_pub = nh.advertise<std_msgs::Bool>("/package/motioncallback", 1000);
+		Sensorpackage_pub = nh.advertise<tku_msgs::SensorPackage>("/package/sensorpackage", 1000);
+
 
         InterfaceReadData_ser = nh.advertiseService("/package/InterfaceReadSaveMotion", &SimMotionPackage::InterfaceReadDataFunction, this);
 		InterfaceCheckSector_ser = nh.advertiseService("/package/InterfaceCheckSector", &SimMotionPackage::InterfaceCheckSectorFunction, this);
@@ -278,6 +289,11 @@ public:
 	void InterfaceSend2SectorFunction(const tku_msgs::InterfaceSend2Sector &msg);
 	void SectorControlFuntion(unsigned int mode, SectorData &sector_data);
 	void readStandFunction();
+	void Sensor_Data_Process();
+	void Savedata(const std_msgs::Bool &msg);
+	void getImuData(const sensor_msgs::Imu &msg);
+	void SensorSetFunction(const tku_msgs::SensorSet &msg);
+
 
 	bool InterfaceReadDataFunction(tku_msgs::ReadMotion::Request &Motion_req, tku_msgs::ReadMotion::Response &Motion_res);
 	bool InterfaceCheckSectorFunction(tku_msgs::CheckSector::Request &req, tku_msgs::CheckSector::Response &res);
@@ -287,12 +303,18 @@ public:
 
 	ros::Publisher ExecuteCallBack_pub;
 	ros::Publisher InterfaceCallBack_pub;
+	ros::Publisher Sensorpackage_pub;
+
 
 	ros::Subscriber walkdata_sub;
 	ros::Subscriber headdata_sub;
 	ros::Subscriber SectorSend2FPGA_sub;
 	ros::Subscriber InterfaceSaveData_sub;
 	ros::Subscriber InterfaceSend2Sector_sub;
+	ros::Subscriber imu_sub;
+    ros::Subscriber SensorSet_sub;
+    ros::Subscriber Savedata_sub;
+
 
 	ros::ServiceServer InterfaceReadData_ser;
 	ros::ServiceServer InterfaceCheckSector_ser;
@@ -302,6 +324,14 @@ public:
 	std_msgs::Bool execute_ack;
 	std_msgs::Bool interface_ack;
 	tku_msgs::SaveMotionVector MotionSaveData;
+
+	double rpy_offset_[3];
+	double rpy_raw_[3];
+	double rpy_[3];
+    float  accel_[3];
+
+
+
 
 	gazebo_tool tool_gz;
 	ToolInstance *tool;
@@ -319,6 +349,5 @@ public:
 	uint8_t packageMotorData[87] = {0}; 	// address||R MotorSum (id angleL angleH speedL speedH)*MotorSum DelayL DelayH checksum2
 	int InterfaceFlag = 0;
 	string robot_ganeration;
-
 	InverseKinematic inversekinematic;
 };

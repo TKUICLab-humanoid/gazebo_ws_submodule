@@ -103,7 +103,7 @@ set(TKU_GZ_LIBRARIES ${CATKIN_DEVEL_PREFIX}/lib/libtku_gz_libs.so)
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-#  LIBRARIES walkinggait
+#  LIBRARIES simwalkinggait_libs
 #  CATKIN_DEPENDS kidsize_msgs roscpp roslib
 #  DEPENDS system_lib
 )

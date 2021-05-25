@@ -2,9 +2,22 @@
 
 extern struct Points_Struct Points;
 extern struct Parameters_Struct Parameters;
+extern 	SimIMUData sim_imu_data;
+extern BalanceControl balance;
+
+void SimMotionPackage::Savedata(const std_msgs::Bool &msg)
+{   ROS_INFO("AAAAAAAAAAAAAA");
+    balance.saveData();
+    inversekinematic.saveData();
+
+}
 
 void SimMotionPackage::motionCallback(const tku_msgs::IKinfo_message& msg)
-{
+{		
+    balance.get_sensor_value();
+    balance.setSupportFoot();
+    balance.balance_control();
+
     Points.Inverse_PointR_X = msg.IK_Point_RX;
 	Points.Inverse_PointR_Y = msg.IK_Point_RY;
 	Points.Inverse_PointR_Z = msg.IK_Point_RZ;
@@ -57,6 +70,36 @@ void SimMotionPackage::getHeadAngle(const tku_msgs::HeadPackage &msg)
         head_angle[(int)HeadMotorID::neck_yaw].data = (msg.Position-2047)/2048.0*3.14159265;
         head_control[(int)HeadMotorID::neck_yaw].publish(head_angle[(int)HeadMotorID::neck_yaw]);
     }
+}
+void SimMotionPackage::getImuData(const sensor_msgs::Imu &msg)
+{
+    sim_imu_data.qx = msg.orientation.x;
+    sim_imu_data.qy = msg.orientation.y;
+    sim_imu_data.qz = msg.orientation.z;
+    sim_imu_data.qw = msg.orientation.w;
+    sim_imu_data.g_x = msg.angular_velocity.x;
+    sim_imu_data.g_y = msg.angular_velocity.y;
+    sim_imu_data.g_z = msg.angular_velocity.z;
+    sim_imu_data.a_x = msg.linear_acceleration.x;
+    sim_imu_data.a_y = msg.linear_acceleration.y;
+    sim_imu_data.a_z = msg.linear_acceleration.z;
+    rpy_raw_[0]=-atan2(2 * (sim_imu_data.qw * sim_imu_data.qx + sim_imu_data.qy * sim_imu_data.qz), 1 - 2 * (sim_imu_data.qx*sim_imu_data.qx + sim_imu_data.qy*sim_imu_data.qy))*RADIAN2DEGREE;
+    rpy_raw_[1]=asin(2 * (sim_imu_data.qw * sim_imu_data.qy - sim_imu_data.qz * sim_imu_data.qx))*RADIAN2DEGREE;
+    rpy_raw_[2]=atan2(2 * (sim_imu_data.qw * sim_imu_data.qz + sim_imu_data.qx * sim_imu_data.qy), 1 - 2 * (sim_imu_data.qy*sim_imu_data.qy + sim_imu_data.qz*sim_imu_data.qz))*RADIAN2DEGREE;
+    int count = 0;
+    for(count=0; count<3; count++)
+        {        
+            
+
+            sim_imu_data.sensor_rpy[count]= rpy_raw_[count] - rpy_offset_[count];
+            if(sim_imu_data.sensor_rpy[count] < -180)
+                sim_imu_data.sensor_rpy[count] += 360;
+            else if(sim_imu_data.sensor_rpy[count] > 180)
+                sim_imu_data.sensor_rpy[count] -= 360;
+        }
+
+        
+    Sensor_Data_Process();
 }
 
 void SimMotionPackage::SectorControlFuntion(unsigned int mode, SectorData &sector_data)
@@ -908,7 +951,29 @@ void SimMotionPackage::readStandFunction()
     ROS_INFO("end_read_stand_data");
     SendSectorPackage.clear();
 }
+void SimMotionPackage::Sensor_Data_Process()
+{   
+    double IMU_Value[3];
+    tku_msgs::SensorPackage sensorpackage;
 
+    for(int i=0; i<3; i++)
+    {
+        IMU_Value[i]=sim_imu_data.sensor_rpy[i];
+        sensorpackage.IMUData.push_back(IMU_Value[i]);
+    }
+    Sensorpackage_pub.publish(sensorpackage);
+    sensorpackage.IMUData.clear();
+}
+void SimMotionPackage::SensorSetFunction(const tku_msgs::SensorSet &msg)
+{
+    bool IMU_Reset = msg.IMUReset;
+    if(IMU_Reset)
+        {
+            for(int count=0; count<3; count++)
+                rpy_offset_[count] = rpy_raw_[count];
+            IMU_Reset = false;
+        }
+}
 int main(int argc, char *argv[])
 {
 	ros::init(argc, argv, "simmotionpackage");
@@ -926,6 +991,7 @@ int main(int argc, char *argv[])
 	while(nh.ok())
 	{
 		loop_rate.sleep();
+
 	}
 
 	return 0;

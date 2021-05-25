@@ -2,10 +2,16 @@
 #define INVERSE_KINEMATIC_H_
 
 /******************* Include libarary*********************/
+#include <sstream>
+#include <iostream>
+#include <fstream>
 #include <math.h>
 #include <stdio.h>
 #include <unistd.h>
 /********************************************************/
+#include "simmotionpackage/Feedback_Control.h"
+#include "walkinggait/parameterinfo.hpp"
+
 
 /******************* Define******************************/
 #define PI      3.1415926535897932384626433832795       //pi
@@ -150,6 +156,7 @@ class InverseKinematic
         void initial_parameters();
         void initial_points_process();
         void calculate_inverse_kinematic(int);
+        void saveData();
 
     public:
         double speed_gain_[21];
@@ -164,6 +171,10 @@ class InverseKinematic
         unsigned int output_angle_[21];
         double rotate_body_l_;
         bool flag_;
+
+        int name_cont_;        
+        std::map<std::string, std::vector<double>> map_motor;
+
 };
 
 #endif /*INVERSE_KINEMATIC_H_*/

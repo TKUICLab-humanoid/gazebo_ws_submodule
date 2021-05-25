@@ -10,7 +10,11 @@
       <!-- <mu1>100000.0</mu1> -->
 			<!-- <mu2>100000.0</mu2> -->
     </physics>
-
+    <gui>
+      <camera name="user_camera">
+        <pose>0 0 0 1.57 1.57 1.57</pose>
+      </camera>
+    </gui>
     <include>
       <uri>model://ground_plane</uri>
     </include>

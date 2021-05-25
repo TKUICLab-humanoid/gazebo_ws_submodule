@@ -2,6 +2,10 @@
 
 struct Points_Struct Points;
 struct Parameters_Struct Parameters;
+extern BalanceControl balance;
+
+
+
 
 InverseKinematic::InverseKinematic()
 {
@@ -85,6 +89,7 @@ void InverseKinematic::initial_inverse_kinematic()
 	Points.Inverse_PointR_X = Points.X_COM + Points.X_Right_foot;
 	Points.Inverse_PointR_Y = -Points.Y_COM + Points.Y_Right_foot;
 	Points.Inverse_PointR_Z = Points.Z_COM - Points.Z_Right_foot;
+
 	Points.Inverse_PiontR_Thta = Points.Right_Thta;
 	
 	Points.Inverse_PointL_X = Points.X_COM + Points.X_Left_foot;
@@ -309,7 +314,14 @@ void InverseKinematic::calculate_inverse_kinematic(int Motion_Delay)
     else
         Points.Thta[20] = PI - Points.Thta[16]-rotate_body_l_;
 
-    for( i = 0; i < 21; i++)
+    
+
+	balance.control_after_ik_calculation();
+
+	
+	
+	
+	for( i = 0; i < 21; i++)
     {
 		Points.Thta[i] = Points.Thta[i] * angle_gain_[i];
         if(Points.P_Table[i])
@@ -339,4 +351,77 @@ void InverseKinematic::calculate_inverse_kinematic(int Motion_Delay)
             output_speed_[i] = 32767;
 		}
     }
+}
+void InverseKinematic::saveData()
+{   ROS_INFO("aaaaaaaaazzzzzzzz");
+
+    char path[200] = "~/data";
+	std::string tmp = std::to_string(name_cont_);
+	tmp = "/IK_motor"+tmp+".csv";
+    strcat(path, tmp.c_str());
+
+	
+    fstream fp;
+    fp.open(path, std::ios::out);
+	std::string savedText;
+    std::map<std::string, std::vector<double>>::iterator it_motor;
+
+	for(it_motor = map_motor.begin(); it_motor != map_motor.end(); it_motor++)
+	{
+		savedText += it_motor->first;
+		if(it_motor == --map_motor.end())
+		{
+			savedText += "\n";
+			fp<<savedText;
+			savedText = "";
+		}
+		else
+		{
+			savedText += ",";
+		}		
+	}
+	it_motor = map_motor.begin();
+	int max_size = it_motor->second.size();
+
+	for(it_motor = map_motor.begin(); it_motor != map_motor.end(); it_motor++)
+	{
+		if(max_size < it_motor->second.size())
+            max_size = it_motor->second.size();
+	}
+	for(int i = 0; i < max_size; i++)
+    {
+        for(it_motor = map_motor.begin(); it_motor != map_motor.end(); it_motor++)
+        {
+            if(i < it_motor->second.size())
+            {
+                if(it_motor == --map_motor.end())
+                {
+                    savedText += std::to_string(it_motor->second[i]) + "\n";
+                    fp<<savedText;
+                    savedText = "";
+                }
+                else
+                {
+                    savedText += std::to_string(it_motor->second[i]) + ",";
+                }
+            }
+            else
+            {
+                if(it_motor == --map_motor.end())
+                {
+                    savedText += "none\n";
+                    fp<<savedText;
+                    savedText = "";
+                }
+                else
+                    savedText += "none,";
+            }
+        }
+    }
+    fp.close();
+    for(it_motor = map_motor.begin(); it_motor != map_motor.end(); it_motor++)
+        it_motor->second.clear();
+
+    name_cont_++;
+
 }
