@@ -6,7 +6,7 @@ extern 	SimIMUData sim_imu_data;
 extern BalanceControl balance;
 
 void SimMotionPackage::Savedata(const std_msgs::Bool &msg)
-{   ROS_INFO("AAAAAAAAAAAAAA");
+{   
     balance.saveData();
     inversekinematic.saveData();
 

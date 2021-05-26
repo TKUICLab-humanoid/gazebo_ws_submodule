@@ -4,13 +4,27 @@ struct Points_Struct Points;
 struct Parameters_Struct Parameters;
 extern BalanceControl balance;
 
-
-
-
 InverseKinematic::InverseKinematic()
-{
+{	        
+
+	tool = ToolInstance::getInstance();
 	rotate_body_l_ = 0.0;
 	flag_ = false;
+	name_cont_ = 0;
+	std::vector<double> temp;
+	if(map_motor.empty()){
+
+		map_motor["motor_11"] = temp;
+		map_motor["motor_12"] = temp;
+		map_motor["motor_13"] = temp;
+		map_motor["motor_14"] = temp;
+		map_motor["motor_15"] = temp;
+		map_motor["motor_17"] = temp;
+		map_motor["motor_18"] = temp;
+		map_motor["motor_19"] = temp;
+		map_motor["motor_20"] = temp;
+		map_motor["motor_21"] = temp;
+	}
 }
 
 InverseKinematic::~InverseKinematic()
@@ -315,10 +329,9 @@ void InverseKinematic::calculate_inverse_kinematic(int Motion_Delay)
         Points.Thta[20] = PI - Points.Thta[16]-rotate_body_l_;
 
     
-
 	balance.control_after_ik_calculation();
 
-	
+
 	
 	
 	for( i = 0; i < 21; i++)
@@ -351,13 +364,26 @@ void InverseKinematic::calculate_inverse_kinematic(int Motion_Delay)
             output_speed_[i] = 32767;
 		}
     }
+	map_motor.find("motor_11")->second.push_back(double(output_angle_[10]));
+	map_motor.find("motor_12")->second.push_back(double(output_angle_[11]));
+	map_motor.find("motor_13")->second.push_back(double(output_angle_[12]));       
+	map_motor.find("motor_14")->second.push_back(double(output_angle_[13]));
+	map_motor.find("motor_15")->second.push_back(double(output_angle_[14]));
+	map_motor.find("motor_17")->second.push_back(double(output_angle_[16]));
+	map_motor.find("motor_18")->second.push_back(double(output_angle_[17]));
+	map_motor.find("motor_19")->second.push_back(double(output_angle_[18]));
+	map_motor.find("motor_20")->second.push_back(double(output_angle_[19]));
+	map_motor.find("motor_21")->second.push_back(double(output_angle_[20]));
+
+
 }
 void InverseKinematic::saveData()
-{   ROS_INFO("aaaaaaaaazzzzzzzz");
+{  
+    char path[200];
+	strcpy(path, tool->parameterPath.c_str());
 
-    char path[200] = "~/data";
 	std::string tmp = std::to_string(name_cont_);
-	tmp = "/IK_motor"+tmp+".csv";
+	tmp = "/data/IK_motor"+tmp+".csv";
     strcat(path, tmp.c_str());
 
 	

@@ -11,6 +11,8 @@
 #include "simmotionpackage/Inverse_kinematic.h"
 #include "simmotionpackage/ZMPProcess.h"
 #include "walkinggait/WalkingGaitByLIPM.hpp"
+#include "tku_libs/TKU_tool.h"
+
 
 
 class ZMPProcess;
@@ -286,7 +288,8 @@ public:
 
 	void saveData();
 	string DtoS(double value);
-
+    
+    ToolInstance *tool;
 
 
 	double original_ik_point_rz_, original_ik_point_lz_;

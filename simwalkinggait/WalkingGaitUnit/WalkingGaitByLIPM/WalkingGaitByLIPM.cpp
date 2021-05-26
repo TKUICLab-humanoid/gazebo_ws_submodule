@@ -40,6 +40,7 @@ WalkingGaitByLIPM::WalkingGaitByLIPM()
     StartStepCount_ = 0;
     StartHeight_ = 1;
     T_DSP_ = 0;
+    initialize();
 }
 
 WalkingGaitByLIPM::~WalkingGaitByLIPM()
@@ -51,7 +52,6 @@ void WalkingGaitByLIPM::initialize()
 {
     parameterinfo->complan.time_point_ = 0;
     parameterinfo->complan.sample_point_ = 0;
-
     std::vector<float> temp;
 	if(map_walk.empty())
 	{
@@ -63,9 +63,10 @@ void WalkingGaitByLIPM::initialize()
         map_walk["r_foot_y"] = temp;
         map_walk["r_foot_z"] = temp;
         map_walk["r_foot_t"] = temp;
+        map_walk["now_step_"] = temp;
         map_walk["com_x"] = temp;
 		map_walk["com_y"] = temp;
-        map_walk["com_z"] = temp;
+        //map_walk["com_z"] = temp;
 		map_walk["ideal_zmp_x"] = temp;
 		map_walk["ideal_zmp_y"] = temp;
         map_walk["roll"] = temp;
@@ -487,25 +488,25 @@ void WalkingGaitByLIPM::process()
         resetParameter();
     }
     else
-    {
-        // map_walk.find("l_foot_x")->second.push_back(step_point_lx_);
-        // map_walk.find("r_foot_x")->second.push_back(step_point_rx_);
-        // map_walk.find("l_foot_y")->second.push_back(step_point_ly_);
-        // map_walk.find("r_foot_y")->second.push_back(step_point_ry_);
-        // map_walk.find("l_foot_z")->second.push_back(step_point_lz_);
-        // map_walk.find("r_foot_z")->second.push_back(step_point_rz_);
-        // map_walk.find("l_foot_t")->second.push_back(step_point_ltheta_);
-        // map_walk.find("r_foot_t")->second.push_back(step_point_rtheta_);
-        // map_walk.find("com_x")->second.push_back(px_);
-        // map_walk.find("com_y")->second.push_back(py_);
-        // map_walk.find("now_step_")->second.push_back(now_step_);
-        // map_walk.find("ideal_zmp_x")->second.push_back(now_length_);
-        // map_walk.find("ideal_zmp_y")->second.push_back(now_shift_+now_width_);
-        // map_walk.find("roll")->second.push_back(sensor.rpy_[0]);
-        // map_walk.find("pitch")->second.push_back(sensor.rpy_[1]);
-        // map_walk.find("yaw")->second.push_back(period_t_ / sample_time_);
-        // map_walk.find("points")->second.push_back(sample_point_);
-        // map_walk.find("time")->second.push_back(t_);
+    {       
+        map_walk.find("l_foot_x")->second.push_back(step_point_lx_);
+        map_walk.find("r_foot_x")->second.push_back(step_point_rx_);
+        map_walk.find("l_foot_y")->second.push_back(step_point_ly_);
+        map_walk.find("r_foot_y")->second.push_back(step_point_ry_);
+        map_walk.find("l_foot_z")->second.push_back(step_point_lz_);
+        map_walk.find("r_foot_z")->second.push_back(step_point_rz_);
+        map_walk.find("l_foot_t")->second.push_back(step_point_ltheta_);
+        map_walk.find("r_foot_t")->second.push_back(step_point_rtheta_);
+        map_walk.find("com_x")->second.push_back(px_);
+        map_walk.find("com_y")->second.push_back(py_);
+        map_walk.find("now_step_")->second.push_back(now_step_);
+        map_walk.find("ideal_zmp_x")->second.push_back(now_length_);
+        map_walk.find("ideal_zmp_y")->second.push_back(now_shift_+now_width_);
+        //map_walk.find("roll")->second.push_back(sensor.rpy_[0]);
+        //map_walk.find("pitch")->second.push_back(sensor.rpy_[1]);
+        map_walk.find("yaw")->second.push_back(period_t_/ sample_time_);
+        map_walk.find("points")->second.push_back(sample_point_);
+        map_walk.find("time")->second.push_back(t_);
     }
 
     parameterinfo->points.IK_Point_RX = step_point_rx_;
@@ -612,7 +613,7 @@ string WalkingGaitByLIPM::DtoS(double value)
 }
 
 void WalkingGaitByLIPM::saveData()
-{   ROS_INFO("aaaaaaaaa");
+{   
     char path[200];
     strcpy(path, tool->parameterPath.c_str());
 	std::string tmp = std::to_string(name_cont_);

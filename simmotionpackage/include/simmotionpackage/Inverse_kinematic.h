@@ -11,6 +11,8 @@
 /********************************************************/
 #include "simmotionpackage/Feedback_Control.h"
 #include "walkinggait/parameterinfo.hpp"
+#include "tku_libs/TKU_tool.h"
+
 
 
 /******************* Define******************************/
@@ -158,6 +160,8 @@ class InverseKinematic
         void calculate_inverse_kinematic(int);
         void saveData();
 
+        ToolInstance *tool;
+
     public:
         double speed_gain_[21];
         double angle_gain_[21];
@@ -174,6 +178,8 @@ class InverseKinematic
 
         int name_cont_;        
         std::map<std::string, std::vector<double>> map_motor;
+
+
 
 };
 

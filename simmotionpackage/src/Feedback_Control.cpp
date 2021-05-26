@@ -10,7 +10,7 @@ SimIMUData sim_imu_data;
 
 BalanceControl::BalanceControl()
 {
-	
+	tool = ToolInstance::getInstance();
 	original_ik_point_rz_ = 0.0;
 	original_ik_point_lz_ = 0.0;
 	sup_foot_ = doublefeet;
@@ -907,12 +907,12 @@ string BalanceControl::DtoS(double value)
 }
 
 void BalanceControl::saveData()
-{   ROS_INFO("aaaaaaaaaxcxcx");
-
+{   
 	//------roll------
-    char path[200] = "~/data";
+    char path[200];
+	strcpy(path, tool->parameterPath.c_str());
 	std::string tmp = std::to_string(name_cont_);
-	tmp = "/Feedback_Control_Roll"+tmp+".csv";
+	tmp = "/data/Feedback_Control_Roll"+tmp+".csv";
     strcat(path, tmp.c_str());
 
     fstream fp;
@@ -977,9 +977,10 @@ void BalanceControl::saveData()
         it_roll->second.clear();
 
 	//------pitch------
-	char path2[200] = "~/data";
+	char path2[200];
+	strcpy(path2, tool->parameterPath.c_str());
 	tmp = std::to_string(name_cont_);
-	tmp = "/Feedback_Control_Pitch_"+tmp+".csv";
+	tmp = "/data/Feedback_Control_Pitch_"+tmp+".csv";
     strcat(path2, tmp.c_str());
     fp.open(path2, std::ios::out);
 	savedText = "";
@@ -1043,9 +1044,10 @@ void BalanceControl::saveData()
         it_pitch->second.clear();
 
 	//------ZMP------
-	char path3[200] = "~/data";
+	char path3[200];
+	strcpy(path3, tool->parameterPath.c_str());
 	tmp = std::to_string(name_cont_);
-	tmp = "/Feedback_Control_ZMP_"+tmp+".csv";
+	tmp = "/data/Feedback_Control_ZMP_"+tmp+".csv";
     strcat(path3, tmp.c_str());
     fp.open(path3, std::ios::out);
 	savedText = "";
@@ -1109,7 +1111,8 @@ void BalanceControl::saveData()
         it_ZMP->second.clear();
 
 	//------CoM------
-	char path4[200] = "~/data";
+	char path4[200];	
+	strcpy(path4, tool->parameterPath.c_str());
 	tmp = std::to_string(name_cont_);
 	tmp = "/Feedback_Control_CoM_"+tmp+".csv";
     strcat(path4, tmp.c_str());
@@ -1175,9 +1178,10 @@ void BalanceControl::saveData()
         it_CoM->second.clear();
 
 //------Accel------
-	char path5[200] = "~/data";
+	char path5[200];
+	strcpy(path5, tool->parameterPath.c_str());
 	tmp = std::to_string(name_cont_);
-	tmp = "/Sensor_data_accel"+tmp+".csv";
+	tmp = "/data/Sensor_data_accel"+tmp+".csv";
     strcat(path5, tmp.c_str());
     fp.open(path5, std::ios::out);
 	savedText = "";
