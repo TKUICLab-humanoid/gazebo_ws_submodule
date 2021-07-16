@@ -103,7 +103,7 @@ set(TKU_GZ_LIBRARIES ${CATKIN_DEVEL_PREFIX}/lib/libtku_gz_libs.so)
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-#  LIBRARIES walkinggait
+#  LIBRARIES simwalkinggait_libs
 #  CATKIN_DEPENDS kidsize_msgs roscpp roslib
 #  DEPENDS system_lib
 )
@@ -121,10 +121,10 @@ include_directories(
 
 ## Declare a C++ library
  add_library(${PROJECT_NAME}_libs
-   WalkingGaitUnit/InverseKinematics/InverseKinematics.cpp
+   ParameterInfo/parameterinfo.cpp
    WalkingGaitUnit/WalkingCycle/WalkingCycle.cpp
    WalkingGaitUnit/WalkingTrajectory/WalkingTrajectory.cpp
-   ParameterInfo/parameterinfo.cpp
+   WalkingGaitUnit/WalkingGaitByLIPM/WalkingGaitByLIPM.cpp
  )
 add_dependencies(${PROJECT_NAME}_libs ${catkin_EXPORTED_TARGETS})
 target_link_libraries(${PROJECT_NAME}_libs ${catkin_LIBRARIES})

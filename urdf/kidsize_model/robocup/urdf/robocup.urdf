@@ -1,0 +1,1472 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-1-g15f4949  Build Version: 1.6.7594.29634
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="robocup">
+  <link
+    name="waist_link">
+    <inertial>
+      <origin
+        xyz="-0.00948845469061838 -6.68530231173747E-11 -0.000683773345869103"
+        rpy="0 0 0" />
+      <mass
+        value="0.209221695507511" />
+      <inertia
+        ixx="0.000338900830786708"
+        ixy="1.46750011912089E-13"
+        ixz="1.35893885481487E-06"
+        iyy="9.89997448670401E-05"
+        iyz="-9.82828065500093E-13"
+        izz="0.000355347917020957" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/waist_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/waist_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="trunk_link">
+    <inertial>
+      <origin
+        xyz="-0.00207929488403982 -0.000148840580601925 0.0988291319345805"
+        rpy="0 0 0" />
+      <mass
+        value="0.6396320994188" />
+      <inertia
+        ixx="0.00207382837512233"
+        ixy="7.20391665944341E-07"
+        ixz="-0.000145762768834739"
+        iyy="0.00159922346192905"
+        iyz="2.52085914195858E-06"
+        izz="0.0020054336515524" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/trunk_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/trunk_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="waist_yaw_joint"
+    type="revolute">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="waist_link" />
+    <child
+      link="trunk_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_shoulder_link">
+    <inertial>
+      <origin
+        xyz="0.00303632774271409 0.0362469594639394 3.30291349825984E-15"
+        rpy="0 0 0" />
+      <mass
+        value="0.00852928935190161" />
+      <inertia
+        ixx="4.46332786917041E-06"
+        ixy="-3.52494995340182E-07"
+        ixz="-2.32097760255092E-20"
+        iyy="3.60847595287127E-06"
+        iyz="1.53828069121075E-21"
+        izz="2.76664423653777E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/left_shoulder_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/left_shoulder_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_shoulder_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="0 0.053 0.14675"
+      rpy="0 0 0" />
+    <parent
+      link="trunk_link" />
+    <child
+      link="left_shoulder_link" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_upper_arm_link">
+    <inertial>
+      <origin
+        xyz="0.000678411211440078 -1.89875708676845E-07 -0.0191217777296798"
+        rpy="0 0 0" />
+      <mass
+        value="0.0510794115590111" />
+      <inertia
+        ixx="3.13133402075074E-05"
+        ixy="-6.57973359321893E-12"
+        ixz="-3.53618283016182E-07"
+        iyy="3.06157554760576E-05"
+        iyz="2.63047056127221E-10"
+        izz="9.80852784205313E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/left_upper_arm_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/left_upper_arm_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_upper_arm_roll_joint"
+    type="revolute">
+    <origin
+      xyz="0.02425 0.049 0"
+      rpy="3.1416 -1.5708 0" />
+    <parent
+      link="left_shoulder_link" />
+    <child
+      link="left_upper_arm_link" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_elbow_link">
+    <inertial>
+      <origin
+        xyz="1.63757896132211E-15 0.00252047924263998 -0.0277428195775701"
+        rpy="0 0 0" />
+      <mass
+        value="0.0517677575592799" />
+      <inertia
+        ixx="9.19234340675184E-05"
+        ixy="-3.6598858936204E-21"
+        ixz="-2.70805105099186E-20"
+        iyy="9.30268857885933E-05"
+        iyz="6.58323683446754E-06"
+        izz="1.05633111734916E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/left_elbow_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/left_elbow_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_elbow_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="0 0 -0.10025"
+      rpy="0 0 0" />
+    <parent
+      link="left_upper_arm_link" />
+    <child
+      link="left_elbow_link" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="right_shoulder_link">
+    <inertial>
+      <origin
+        xyz="0.00303632774271395 -0.0362469594639394 9.57567358739198E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.0085292893519016" />
+      <inertia
+        ixx="4.4633278691704E-06"
+        ixy="3.5249499534018E-07"
+        ixz="-2.37450475035873E-22"
+        iyy="3.60847595287127E-06"
+        iyz="3.27353469800624E-21"
+        izz="2.76664423653777E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/right_shoulder_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/right_shoulder_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_shoulder_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="0 -0.053 0.14675"
+      rpy="0 0 0" />
+    <parent
+      link="trunk_link" />
+    <child
+      link="right_shoulder_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="right_upper_arm_link">
+    <inertial>
+      <origin
+        xyz="0.000683044937076008 1.08215084788088E-05 -0.0193161303708199"
+        rpy="0 0 0" />
+      <mass
+        value="0.0511158524108051" />
+      <inertia
+        ixx="3.18475528264543E-05"
+        ixy="4.54446779241524E-10"
+        ixz="-4.48940731057543E-07"
+        iyy="3.11274405794203E-05"
+        iyz="3.94345652689597E-08"
+        izz="9.81721455090846E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/right_upper_arm_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/right_upper_arm_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_upper_arm_roll_joint"
+    type="revolute">
+    <origin
+      xyz="0.02425 -0.049 0"
+      rpy="3.1416 -1.5708 0" />
+    <parent
+      link="right_shoulder_link" />
+    <child
+      link="right_upper_arm_link" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="right_elbow_link">
+    <inertial>
+      <origin
+        xyz="1.11022302462516E-16 -0.00230528590818035 -0.0280722416193958"
+        rpy="0 0 0" />
+      <mass
+        value="0.0511468047163823" />
+      <inertia
+        ixx="9.12967328821757E-05"
+        ixy="-4.71058599204397E-21"
+        ixz="5.83491703663896E-20"
+        iyy="9.25411867194407E-05"
+        iyz="-6.89902253698685E-06"
+        izz="1.03953224116131E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/right_elbow_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/right_elbow_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_elbow_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="0 0 -0.10025"
+      rpy="0 0 0" />
+    <parent
+      link="right_upper_arm_link" />
+    <child
+      link="right_elbow_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="neck_link">
+    <inertial>
+      <origin
+        xyz="-0.00156041292470768 -0.000723759920217962 0.0367041914278949"
+        rpy="0 0 0" />
+      <mass
+        value="0.0478789229788551" />
+      <inertia
+        ixx="8.27547872890049E-06"
+        ixy="1.00258688215879E-07"
+        ixz="-1.89903966481239E-08"
+        iyy="1.34187871471235E-05"
+        iyz="4.49034542147312E-08"
+        izz="1.40614214294888E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/neck_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/neck_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="neck_yaw_joint"
+    type="revolute">
+    <origin
+      xyz="0.021 0 0.1495"
+      rpy="0 0 0" />
+    <parent
+      link="trunk_link" />
+    <child
+      link="neck_link" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="head_link">
+    <inertial>
+      <origin
+        xyz="-0.00241864435015915 -0.000578325032218607 0.043331884885227"
+        rpy="0 0 0" />
+      <mass
+        value="0.0703068040668944" />
+      <inertia
+        ixx="5.41933168038284E-05"
+        ixy="1.71317904618446E-07"
+        ixz="-1.92864248034834E-07"
+        iyy="1.71003833917027E-05"
+        iyz="2.75406205939961E-07"
+        izz="4.97586290771393E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/head_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/head_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="head_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="0.01025 0 0.038"
+      rpy="0 0 0" />
+    <parent
+      link="neck_link" />
+    <child
+      link="head_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_hip_yaw_link">
+    <inertial>
+      <origin
+        xyz="-0.000221415113195594 2.87040434199248E-08 -0.0368621298482313"
+        rpy="0 0 0" />
+      <mass
+        value="0.0234087344413401" />
+      <inertia
+        ixx="5.73715633041054E-06"
+        ixy="-1.6778926038732E-11"
+        ixz="2.45933010037562E-08"
+        iyy="1.23691993953298E-05"
+        iyz="2.78039242802723E-12"
+        izz="1.27625110986169E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/left_hip_yaw_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/left_hip_yaw_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_hip_yaw_joint"
+    type="revolute">
+    <origin
+      xyz="0 0.0445 0"
+      rpy="0 0 0" />
+    <parent
+      link="waist_link" />
+    <child
+      link="left_hip_yaw_link" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_hip_roll_link">
+    <inertial>
+      <origin
+        xyz="0.0264560202844393 2.81419267119387E-05 -0.0154218154218738"
+        rpy="0 0 0" />
+      <mass
+        value="0.185577684373585" />
+      <inertia
+        ixx="7.62644456712743E-05"
+        ixy="-3.53079974453365E-07"
+        ixz="7.00492601513896E-07"
+        iyy="0.000197383117610255"
+        iyz="-1.06809954406819E-07"
+        izz="0.000170036099220205" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/left_hip_roll_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.270588235294118 0.270588235294118 0.270588235294118 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/left_hip_roll_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_hip_roll_joint"
+    type="revolute">
+    <origin
+      xyz="-0.05075 0 -0.06188"
+      rpy="0 0 0" />
+    <parent
+      link="left_hip_yaw_link" />
+    <child
+      link="left_hip_roll_link" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_thigh_link">
+    <inertial>
+      <origin
+        xyz="-3.42495945978571E-05 7.44140456582359E-05 -0.11135617060622"
+        rpy="0 0 0" />
+      <mass
+        value="0.130028257484268" />
+      <inertia
+        ixx="0.000172229742728479"
+        ixy="-4.6483223223056E-08"
+        ixz="-4.83056099668284E-08"
+        iyy="0.00015589230608976"
+        iyz="2.25328823392367E-07"
+        izz="4.77117079869365E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/left_thigh_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/left_thigh_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_hip_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="0.05077 0 -0.00012"
+      rpy="0 0 0" />
+    <parent
+      link="left_hip_roll_link" />
+    <child
+      link="left_thigh_link" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_shank_link">
+    <inertial>
+      <origin
+        xyz="0.00211942700396936 5.55111512312578E-17 -0.0648672619911794"
+        rpy="0 0 0" />
+      <mass
+        value="0.0297851126602444" />
+      <inertia
+        ixx="6.16541128313656E-05"
+        ixy="1.01134569204413E-20"
+        ixz="-1.60136858658058E-06"
+        iyy="4.64036585684407E-05"
+        iyz="4.25121951914627E-21"
+        izz="2.02829249667487E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/left_shank_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/left_shank_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_knee_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="0 0 -0.14"
+      rpy="0 0 0" />
+    <parent
+      link="left_thigh_link" />
+    <child
+      link="left_shank_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_ankle_link">
+    <inertial>
+      <origin
+        xyz="-0.0243619748730696 7.61370842207038E-05 0.0153018154218738"
+        rpy="0 0 0" />
+      <mass
+        value="0.185577684373585" />
+      <inertia
+        ixx="7.62635168758286E-05"
+        ixy="-1.18118833820868E-07"
+        ixz="-6.78268768336671E-07"
+        iyy="0.000196949569147409"
+        iyz="8.56549408551343E-08"
+        izz="0.000169601621961913" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/left_ankle_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/left_ankle_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_ankle_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="0 0 -0.14"
+      rpy="0 0 0" />
+    <parent
+      link="left_shank_link" />
+    <child
+      link="left_ankle_link" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_foot_link">
+    <inertial>
+      <origin
+        xyz="0.0540374180370118 0.00742076380487194 -0.0325457026283866"
+        rpy="0 0 0" />
+      <mass
+        value="0.0465401343494676" />
+      <inertia
+        ixx="4.1333845728446E-05"
+        ixy="-1.51051005199588E-07"
+        ixz="-6.21176879901941E-07"
+        iyy="0.000113524055426782"
+        iyz="4.79535885428363E-07"
+        izz="0.000151411754822504" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/left_foot_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/left_foot_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_ankle_roll_joint"
+    type="revolute">
+    <origin
+      xyz="-0.05077 0 -0.00012"
+      rpy="0 0 0" />
+    <parent
+      link="left_ankle_link" />
+    <child
+      link="left_foot_link" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="left_bottom_foot_fake_link">
+    <inertial>
+      <origin
+        xyz="-1.74472058689368E-06 -0.0445712226963407 0.337962961715387"
+        rpy="0 0 0" />
+      <mass
+        value="2.39471689036948" />
+      <inertia
+        ixx="0.0850429424414065"
+        ixy="2.77221119605317E-06"
+        ixz="-0.00728137069999243"
+        iyy="0.083432238121855"
+        iyz="3.92611874771957E-05"
+        izz="0.011760362768571" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/left_bottom_foot_fake_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/left_bottom_foot_fake_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_bottom_foot_fake_joint"
+    type="fixed">
+    <origin
+      xyz="0.051763 0 -0.0486"
+      rpy="0 0 0" />
+    <parent
+      link="left_foot_link" />
+    <child
+      link="left_bottom_foot_fake_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="left_front_foot_fake_link">
+    <inertial>
+      <origin
+        xyz="-0.0800017447203732 -0.0530712226963441 0.316958580720759"
+        rpy="0 0 0" />
+      <mass
+        value="2.39471689036948" />
+      <inertia
+        ixx="0.0850429424413973"
+        ixy="2.77221119615336E-06"
+        ixz="-0.00728137070003878"
+        iyy="0.0834322381218549"
+        iyz="3.92611874779559E-05"
+        izz="0.0117603627685802" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/left_front_foot_fake_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/left_front_foot_fake_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_front_foot_fake_joint"
+    type="fixed">
+    <origin
+      xyz="0.13176 0.0085 -0.027596"
+      rpy="0 0 0" />
+    <parent
+      link="left_foot_link" />
+    <child
+      link="left_front_foot_fake_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="right_hip_yaw_link">
+    <inertial>
+      <origin
+        xyz="-0.000221415113196538 2.87040437529917E-08 -0.0368621298482309"
+        rpy="0 0 0" />
+      <mass
+        value="0.0234087344413401" />
+      <inertia
+        ixx="5.73715633041056E-06"
+        ixy="-1.67789260333812E-11"
+        ixz="2.45933010038134E-08"
+        iyy="1.23691993953298E-05"
+        iyz="2.78039242772437E-12"
+        izz="1.27625110986169E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/right_hip_yaw_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/right_hip_yaw_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_hip_yaw_joint"
+    type="revolute">
+    <origin
+      xyz="0 -0.0445 0"
+      rpy="0 0 0" />
+    <parent
+      link="waist_link" />
+    <child
+      link="right_hip_yaw_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="right_hip_roll_link">
+    <inertial>
+      <origin
+        xyz="0.0264080251268297 -7.61370843215536E-05 -0.0154218154218739"
+        rpy="0 0 0" />
+      <mass
+        value="0.185577684373585" />
+      <inertia
+        ixx="7.62635168758286E-05"
+        ixy="1.18118833820839E-07"
+        ixz="6.78268768336935E-07"
+        iyy="0.00019694956914741"
+        iyz="8.56549408551436E-08"
+        izz="0.000169601621961913" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/right_hip_roll_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.270588235294118 0.270588235294118 0.270588235294118 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/right_hip_roll_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_hip_roll_joint"
+    type="revolute">
+    <origin
+      xyz="-0.05075 0 -0.06188"
+      rpy="0 0 0" />
+    <parent
+      link="right_hip_yaw_link" />
+    <child
+      link="right_hip_roll_link" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="right_thigh_link">
+    <inertial>
+      <origin
+        xyz="3.42495945983567E-05 -7.44140456583331E-05 -0.111356170606221"
+        rpy="0 0 0" />
+      <mass
+        value="0.130028257484268" />
+      <inertia
+        ixx="0.000172229742728479"
+        ixy="-4.64832232230485E-08"
+        ixz="4.83056099672983E-08"
+        iyy="0.00015589230608976"
+        iyz="-2.25328823392437E-07"
+        izz="4.77117079869365E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/right_thigh_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/right_thigh_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_hip_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="0.05077 0 -0.00012"
+      rpy="0 0 0" />
+    <parent
+      link="right_hip_roll_link" />
+    <child
+      link="right_thigh_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="right_shank_link">
+    <inertial>
+      <origin
+        xyz="0.00211942700396966 0 -0.0648672619911792"
+        rpy="0 0 0" />
+      <mass
+        value="0.0297851126602444" />
+      <inertia
+        ixx="6.16541128313656E-05"
+        ixy="-1.72022202107548E-19"
+        ixz="-1.60136858658041E-06"
+        iyy="4.64036585684406E-05"
+        iyz="-7.51769465648825E-20"
+        izz="2.02829249667487E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/right_shank_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/right_shank_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_knee_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="0 0 -0.14"
+      rpy="0 0 0" />
+    <parent
+      link="right_thigh_link" />
+    <child
+      link="right_shank_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="right_ankle_link">
+    <inertial>
+      <origin
+        xyz="-0.0243139797154601 -2.81419266111582E-05 0.0153018154218738"
+        rpy="0 0 0" />
+      <mass
+        value="0.185577684373585" />
+      <inertia
+        ixx="7.62644456712743E-05"
+        ixy="3.53079974453384E-07"
+        ixz="-7.0049260151363E-07"
+        iyy="0.000197383117610254"
+        iyz="-1.06809954406833E-07"
+        izz="0.000170036099220204" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/right_ankle_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/right_ankle_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_ankle_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="0 0 -0.14"
+      rpy="0 0 0" />
+    <parent
+      link="right_shank_link" />
+    <child
+      link="right_ankle_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="0"
+      velocity="0" />
+  </joint>
+  <link
+    name="right_foot_link">
+    <inertial>
+      <origin
+        xyz="0.054037418037219 -0.00742106828958711 -0.0325457026283425"
+        rpy="0 0 0" />
+      <mass
+        value="0.0465401343494674" />
+      <inertia
+        ixx="4.13336941039743E-05"
+        ixy="1.51414343960298E-07"
+        ixz="-6.21176879970191E-07"
+        iyy="0.000113524055426785"
+        iyz="-4.79319927951684E-07"
+        izz="0.000151411603198034" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/right_foot_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/right_foot_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_ankle_roll_joint"
+    type="fixed">
+    <origin
+      xyz="-0.05077 0 -0.00012"
+      rpy="0 0 0" />
+    <parent
+      link="right_ankle_link" />
+    <child
+      link="right_foot_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="right_bottom_foot_fake_link">
+    <inertial>
+      <origin
+        xyz="-1.74472039474183E-06 0.0444287773036555 0.337962961715387"
+        rpy="0 0 0" />
+      <mass
+        value="2.39471689036948" />
+      <inertia
+        ixx="0.0850429424413973"
+        ixy="2.77221119615185E-06"
+        ixz="-0.00728137070003879"
+        iyy="0.083432238121855"
+        iyz="3.9261187477951E-05"
+        izz="0.0117603627685802" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/right_bottom_foot_fake_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/right_bottom_foot_fake_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_bottom_foot_fake_joint"
+    type="fixed">
+    <origin
+      xyz="0.051763 0 -0.0486"
+      rpy="0 0 0" />
+    <parent
+      link="right_foot_link" />
+    <child
+      link="right_bottom_foot_fake_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="right_front_foot_fake_link">
+    <inertial>
+      <origin
+        xyz="-0.0800017447203948 0.0529287773036554 0.316958580720759"
+        rpy="0 0 0" />
+      <mass
+        value="2.39471689036948" />
+      <inertia
+        ixx="0.0850429424413973"
+        ixy="2.77221119614898E-06"
+        ixz="-0.00728137070003876"
+        iyy="0.0834322381218549"
+        iyz="3.92611874779668E-05"
+        izz="0.0117603627685802" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/right_front_foot_fake_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robocup/meshes/right_front_foot_fake_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_front_foot_fake_joint"
+    type="fixed">
+    <origin
+      xyz="0.13176 -0.0085 -0.027596"
+      rpy="0 0 0" />
+    <parent
+      link="right_foot_link" />
+    <child
+      link="right_front_foot_fake_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>

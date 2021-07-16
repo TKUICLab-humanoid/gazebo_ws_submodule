@@ -1,58 +1,44 @@
-#ifndef WALKINGCYCLE_H
-#define WALKINGCYCLE_H
+/*****************************************************************************
+** Ifdefs
+*****************************************************************************/
+#ifndef WALKINGCYCLE_HPP_
+#define WALKINGCYCLE_HPP_
 
 /*****************************************************************************
 ** Includes
 *****************************************************************************/
-
-#include <ros/ros.h>
 #include <iostream>
 #include <math.h>
-#include "walkinggait/parameterinfo.hpp"
 
+#include <ros/ros.h>
+
+#include "walkinggait/parameterinfo.hpp"
 
 #define INCREASE_SLOPE 1
 #define WALK_MAX_DISTANCE 2
-/*****************************************************************************
-** Interface [MainWindow]
-*****************************************************************************/
-/**
- * @brief Qt central, all operations relating to the view part here.v = to explain what is being done
- */
+
 class WalkingCycle
-{
+{  
+    public:
+        WalkingCycle();
+        ~WalkingCycle();
 
-    
-public:
+        void walkingKindFunction(int walking_mode);
+        void singleStepFunction(int walking_mode);
+        void singleStepWalkingProcess();
+        void LCWalkingProcess();
+        void continuousStepFunction();
+        void continuousWalkingProcess();
 
-    WalkingCycle();
-    ~WalkingCycle();
-    void walkingkindfunction(int walking_mode);
-    void singlestepfunction(int walking_mode);
-    void singlestepwalkingprocess();
-    void continuoustepfunction();
-    void continuouswalkingprocess();
-    void LCwalkingprocess();
-    void wosccontinuouswalkingprocess();
+        bool IsStop;
+        
+        int slopeCounter_;
+        int Sample_points_quater;
+        double forwardValue_;
+        double forwardCounter_;
 
-    double forwardValue_;
-    double forwardCounter_;
-    int slopeCounter_;
-    int Sample_points_quater;
-
-    double COM_Y_tmp;
-    double Lockrange_tmp;
-
-    int teststop;
-    int ContMode;
-    bool IsStop;
-
-    
-    //private:
-
+        double COM_Y_tmp;
+        double Lockrange_tmp;
 };
 
-    
-
-
-#endif // WALKINGCYCLE_H
+#endif // WALKINGCYCLE_HPP_

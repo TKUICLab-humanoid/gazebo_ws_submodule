@@ -60,19 +60,19 @@ kidsize:
     right_shoulder_pitch_position_controller:
         type: effort_controllers/JointPositionController
         joint: right_shoulder_pitch
-        pid: {p: 15.0, i: 0.01, d: 0}
+        pid: {p: 50.0, i: 0.01, d: 0}
     right_shoulder_roll_position_controller:
         type: effort_controllers/JointPositionController
         joint: right_shoulder_roll
-        pid: {p: 15.0, i: 0.01, d: 0}
+        pid: {p: 50.0, i: 0.01, d: 0}
     right_middle_yaw_position_controller:
         type: effort_controllers/JointPositionController
         joint: right_middle_yaw
-        pid: {p: 15.0, i: 0.01, d: 0}
+        pid: {p: 50.0, i: 0.01, d: 0}
     right_elbow_pitch_position_controller:
         type: effort_controllers/JointPositionController
         joint: right_elbow_pitch
-        pid: {p: 15.0, i: 0.01, d: 0}
+        pid: {p: 50.0, i: 0.01, d: 0}
 
     # Position controllers: Left arm ---------------------------------------
     left_shoulder_pitch_position_controller:

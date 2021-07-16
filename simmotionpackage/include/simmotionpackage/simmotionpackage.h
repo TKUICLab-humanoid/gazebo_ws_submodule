@@ -16,6 +16,11 @@
 #include "tku_msgs/ReadMotion.h"
 #include "tku_msgs/InterfaceSend2Sector.h"
 #include "tku_msgs/CheckSector.h"
+#include <sensor_msgs/Imu.h>
+#include "tku_msgs/SensorSet.h"
+#include "tku_msgs/SensorPackage.h"
+
+
 
 enum class HeadMotorID {neck_yaw = 1, head_pitch};
 enum class MotorID {left_shoulder_pitch, left_shoulder_roll, left_middle_yaw, left_elbow_pitch,
@@ -216,6 +221,7 @@ public:
 	SectorDataBase *speed;
 };
 
+
 class SimMotionPackage
 {
 public:
@@ -226,17 +232,6 @@ public:
 		inversekinematic.initial_speed_gain();
 		inversekinematic.initial_inverse_kinematic();
 
-		robot_ganeration = "11th";
-		nhPrivate.getParam("robot", robot_ganeration);
-	    nhPrivate.deleteParam("robot");
-    	// if(robot_ganeration == "10th")
-    	// {
-        // 	parameterinfo->parameters.COM_Height = 21.7;
-    	// }
-    	// else //if(robot_ganeration == "11th")
-    	// {
-    	//     parameterinfo->parameters.COM_Height = 24.3;//robocup robot
-    	// }
 		tool_gz.set_Client(nh);
 		tool = ToolInstance::getInstance();
 		head_control[(int)HeadMotorID::neck_yaw] 			= nh.advertise<std_msgs::Float64>("/robot1/neck_yaw_position_controller/command", 1);
@@ -272,52 +267,17 @@ public:
 		SectorSend2FPGA_sub = nh.subscribe("/package/Sector", 1000, &SimMotionPackage::SectorSend2GazeboFunction, this);
 	    InterfaceSaveData_sub = nh.subscribe("/package/InterfaceSaveMotion", 1000, &SimMotionPackage::InterfaceSaveDataFunction, this);
         InterfaceSend2Sector_sub = nh.subscribe("/package/InterfaceSend2Sector", 1000, &SimMotionPackage::InterfaceSend2SectorFunction, this);
+		imu_sub	= nh.subscribe("/imu", 10, &SimMotionPackage::getImuData, this);
+		SensorSet_sub = nh.subscribe("/sensorset", 100, &SimMotionPackage::SensorSetFunction, this);
+		Savedata_sub = nh.subscribe("/package/save", 100, &SimMotionPackage::Savedata, this);
 		ExecuteCallBack_pub = nh.advertise<std_msgs::Bool>("/package/executecallback", 1000);
 	    InterfaceCallBack_pub = nh.advertise<std_msgs::Bool>("/package/motioncallback", 1000);
+		Sensorpackage_pub = nh.advertise<tku_msgs::SensorPackage>("/package/sensorpackage", 1000);
+
 
         InterfaceReadData_ser = nh.advertiseService("/package/InterfaceReadSaveMotion", &SimMotionPackage::InterfaceReadDataFunction, this);
 		InterfaceCheckSector_ser = nh.advertiseService("/package/InterfaceCheckSector", &SimMotionPackage::InterfaceCheckSectorFunction, this);
 
-        stand_data.angle[(int)MotorID::left_shoulder_pitch] 	= 3044;
-        stand_data.angle[(int)MotorID::left_shoulder_roll]		= 466;
-		stand_data.angle[(int)MotorID::left_middle_yaw]			= 511;
-		stand_data.angle[(int)MotorID::left_elbow_pitch]		= 464;
-
-		stand_data.angle[(int)MotorID::right_shoulder_pitch]	= 1044;
-		stand_data.angle[(int)MotorID::right_shoulder_roll]		= 511;
-		stand_data.angle[(int)MotorID::right_middle_yaw]		= 511;
-		stand_data.angle[(int)MotorID::right_elbow_pitch]		= 564;
-		stand_data.angle[(int)MotorID::waist_yaw]				= 2048;
-
-		stand_data.angle[(int)MotorID::left_hip_yaw]			= 2048;
-		stand_data.angle[(int)MotorID::left_hip_roll]			= 2048;
-		stand_data.angle[(int)MotorID::left_hip_pitch]			= 1753;
-		stand_data.angle[(int)MotorID::left_knee_pitch]			= 2637;
-		stand_data.angle[(int)MotorID::left_ankle_pitch]		= 2343;
-		stand_data.angle[(int)MotorID::left_ankle_roll]			= 2048;
-
-		stand_data.angle[(int)MotorID::right_hip_yaw]			= 2048;
-		stand_data.angle[(int)MotorID::right_hip_roll]			= 2048;
-		stand_data.angle[(int)MotorID::right_hip_pitch]			= 2343;
-		stand_data.angle[(int)MotorID::right_knee_pitch]		= 1460;
-		stand_data.angle[(int)MotorID::right_ankle_pitch]		= 1753;
-		stand_data.angle[(int)MotorID::right_ankle_roll]		= 2048;
-
-		for(int i = 0; i < MotorSum; i++)stand_data.speed[i]	= 50;
-		//-------------------------------------------------------------
-		ik_ref_data.angle[(int)MotorID::left_hip_yaw]			= 2048;
-		ik_ref_data.angle[(int)MotorID::left_hip_roll]			= 2048;
-		ik_ref_data.angle[(int)MotorID::left_hip_pitch]			= 1753;
-		ik_ref_data.angle[(int)MotorID::left_knee_pitch]		= 2637;
-		ik_ref_data.angle[(int)MotorID::left_ankle_pitch]		= 2343;
-		ik_ref_data.angle[(int)MotorID::left_ankle_roll]		= 2048;
-
-		ik_ref_data.angle[(int)MotorID::right_hip_yaw]			= 2048;
-		ik_ref_data.angle[(int)MotorID::right_hip_roll]			= 2048;
-		ik_ref_data.angle[(int)MotorID::right_hip_pitch]		= 2343;
-		ik_ref_data.angle[(int)MotorID::right_knee_pitch]		= 1460;
-		ik_ref_data.angle[(int)MotorID::right_ankle_pitch]		= 1753;
-		ik_ref_data.angle[(int)MotorID::right_ankle_roll]		= 2048;
 		readStandFunction();
 	};
 	~SimMotionPackage(){};
@@ -329,21 +289,32 @@ public:
 	void InterfaceSend2SectorFunction(const tku_msgs::InterfaceSend2Sector &msg);
 	void SectorControlFuntion(unsigned int mode, SectorData &sector_data);
 	void readStandFunction();
+	void Sensor_Data_Process();
+	void Savedata(const std_msgs::Bool &msg);
+	void getImuData(const sensor_msgs::Imu &msg);
+	void SensorSetFunction(const tku_msgs::SensorSet &msg);
+
 
 	bool InterfaceReadDataFunction(tku_msgs::ReadMotion::Request &Motion_req, tku_msgs::ReadMotion::Response &Motion_res);
 	bool InterfaceCheckSectorFunction(tku_msgs::CheckSector::Request &req, tku_msgs::CheckSector::Response &res);
 
 	ros::Publisher head_control[3];
 	ros::Publisher motor_control[21];
-	// ---
+
 	ros::Publisher ExecuteCallBack_pub;
 	ros::Publisher InterfaceCallBack_pub;
+	ros::Publisher Sensorpackage_pub;
+
 
 	ros::Subscriber walkdata_sub;
 	ros::Subscriber headdata_sub;
 	ros::Subscriber SectorSend2FPGA_sub;
 	ros::Subscriber InterfaceSaveData_sub;
 	ros::Subscriber InterfaceSend2Sector_sub;
+	ros::Subscriber imu_sub;
+    ros::Subscriber SensorSet_sub;
+    ros::Subscriber Savedata_sub;
+
 
 	ros::ServiceServer InterfaceReadData_ser;
 	ros::ServiceServer InterfaceCheckSector_ser;
@@ -353,6 +324,14 @@ public:
 	std_msgs::Bool execute_ack;
 	std_msgs::Bool interface_ack;
 	tku_msgs::SaveMotionVector MotionSaveData;
+
+	double rpy_offset_[3];
+	double rpy_raw_[3];
+	double rpy_[3];
+    float  accel_[3];
+
+
+
 
 	gazebo_tool tool_gz;
 	ToolInstance *tool;
