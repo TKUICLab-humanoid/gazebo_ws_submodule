@@ -2,86 +2,41 @@
 
 extern struct Points_Struct Points;
 extern struct Parameters_Struct Parameters;
-// extern struct Status_Struct RobotStatus;
+extern 	SimIMUData sim_imu_data;
+extern BalanceControl balance;
 
-// double time_start = 0, time_end = 0;
-void SimMotionPackage::motionCallback (const tku_msgs::IKinfo_message& msg)
-{
-    Points.Inverse_PointR_X = msg.IK_Point_RX;              //Parameters.COM_X_Offset + Parameters.R_X_Offset;
+void SimMotionPackage::Savedata(const std_msgs::Bool &msg)
+{   
+    balance.saveData();
+    inversekinematic.saveData();
+
+}
+
+void SimMotionPackage::motionCallback(const tku_msgs::IKinfo_message& msg)
+{		
+    balance.get_sensor_value();
+    balance.setSupportFoot();
+    balance.balance_control();
+
+    Points.Inverse_PointR_X = msg.IK_Point_RX;
 	Points.Inverse_PointR_Y = msg.IK_Point_RY;
 	Points.Inverse_PointR_Z = msg.IK_Point_RZ;
-	Points.Inverse_PiontR_Thta = msg.IK_Point_RThta;                       //-pi/2~pi/2
+	Points.Inverse_PiontR_Thta = msg.IK_Point_RThta;
 	
 	Points.Inverse_PointL_X = msg.IK_Point_LX;
 	Points.Inverse_PointL_Y = msg.IK_Point_LY;
 	Points.Inverse_PointL_Z = msg.IK_Point_LZ;
 	Points.Inverse_PiontL_Thta = msg.IK_Point_LThta;
-    // printf("%f %f \n", Parameters.COM_Height, msg.IK_Point_RZ);
+
     Parameters.Period_T = msg.Period_T;
     Parameters.Period_T2 = Parameters.Period_T/2;
     Parameters.Sample_Time = msg.Sampletime;
     inversekinematic.calculate_inverse_kinematic(Parameters.Period_T / Parameters.Sample_Time);
     
-    // parameterinfo->ik_parameters.R_Goal[0] = -msg.IK_Point_RX;
-    // parameterinfo->ik_parameters.R_Goal[1] = msg.IK_Point_RY - 4.5;
-    // parameterinfo->ik_parameters.R_Goal[2] = parameterinfo->parameters.COM_Height - msg.IK_Point_RZ;
-    // parameterinfo->ik_parameters.R_Goal[3] = msg.IK_Point_RThta;
-    // parameterinfo->ik_parameters.L_Goal[0] = msg.IK_Point_LX;
-    // parameterinfo->ik_parameters.L_Goal[1] = msg.IK_Point_LY + 4.5;
-    // parameterinfo->ik_parameters.L_Goal[2] = parameterinfo->parameters.COM_Height - msg.IK_Point_LZ;
-    // parameterinfo->ik_parameters.L_Goal[3] = msg.IK_Point_LThta;
-    // parameterinfo->parameters.Period_T = msg.Period_T;
-    // parameterinfo->parameters.Sample_Time = msg.Sampletime;
-    // inversekinematics.DoIK((parameterinfo->parameters.Period_T / parameterinfo->parameters.Sample_Time));
-
-    // motor_angle[9].data = parameterinfo->ik_parameters.Ltest_theta[5];
-    // motor_angle[10].data = parameterinfo->ik_parameters.Ltest_theta[0];//+Ladd;
-    // motor_angle[11].data = parameterinfo->ik_parameters.Ltest_theta[1]-0.105 + 0.25;//-0.105;
-    // motor_angle[12].data = parameterinfo->ik_parameters.Ltest_theta[2]+0.104 - 0.5;
-    // motor_angle[13].data = parameterinfo->ik_parameters.Ltest_theta[3]-0.045 + 0.25;
-    // motor_angle[14].data = -parameterinfo->ik_parameters.Ltest_theta[4];//-Ladd;
-
-    // motor_angle[15].data = -parameterinfo->ik_parameters.Rtest_theta[5];
-    // motor_angle[16].data = parameterinfo->ik_parameters.Rtest_theta[0];//+Radd;
-    // motor_angle[17].data = -(parameterinfo->ik_parameters.Rtest_theta[1]-0.105 + 0.25);//+0.105;
-    // motor_angle[18].data = -(parameterinfo->ik_parameters.Rtest_theta[2]+0.104 - 0.5);
-    // motor_angle[19].data = -(parameterinfo->ik_parameters.Rtest_theta[3]-0.045 + 0.25);
-    // motor_angle[20].data = -(parameterinfo->ik_parameters.Rtest_theta[4]+0.1);//-Radd;
-
-    // printf("%f\t", (parameterinfo->ik_parameters.Ltest_theta[5]+3.14159265)/(2*3.14159265)*4096);
-    // printf("%f\t", (parameterinfo->ik_parameters.Ltest_theta[0]+3.14159265)/(2*3.14159265)*4096);
-    // printf("%f\t", (parameterinfo->ik_parameters.Ltest_theta[1]+3.14159265)/(2*3.14159265)*4096);
-    // printf("%f\t", (parameterinfo->ik_parameters.Ltest_theta[2]+3.14159265)/(2*3.14159265)*4096);
-    // printf("%f\t", (parameterinfo->ik_parameters.Ltest_theta[3]+3.14159265)/(2*3.14159265)*4096);
-    // printf("%f\n", (-parameterinfo->ik_parameters.Ltest_theta[4]+3.14159265)/(2*3.14159265)*4096);
-
-    // printf("%f\t", (-parameterinfo->ik_parameters.Rtest_theta[5]+3.14159265)/(2*3.14159265)*4096);
-    // printf("%f\t", (parameterinfo->ik_parameters.Rtest_theta[0]+3.14159265)/(2*3.14159265)*4096);
-    // printf("%f\t", (-parameterinfo->ik_parameters.Rtest_theta[1]+3.14159265)/(2*3.14159265)*4096);
-    // printf("%f\t", (-parameterinfo->ik_parameters.Rtest_theta[2]+3.14159265)/(2*3.14159265)*4096);
-    // printf("%f\t", (-parameterinfo->ik_parameters.Rtest_theta[3]+3.14159265)/(2*3.14159265)*4096);
-    // printf("%f\n", (-parameterinfo->ik_parameters.Rtest_theta[4]+3.14159265)/(2*3.14159265)*4096);
-    // ROS_INFO("%f",motor_angle[12].data);
-    // motor_angle[9].data = parameterinfo->ik_parameters.Ltest_theta[5];// + (stand_data.angle[(int)MotorID::left_hip_yaw] - ik_ref_data.angle[(int)MotorID::left_hip_yaw]).toPI();
-    // motor_angle[10].data = parameterinfo->ik_parameters.Ltest_theta[0];// + (stand_data.angle[(int)MotorID::left_hip_roll] - ik_ref_data.angle[(int)MotorID::left_hip_roll]).toPI();
-    // motor_angle[11].data = parameterinfo->ik_parameters.Ltest_theta[1];// + (stand_data.angle[(int)MotorID::left_hip_pitch] - ik_ref_data.angle[(int)MotorID::left_hip_pitch]).toPI();
-    // motor_angle[12].data = parameterinfo->ik_parameters.Ltest_theta[2];// + (stand_data.angle[(int)MotorID::left_knee_pitch] - ik_ref_data.angle[(int)MotorID::left_knee_pitch]).toPI();
-    // motor_angle[13].data = parameterinfo->ik_parameters.Ltest_theta[3];// + (stand_data.angle[(int)MotorID::left_ankle_pitch] - ik_ref_data.angle[(int)MotorID::left_ankle_pitch]).toPI();
-    // motor_angle[14].data = -parameterinfo->ik_parameters.Ltest_theta[4];// + (stand_data.angle[(int)MotorID::left_ankle_roll] - ik_ref_data.angle[(int)MotorID::left_ankle_roll]).toPI();
-
-    // motor_angle[15].data = -parameterinfo->ik_parameters.Rtest_theta[5];// + (stand_data.angle[(int)MotorID::right_hip_yaw] - ik_ref_data.angle[(int)MotorID::right_hip_yaw]).toPI();
-    // motor_angle[16].data = parameterinfo->ik_parameters.Rtest_theta[0];// + (stand_data.angle[(int)MotorID::right_hip_roll] - ik_ref_data.angle[(int)MotorID::right_hip_roll]).toPI();
-    // motor_angle[17].data = -(parameterinfo->ik_parameters.Rtest_theta[1]);// + (stand_data.angle[(int)MotorID::right_hip_pitch] - ik_ref_data.angle[(int)MotorID::right_hip_pitch]).toPI();
-    // motor_angle[18].data = -(parameterinfo->ik_parameters.Rtest_theta[2]);// + (stand_data.angle[(int)MotorID::right_knee_pitch] - ik_ref_data.angle[(int)MotorID::right_knee_pitch]).toPI();
-    // motor_angle[19].data = -(parameterinfo->ik_parameters.Rtest_theta[3]);// + (stand_data.angle[(int)MotorID::right_ankle_pitch] - ik_ref_data.angle[(int)MotorID::right_ankle_pitch]).toPI();
-    // motor_angle[20].data = -parameterinfo->ik_parameters.Rtest_theta[4];// + (stand_data.angle[(int)MotorID::right_ankle_roll] - ik_ref_data.angle[(int)MotorID::right_ankle_roll]).toPI();
-    
-    // // std::printf("%f\n",parameterinfo->parameters.COM_Height);
-    
-
-    // for(int i = 9; i < 21; i++)std::printf("%d\n", inversekinematic.output_angle_[i]);
-    // std::printf("\n");
-    // std::printf("\n");
+    for(int i = 9; i < 21; i++)
+    {
+        ik_ref_data.angle[i] = inversekinematic.thta_base_[i];
+    }
     SectorData output;
     for(int i = 9; i < 21; i++)
     {
@@ -92,11 +47,7 @@ void SimMotionPackage::motionCallback (const tku_msgs::IKinfo_message& msg)
     motor_angle[16].data = -motor_angle[16].data;
     motor_angle[19].data = -motor_angle[19].data;
     motor_angle[13].data = -motor_angle[13].data;
-    // for(int i = 9; i < 21; i++)std::printf("%f\n", motor_angle[i].data);
-    // for(int i = 9; i < 21; i++)std::printf("%d\n",output.angle[i].toDec());
-    // std::printf("%d %d\n", ik_ref_data.angle[(int)MotorID::left_ankle_pitch].toDec(),stand_data.angle[(int)MotorID::left_ankle_pitch].toDec());
-    // for(int i = 9; i < 21; i++)std::printf("%d\n",inversekinematic.output_angle_[i]);
-    // std::printf("---\n");
+
     double temp[21] = {0};
     for(int i = 0; i < 21; i++)temp[i] = this->motor_angle[i].data;
     for(int i = 9; i < 21; i++)motor_control[i].publish(this->motor_angle[i]);
@@ -105,7 +56,6 @@ void SimMotionPackage::motionCallback (const tku_msgs::IKinfo_message& msg)
     this->motor_angle[13].data = -this->motor_angle[13].data;
     this->motor_angle[16].data = -this->motor_angle[16].data;
     this->motor_angle[19].data = -this->motor_angle[19].data;
-    // time_end = ros::WallTime::now().toSec();
 }
 
 void SimMotionPackage::getHeadAngle(const tku_msgs::HeadPackage &msg)
@@ -120,6 +70,36 @@ void SimMotionPackage::getHeadAngle(const tku_msgs::HeadPackage &msg)
         head_angle[(int)HeadMotorID::neck_yaw].data = (msg.Position-2047)/2048.0*3.14159265;
         head_control[(int)HeadMotorID::neck_yaw].publish(head_angle[(int)HeadMotorID::neck_yaw]);
     }
+}
+void SimMotionPackage::getImuData(const sensor_msgs::Imu &msg)
+{
+    sim_imu_data.qx = msg.orientation.x;
+    sim_imu_data.qy = msg.orientation.y;
+    sim_imu_data.qz = msg.orientation.z;
+    sim_imu_data.qw = msg.orientation.w;
+    sim_imu_data.g_x = msg.angular_velocity.x;
+    sim_imu_data.g_y = msg.angular_velocity.y;
+    sim_imu_data.g_z = msg.angular_velocity.z;
+    sim_imu_data.a_x = msg.linear_acceleration.x;
+    sim_imu_data.a_y = msg.linear_acceleration.y;
+    sim_imu_data.a_z = msg.linear_acceleration.z;
+    rpy_raw_[0]=-atan2(2 * (sim_imu_data.qw * sim_imu_data.qx + sim_imu_data.qy * sim_imu_data.qz), 1 - 2 * (sim_imu_data.qx*sim_imu_data.qx + sim_imu_data.qy*sim_imu_data.qy))*RADIAN2DEGREE;
+    rpy_raw_[1]=asin(2 * (sim_imu_data.qw * sim_imu_data.qy - sim_imu_data.qz * sim_imu_data.qx))*RADIAN2DEGREE;
+    rpy_raw_[2]=atan2(2 * (sim_imu_data.qw * sim_imu_data.qz + sim_imu_data.qx * sim_imu_data.qy), 1 - 2 * (sim_imu_data.qy*sim_imu_data.qy + sim_imu_data.qz*sim_imu_data.qz))*RADIAN2DEGREE;
+    int count = 0;
+    for(count=0; count<3; count++)
+        {        
+            
+
+            sim_imu_data.sensor_rpy[count]= rpy_raw_[count] - rpy_offset_[count];
+            if(sim_imu_data.sensor_rpy[count] < -180)
+                sim_imu_data.sensor_rpy[count] += 360;
+            else if(sim_imu_data.sensor_rpy[count] > 180)
+                sim_imu_data.sensor_rpy[count] -= 360;
+        }
+
+        
+    Sensor_Data_Process();
 }
 
 void SimMotionPackage::SectorControlFuntion(unsigned int mode, SectorData &sector_data)
@@ -147,7 +127,6 @@ void SimMotionPackage::SectorControlFuntion(unsigned int mode, SectorData &secto
                             motor_angle[i].data = now_motion_data.angle[i].toPI_G() - (sector_data.speed[i].toPI()*j/10.0);
                         }
                         k = 0;
-                        // ROS_INFO("%f",j);
                         // std::printf("%f > %f\n", motor_angle[i].data - (this->stand_data.angle[i].toPI_G()), (sector_data.speed[i].toPI()/10.0));
                         // std::printf("%f != %f\n", motor_angle[i].data, (this->stand_data.angle[i].toPI_G()));
                         // std::printf("%d\n", sector_data.angle[i].toDec());
@@ -813,20 +792,10 @@ bool SimMotionPackage::InterfaceCheckSectorFunction(tku_msgs::CheckSector::Reque
     bool motionlist_flag = true;
     int cnt_tmp = 84;
 
-    if(req.data == 29)
-    {
-        strcpy(path, tool->standPath);
-        strcat(pathend, filename);
-        strcat(path, pathend);
-        strcat(path, pathend2);
-    }
-    else
-    {
-        strcpy(path, tool->parameterPath.c_str());
-        strcat(pathend, filename);
-        strcat(path, pathend);
-        strcat(path, pathend2);
-    }
+    strcpy(path, tool->parameterPath.c_str());
+    strcat(pathend, filename);
+    strcat(path, pathend);
+    strcat(path, pathend2);
 
     fstream fin;
     fin.open(path, ios::in);
@@ -982,7 +951,29 @@ void SimMotionPackage::readStandFunction()
     ROS_INFO("end_read_stand_data");
     SendSectorPackage.clear();
 }
+void SimMotionPackage::Sensor_Data_Process()
+{   
+    double IMU_Value[3];
+    tku_msgs::SensorPackage sensorpackage;
 
+    for(int i=0; i<3; i++)
+    {
+        IMU_Value[i]=sim_imu_data.sensor_rpy[i];
+        sensorpackage.IMUData.push_back(IMU_Value[i]);
+    }
+    Sensorpackage_pub.publish(sensorpackage);
+    sensorpackage.IMUData.clear();
+}
+void SimMotionPackage::SensorSetFunction(const tku_msgs::SensorSet &msg)
+{
+    bool IMU_Reset = msg.IMUReset;
+    if(IMU_Reset)
+        {
+            for(int count=0; count<3; count++)
+                rpy_offset_[count] = rpy_raw_[count];
+            IMU_Reset = false;
+        }
+}
 int main(int argc, char *argv[])
 {
 	ros::init(argc, argv, "simmotionpackage");
@@ -1000,6 +991,7 @@ int main(int argc, char *argv[])
 	while(nh.ok())
 	{
 		loop_rate.sleep();
+
 	}
 
 	return 0;

@@ -1,0 +1,2037 @@
+<?xml version="1.0" ?>
+<robot
+  name="kidsize" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:property name="pi" value="3.14159265359" />
+	<xacro:property name="deg" value="${pi/180}" />
+		<material name="black">
+			<color rgba="0.1 0.1 0.1 1" />
+		</material>
+		<material name="white">
+			<color rgba="0.8 0.8 0.8 1" />
+		</material>
+		<material name="clear">
+			<color rgba="1.0 1.0 1.0 0.0" />
+		</material>
+		<material name="orange">
+			<color rgba="${255/255} ${108/255} ${10/255} 1.0" />
+		</material>
+      <link name="dummy">
+   </link>
+  <link
+    name="waist_link">
+    <inertial>
+      <origin
+        xyz="-0.0088172 -4.3153E-08 -0.0020413"
+        rpy="0 0 0" />
+      <mass
+        value="0.22475" />
+      <inertia
+        ixx="0.00037837"
+        ixy="1.6316E-10"
+        ixz="4.0465E-06"
+        iyy="0.00011027"
+        iyz="1.9797E-11"
+        izz="0.00039153" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/waist_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/waist_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="dummy_joint" type="fixed">
+    <origin
+      xyz="0 0 -0.028"
+      rpy="0 0 0" />
+     <parent link="dummy"/>
+     <child link="waist_link"/>
+   </joint>
+  <link
+    name="trunk_link">
+    <inertial>
+      <origin
+        xyz="0.0077094 2.1697E-05 0.11416"
+        rpy="0 0 0" />
+      <mass
+        value="0.26146" />
+      <inertia
+        ixx="0.0010729"
+        ixy="2.0691E-07"
+        ixz="-2.0835E-05"
+        iyy="0.00069595"
+        iyz="4.0117E-07"
+        izz="0.00069847" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/trunk_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/trunk_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="waist_yaw"
+    type="revolute">
+    <origin
+      xyz="0 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="waist_link" />
+    <child
+      link="trunk_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="${-pi*0.9}"
+      upper="${pi*0.9}"
+      effort="1000"
+      velocity="100" />
+    <dynamics
+      damping="0.0"
+      friction="0.7" />
+  </joint>
+  <link
+    name="neck_Link">
+    <inertial>
+      <origin
+        xyz="-0.0080916 -0.00072376 0.036704"
+        rpy="0 0 0" />
+      <mass
+        value="0.047879" />
+      <inertia
+        ixx="8.2755E-06"
+        ixy="1.0134E-07"
+        ixz="-4.3905E-08"
+        iyy="1.3404E-05"
+        iyz="4.4903E-08"
+        izz="1.4047E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/neck_Link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/neck_Link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="neck_yaw"
+    type="revolute">
+    <origin
+      xyz="0.021 0 0.1495"
+      rpy="0 0 0" />
+    <parent
+      link="trunk_link" />
+    <child
+      link="neck_Link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="${-pi*0.9}"
+      upper="${pi*0.9}"
+      effort="1000"
+      velocity="100" />
+    <dynamics
+      damping="0.0"
+      friction="0.7" />
+  </joint>
+  <link
+    name="head_link">
+    <inertial>
+      <origin
+        xyz="0.00029663 -3.6886E-05 0.037704"
+        rpy="0 0 0" />
+      <mass
+        value="0.049548" />
+      <inertia
+        ixx="3.0661E-05"
+        ixy="1.425E-10"
+        ixz="-4.6871E-08"
+        iyy="7.3036E-06"
+        iyz="1.441E-09"
+        izz="2.8273E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/head_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/head_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="head_pitch"
+    type="revolute">
+    <origin
+      xyz="0.00375 0 0.038"
+      rpy="0 0 0" />
+    <parent
+      link="neck_Link" />
+    <child
+      link="head_link" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="${-pi*0.9}"
+      upper="${pi*0.9}"
+      effort="1000"
+      velocity="100" />
+    <dynamics
+      damping="0.0"
+      friction="0.7" />
+  </joint>
+  
+  <link
+    name="left_shoulder_pitch_link">
+    <inertial>
+      <origin
+        xyz="0.0030363 0.036247 3.3909E-13"
+        rpy="0 0 0" />
+      <mass
+        value="0.0085293" />
+      <inertia
+        ixx="4.4633E-06"
+        ixy="-3.5249E-07"
+        ixz="1.2655E-20"
+        iyy="3.6085E-06"
+        iyz="4.0375E-20"
+        izz="2.7666E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/left_shoulder_pitch_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/left_shoulder_pitch_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_shoulder_pitch"
+    type="revolute">
+    <origin
+      xyz="0 0.0515 0.14675"
+      rpy="0 0 0" />
+    <parent
+      link="trunk_link" />
+    <child
+      link="left_shoulder_pitch_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="${-pi*0.9}"
+      upper="${pi*0.9}"
+      effort="1000"
+      velocity="100" />
+    <dynamics
+      damping="0.0"
+      friction="0.7" />
+  </joint>
+  <link
+    name="left_upper_arm_link">
+    <inertial>
+      <origin
+        xyz="-0.0021118 -2.0802E-07 -0.037458"
+        rpy="0 0 0" />
+      <mass
+        value="0.093248" />
+      <inertia
+        ixx="7.4077E-05"
+        ixy="1.7432E-10"
+        ixz="-6.9326E-06"
+        iyy="8.1541E-05"
+        iyz="2.1903E-10"
+        izz="2.1686E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/left_upper_arm_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/left_upper_arm_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_shoulder_roll"
+    type="revolute">
+    <origin
+      xyz="0.02425 0.049 0"
+      rpy="0 -1.5708 0" />
+    <parent
+      link="left_shoulder_pitch_link" />
+    <child
+      link="left_upper_arm_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="${-pi*0.9}"
+      upper="${pi*0.9}"
+      effort="1000"
+      velocity="100" />
+    <dynamics
+      damping="0.0"
+      friction="0.7" />
+  </joint>
+  <link
+    name="left_middle_arm_link">
+    <inertial>
+      <origin
+        xyz="0.0007383 8.6844E-06 -0.047706"
+        rpy="0 0 0" />
+      <mass
+        value="0.047332" />
+      <inertia
+        ixx="1.3032E-05"
+        ixy="-2.9073E-09"
+        ixz="1.3333E-07"
+        iyy="1.3674E-05"
+        iyz="-1.3074E-08"
+        izz="7.9361E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/left_middle_arm_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/left_middle_arm_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_middle_yaw"
+    type="revolute">
+    <origin
+      xyz="0.00575 0 -0.060331"
+      rpy="0 0 0" />
+    <parent
+      link="left_upper_arm_link" />
+    <child
+      link="left_middle_arm_link" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="${-pi*0.9}"
+      upper="${pi*0.9}"
+      effort="1000"
+      velocity="100" />
+    <dynamics
+      damping="0.0"
+      friction="0.7" />
+  </joint>
+  <link
+    name="left_lower_arm_link">
+    <inertial>
+      <origin
+        xyz="0.0076862 0.00892 -0.075914"
+        rpy="0 0 0" />
+      <mass
+        value="0.023059" />
+      <inertia
+        ixx="3.4222E-05"
+        ixy="8.0645E-07"
+        ixz="5.5788E-06"
+        iyy="4.0879E-05"
+        iyz="1.6007E-06"
+        izz="1.2225E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/left_lower_arm_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/left_lower_arm_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_elbow_pitch"
+    type="revolute">
+    <origin
+      xyz="0 0 -0.06075"
+      rpy="0 0 0" />
+    <parent
+      link="left_middle_arm_link" />
+    <child
+      link="left_lower_arm_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="${-pi*0.9}"
+      upper="${pi*0.9}"
+      effort="1000"
+      velocity="100" />
+    <dynamics
+      damping="0.0"
+      friction="0.7" />
+  </joint>
+  <link
+    name="right_shoulder_pitch_link">
+    <inertial>
+      <origin
+        xyz="0.0030363 -0.036247 3.6568E-13"
+        rpy="0 0 0" />
+      <mass
+        value="0.0085293" />
+      <inertia
+        ixx="4.4633E-06"
+        ixy="3.5249E-07"
+        ixz="4.0133E-20"
+        iyy="3.6085E-06"
+        iyz="-7.6128E-20"
+        izz="2.7666E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/right_shoulder_pitch_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/right_shoulder_pitch_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_shoulder_pitch"
+    type="revolute">
+    <origin
+      xyz="0 -0.0515 0.14675"
+      rpy="0 0 0" />
+    <parent
+      link="trunk_link" />
+    <child
+      link="right_shoulder_pitch_link" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="${-pi*0.9}"
+      upper="${pi*0.9}"
+      effort="1000"
+      velocity="100" />
+    <dynamics
+      damping="0.0"
+      friction="0.7" />
+  </joint>
+  <link
+    name="right_upper_arm_link">
+    <inertial>
+      <origin
+        xyz="-0.0021118 -2.0802E-07 -0.037458"
+        rpy="0 0 0" />
+      <mass
+        value="0.093248" />
+      <inertia
+        ixx="7.4077E-05"
+        ixy="1.7432E-10"
+        ixz="-6.9326E-06"
+        iyy="8.1541E-05"
+        iyz="2.1903E-10"
+        izz="2.1686E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/right_upper_arm_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/right_upper_arm_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_shoulder_roll"
+    type="revolute">
+    <origin
+      xyz="0.02425 -0.049 0"
+      rpy="0 -1.5708 0" />
+    <parent
+      link="right_shoulder_pitch_link" />
+    <child
+      link="right_upper_arm_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="${-pi*0.9}"
+      upper="${pi*0.9}"
+      effort="1000"
+      velocity="100" />
+    <dynamics
+      damping="0.0"
+      friction="0.7" />
+  </joint>
+  <link
+    name="right_middle_arm_link">
+    <inertial>
+      <origin
+        xyz="0.0007327 2.0507E-07 -0.047732"
+        rpy="0 0 0" />
+      <mass
+        value="0.047295" />
+      <inertia
+        ixx="1.2988E-05"
+        ixy="7.1062E-12"
+        ixz="1.4211E-07"
+        iyy="1.3632E-05"
+        iyz="2.0385E-10"
+        izz="7.9297E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/right_middle_arm_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/right_middle_arm_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_middle_yaw"
+    type="revolute">
+    <origin
+      xyz="0.00575 0 -0.060331"
+      rpy="0 0 0" />
+    <parent
+      link="right_upper_arm_link" />
+    <child
+      link="right_middle_arm_link" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="${-pi*0.9}"
+      upper="${pi*0.9}"
+      effort="1000"
+      velocity="100" />
+    <dynamics
+      damping="0.0"
+      friction="0.7" />
+  </joint>
+  <link
+    name="right_lower_arm_link">
+    <inertial>
+      <origin
+        xyz="0.007686 -0.00892 -0.075914"
+        rpy="0 0 0" />
+      <mass
+        value="0.023059" />
+      <inertia
+        ixx="3.4222E-05"
+        ixy="-8.0645E-07"
+        ixz="5.5789E-06"
+        iyy="4.0879E-05"
+        iyz="-1.6007E-06"
+        izz="1.2225E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/right_lower_arm_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/right_lower_arm_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_elbow_pitch"
+    type="revolute">
+    <origin
+      xyz="0 0 -0.06075"
+      rpy="0 0 0" />
+    <parent
+      link="right_middle_arm_link" />
+    <child
+      link="right_lower_arm_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="${-pi*0.9}"
+      upper="${pi*0.9}"
+      effort="1000"
+      velocity="100" />
+    <dynamics
+      damping="0.0"
+      friction="0.7" />
+  </joint>
+  <link
+    name="left_hip_yaw_link">
+    <inertial>
+      <origin
+        xyz="-0.0021546 2.2293E-13 -0.034318"
+        rpy="0 0 0" />
+      <mass
+        value="0.018738" />
+      <inertia
+        ixx="3.9876E-06"
+        ixy="3.1499E-20"
+        ixz="1.4063E-08"
+        iyy="8.1834E-06"
+        iyz="-4.7261E-20"
+        izz="8.9113E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/left_hip_yaw_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/left_hip_yaw_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_hip_yaw"
+    type="revolute">
+    <origin
+      xyz="0 0.0445 0"
+      rpy="0 0 0" />
+    <parent
+      link="waist_link" />
+    <child
+      link="left_hip_yaw_link" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="${-pi*0.9}"
+      upper="${pi*0.9}"
+      effort="1000"
+      velocity="100" />
+    <dynamics
+      damping="0.0"
+      friction="0.7" />
+  </joint>
+  <link
+    name="left_hip_roll_link">
+    <inertial>
+      <origin
+        xyz="0.024082 0.00037244 -0.011886"
+        rpy="0 0 0" />
+      <mass
+        value="0.093018" />
+      <inertia
+        ixx="2.4459E-05"
+        ixy="-7.3376E-07"
+        ixz="-2.9851E-07"
+        iyy="7.1013E-05"
+        iyz="-1.0269E-07"
+        izz="6.1881E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/left_hip_roll_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/left_hip_roll_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_hip_roll"
+    type="revolute">
+    <origin
+      xyz="-0.04575 0 -0.0586"
+      rpy="0 0 0" />
+    <parent
+      link="left_hip_yaw_link" />
+    <child
+      link="left_hip_roll_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="${-pi*0.9}"
+      upper="${pi*0.9}"
+      effort="1000"
+      velocity="100" />
+    <dynamics
+      damping="0.0"
+      friction="0.7" />
+  </joint>
+  <link
+    name="left_bottom_foot_fake_link"><inertial>
+      <origin
+        xyz="0.0832407016442707 -0.0275030808874214 -0.0302963318842118"
+        rpy="0 0 0" />
+      <mass
+        value="0.0001" />
+      <inertia
+        ixx="1.04719755119654E-22"
+        ixy="-1.06581097908222E-67"
+        ixz="3.63206357723254E-51"
+        iyy="1.04719755119654E-22"
+        iyz="-3.03551380010738E-55"
+        izz="1.57079632679485E-22" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/left_bottom_foot_fake_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/left_bottom_foot_fake_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_bottom_foot_fake_joint"
+    type="fixed">
+    <origin
+      xyz="0.04476 -0.00049 -0.02556"
+      rpy="0 0 0" />
+    <parent
+      link="left_foot_link" />
+    <child
+      link="left_bottom_foot_fake_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="${-pi}"
+      upper="${pi}"
+      effort="10"
+      velocity="0.1" />
+    <dynamics
+      friction="1" />
+  </joint>
+  <link
+    name="left_thigh_link">
+    <inertial>
+      <origin
+        xyz="-1.422E-07 0.00050805 -0.086495"
+        rpy="0 0 0" />
+      <mass
+        value="0.068207" />
+      <inertia
+        ixx="5.7966E-05"
+        ixy="-4.9275E-12"
+        ixz="-3.0556E-10"
+        iyy="5.395E-05"
+        iyz="5.0551E-07"
+        izz="1.6248E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/left_thigh_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/left_thigh_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_hip_pitch"
+    type="revolute">
+    <origin
+      xyz="0.04525 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="left_hip_roll_link" />
+    <child
+      link="left_thigh_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="${-pi*0.9}"
+      upper="${pi*0.9}"
+      effort="1000"
+      velocity="100" />
+    <dynamics
+      damping="0.0"
+      friction="0.7" />
+  </joint>
+  <link
+    name="left_shank_link">
+    <inertial>
+      <origin
+        xyz="-1.3913E-12 2.7001E-13 -0.055223"
+        rpy="0 0 0" />
+      <mass
+        value="0.015114" />
+      <inertia
+        ixx="2.1026E-05"
+        ixy="9.7515E-20"
+        ixz="-1.4082E-20"
+        iyy="1.5417E-05"
+        iyz="8.1038E-19"
+        izz="7.1166E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/left_shank_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/left_shank_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_knee_pitch"
+    type="revolute">
+    <origin
+      xyz="0 0 -0.11"
+      rpy="0 0 0" />
+    <parent
+      link="left_thigh_link" />
+    <child
+      link="left_shank_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="${-pi*0.9}"
+      upper="${pi*0.9}"
+      effort="1000"
+      velocity="100" />
+    <dynamics
+      damping="0.0"
+      friction="0.7" />
+  </joint>
+  <link
+    name="left_ankle_link">
+    <inertial>
+      <origin
+        xyz="-0.021168 0.00037264 0.011886"
+        rpy="0 0 0" />
+      <mass
+        value="0.093018" />
+      <inertia
+        ixx="2.4459E-05"
+        ixy="-7.333E-07"
+        ixz="2.9813E-07"
+        iyy="7.1012E-05"
+        iyz="1.0308E-07"
+        izz="6.188E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/left_ankle_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/left_ankle_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_ankle_pitch"
+    type="revolute">
+    <origin
+      xyz="0 0 -0.11"
+      rpy="0 0 0" />
+    <parent
+      link="left_shank_link" />
+    <child
+      link="left_ankle_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="${-pi*0.9}"
+      upper="${pi*0.9}"
+      effort="1000"
+      velocity="100" />
+    <dynamics
+      damping="0.0"
+      friction="0.7" />
+  </joint>
+  <link
+    name="left_foot_link">
+    <inertial>
+      <origin
+        xyz="0.044554 0.0018445 -0.028159"
+        rpy="0 0 0" />
+      <mass
+        value="0.032328" />
+      <inertia
+        ixx="1.2045E-05"
+        ixy="-5.316E-08"
+        ixz="-6.2819E-09"
+        iyy="2.4302E-05"
+        iyz="2.4929E-07"
+        izz="3.185E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/left_foot_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/left_foot_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_ankle_roll"
+    type="revolute">
+    <origin
+      xyz="-0.04525 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="left_ankle_link" />
+    <child
+      link="left_foot_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="${-pi*0.9}"
+      upper="${pi*0.9}"
+      effort="1000"
+      velocity="100" />
+    <dynamics
+      damping="0.0"
+      friction="0.7" />
+  </joint>
+  <link
+    name="right_hip_yaw_link">
+    <inertial>
+      <origin
+        xyz="-0.0021546 3.5527E-13 -0.034318"
+        rpy="0 0 0" />
+      <mass
+        value="0.018738" />
+      <inertia
+        ixx="3.9876E-06"
+        ixy="-1.0404E-18"
+        ixz="1.4063E-08"
+        iyy="8.1834E-06"
+        iyz="-6.7496E-21"
+        izz="8.9113E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/right_hip_yaw_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/right_hip_yaw_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_hip_yaw"
+    type="revolute">
+    <origin
+      xyz="0 -0.0445 0"
+      rpy="0 0 0" />
+    <parent
+      link="waist_link" />
+    <child
+      link="right_hip_yaw_link" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="${-pi*0.9}"
+      upper="${pi*0.9}"
+      effort="1000"
+      velocity="100" />
+    <dynamics
+      damping="0.0"
+      friction="0.7" />
+  </joint>
+  <link
+    name="right_hip_roll_link">
+    <inertial>
+      <origin
+        xyz="0.024082 -0.00037264 -0.011886"
+        rpy="0 0 0" />
+      <mass
+        value="0.093018" />
+      <inertia
+        ixx="2.4459E-05"
+        ixy="7.333E-07"
+        ixz="-2.9813E-07"
+        iyy="7.1012E-05"
+        iyz="1.0308E-07"
+        izz="6.188E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/right_hip_roll_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.75294 0.75294 0.75294 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/right_hip_roll_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_hip_roll"
+    type="revolute">
+    <origin
+      xyz="-0.04575 0 -0.0586"
+      rpy="0 0 0" />
+    <parent
+      link="right_hip_yaw_link" />
+    <child
+      link="right_hip_roll_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="${-pi*0.9}"
+      upper="${pi*0.9}"
+      effort="1000"
+      velocity="100" />
+    <dynamics
+      damping="0.0"
+      friction="0.7" />
+  </joint>
+  <link
+    name="right_bottom_foot_fake_link"><inertial>
+      <origin
+        xyz="0.0832407016442707 -0.0275030808874214 -0.0302963318842118"
+        rpy="0 0 0" />
+      <mass
+        value="0.0001" />
+      <inertia
+        ixx="1.04719755119654E-22"
+        ixy="-1.06581097908222E-67"
+        ixz="3.63206357723254E-51"
+        iyy="1.04719755119654E-22"
+        iyz="-3.03551380010738E-55"
+        izz="1.57079632679485E-22" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/right_bottom_foot_fake_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/right_bottom_foot_fake_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_bottom_foot_fake_joint"
+    type="fixed">
+    <origin
+      xyz="0.04476 -0.00049 -0.02556"
+      rpy="0 0 0" />
+    <parent
+      link="right_foot_link" />
+    <child
+      link="right_bottom_foot_fake_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="${-pi}"
+      upper="${pi}"
+      effort="10"
+      velocity="0.1" />
+    <dynamics
+      friction="1" />
+  </joint>
+  <link
+    name="right_thigh_link">
+    <inertial>
+      <origin
+        xyz="1.422E-07 -0.00050805 -0.086495"
+        rpy="0 0 0" />
+      <mass
+        value="0.068207" />
+      <inertia
+        ixx="5.7966E-05"
+        ixy="-4.9275E-12"
+        ixz="3.0556E-10"
+        iyy="5.395E-05"
+        iyz="-5.0551E-07"
+        izz="1.6248E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/right_thigh_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/right_thigh_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_hip_pitch"
+    type="revolute">
+    <origin
+      xyz="0.04525 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="right_hip_roll_link" />
+    <child
+      link="right_thigh_link" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="${-pi*0.9}"
+      upper="${pi*0.9}"
+      effort="1000"
+      velocity="100" />
+    <dynamics
+      damping="0.0"
+      friction="0.7" />
+  </joint>
+  <link
+    name="right_shank_link">
+    <inertial>
+      <origin
+        xyz="5.7732E-13 -1.0925E-13 -0.055223"
+        rpy="0 0 0" />
+      <mass
+        value="0.015114" />
+      <inertia
+        ixx="2.1026E-05"
+        ixy="-2.6068E-16"
+        ixz="-1.0246E-19"
+        iyy="1.5417E-05"
+        iyz="-8.9723E-17"
+        izz="7.1166E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/right_shank_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/right_shank_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_knee_pitch"
+    type="revolute">
+    <origin
+      xyz="0 0 -0.11"
+      rpy="0 0 0" />
+    <parent
+      link="right_thigh_link" />
+    <child
+      link="right_shank_link" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="${-pi*0.9}"
+      upper="${pi*0.9}"
+      effort="1000"
+      velocity="100" />
+    <dynamics
+      damping="0.0"
+      friction="0.7" />
+  </joint>
+  <link
+    name="right_ankle_link">
+    <inertial>
+      <origin
+        xyz="-0.021168 -0.00037244 0.011886"
+        rpy="0 0 0" />
+      <mass
+        value="0.093018" />
+      <inertia
+        ixx="2.4459E-05"
+        ixy="7.3376E-07"
+        ixz="2.9851E-07"
+        iyy="7.1013E-05"
+        iyz="-1.0269E-07"
+        izz="6.1881E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/right_ankle_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/right_ankle_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_ankle_pitch"
+    type="revolute">
+    <origin
+      xyz="0 0 -0.11"
+      rpy="0 0 0" />
+    <parent
+      link="right_shank_link" />
+    <child
+      link="right_ankle_link" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="${-pi*0.9}"
+      upper="${pi*0.9}"
+      effort="1000"
+      velocity="100" />
+    <dynamics
+      damping="0.0"
+      friction="0.7" />
+  </joint>
+  <link
+    name="right_foot_link">
+    <inertial>
+      <origin
+        xyz="0.044554 -0.0018441 -0.028159"
+        rpy="0 0 0" />
+      <mass
+        value="0.032328" />
+      <inertia
+        ixx="1.2045E-05"
+        ixy="5.3184E-08"
+        ixz="-6.2819E-09"
+        iyy="2.4302E-05"
+        iyz="-2.4915E-07"
+        izz="3.185E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/right_foot_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.89804 0.91765 0.92941 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/right_foot_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_ankle_roll"
+    type="revolute">
+    <origin
+      xyz="-0.04525 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="right_ankle_link" />
+    <child
+      link="right_foot_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="${-pi*0.9}"
+      upper="${pi*0.9}"
+      effort="1000"
+      velocity="100" />
+    <dynamics
+      damping="0.0"
+      friction="0.7" />
+  </joint>
+
+<!-- <link
+    name="camera_link">
+    <inertial>
+      <origin
+        xyz="-0.0092974 2.489E-05 -0.23172"
+        rpy="0 0 0" />
+      <mass
+        value="1.5784" />
+      <inertia
+        ixx="0.046643"
+        ixy="2.1234E-07"
+        ixz="-0.0074373"
+        iyy="0.045916"
+        iyz="6.8872E-06"
+        izz="0.010971" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/camera_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/11th/meshes/camera_link.STL" />
+      </geometry>
+    </collision>
+  </link> -->
+  <joint
+    name="camera_joint"
+    type="fixed">
+    <origin
+      xyz="0.00225 -4.4516E-05 0.0385"
+      rpy="0 0 0" />
+    <parent
+      link="head_link" />
+    <child
+      link="camera_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <!-- Camera -->
+  <link name="camera_link">
+    <collision>
+      <origin xyz="-0.006 0 0" rpy="0 1.5708 0"/>
+      <geometry>
+    <cylinder radius="0.0001" length="0.0005"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="-0.006 0 0" rpy="0 1.5708 0"/>
+      <geometry>
+    <cylinder radius="0.0001" length="0.0005"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+
+
+      <transmission name="right_hip_yaw_transmission">
+			  <type>transmission_interface/SimpleTransmission</type>
+			  <joint name="right_hip_yaw" >
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="right_hip_yaw">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="right_hip_roll_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="right_hip_roll" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="right_hip_roll">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="right_hip_pitch_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="right_hip_pitch" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="right_hip_pitch">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="right_knee_pitch_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="right_knee_pitch" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="right_knee_pitch">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="right_ankle_pitch_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="right_ankle_pitch" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="right_ankle_pitch">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="right_ankle_roll_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="right_ankle_roll" >
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="right_ankle_roll">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="left_hip_yaw_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="left_hip_yaw" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint> 
+			<actuator name="left_hip_yaw">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="left_hip_roll_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="left_hip_roll" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="left_hip_roll">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="left_hip_pitch_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="left_hip_pitch" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="left_hip_pitch">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="left_knee_pitch_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="left_knee_pitch" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="left_knee_pitch">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="left_ankle_pitch_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="left_ankle_pitch" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="left_ankle_pitch">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="left_ankle_roll_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="left_ankle_roll" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="left_ankle_roll">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="right_shoulder_pitch_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="right_shoulder_pitch" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="right_shoulder_pitch">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="right_shoulder_roll_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="right_shoulder_roll" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="right_shoulder_roll">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+                <transmission name="right_middle_yaw_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="right_middle_yaw" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="right_middle_yaw">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="right_elbow_pitch_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="right_elbow_pitch" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="right_elbow_pitch">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="left_shoulder_pitch_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="left_shoulder_pitch" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="left_shoulder_pitch">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="left_shoulder_roll_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="left_shoulder_roll" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="left_shoulder_roll">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+                <transmission name="left_middle_yaw_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="left_middle_yaw" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="left_middle_yaw">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="left_elbow_pitch_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="left_elbow_pitch" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="left_elbow_pitch">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="neck_yaw_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="neck_yaw" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="neck_yaw">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="head_pitch_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="head_pitch" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="head_pitch">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+
+                <transmission name="waist_yaw_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="waist_yaw" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="waist_yaw">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+
+		<!-- Gazebo configuration -->
+
+		<gazebo>
+			<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+				<robotNamespace>/kidsize</robotNamespace>
+				<legacyModeNS>true</legacyModeNS>
+			</plugin>
+		</gazebo>
+
+<gazebo reference="camera_link">
+<material>Gazebo/Black</material>
+    <sensor type="camera" name="camera1">
+      <visualize>0</visualize>
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>800</width>
+          <height>600</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.2</near>
+          <far>1000</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise is sampled independently per pixel on each frame.
+               That pixel's noise value is added to each of its color
+               channels, which at that point lie in the range [0,1]. -->
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+	<robotNamespace>/kidsize</robotNamespace>
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>/camera</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>camera_link</frameName>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+</gazebo>
+
+		<!-- Gazebo links -->
+		<gazebo reference="trunk_link">
+			<material>Gazebo/White</material>
+		</gazebo>
+                <gazebo reference="waist_link">
+			<material>Gazebo/White</material>
+		</gazebo>
+		<gazebo reference="left_hip_yaw_link">
+			<material>Gazebo/White</material>
+		</gazebo>
+		<gazebo reference="left_hip_roll_link">
+			<material>Gazebo/Black</material>
+		</gazebo>
+		<gazebo reference="left_thigh_link">
+			<material>Gazebo/White</material>
+		</gazebo>
+		<gazebo reference="left_shank_link">
+			<material>Gazebo/White</material>
+		</gazebo>
+		<gazebo reference="left_ankle_link">
+			<material>Gazebo/Black</material>
+		</gazebo>
+		<gazebo reference="left_foot_link">
+			<material>Gazebo/FlatBlack</material>
+			<kp>1000000.0</kp>
+			<kd>100.0</kd>
+			<mu1>10000.0</mu1>
+			<mu2>10000.0</mu2>
+			<fdir1>1 0 0</fdir1>
+			<maxVel>1.0</maxVel>
+			<minDepth>0.00</minDepth>
+		</gazebo>
+		<gazebo reference="left_shoulder_pitch_link">
+			<material>Gazebo/White</material>
+		</gazebo>
+		<gazebo reference="left_upper_arm_link">
+			<material>Gazebo/White</material>
+		</gazebo>
+                <gazebo reference="left_middle_arm_link">
+			<material>Gazebo/White</material>
+		</gazebo>
+		<gazebo reference="left_lower_arm_link">
+			<material>Gazebo/White</material>
+		</gazebo>
+		<gazebo reference="right_hip_yaw_link">
+			<material>Gazebo/White</material>
+		</gazebo>
+		<gazebo reference="right_hip_roll_link">
+			<material>Gazebo/Black</material>
+		</gazebo>
+		<gazebo reference="right_thigh_link">
+			<material>Gazebo/White</material>
+		</gazebo>
+		<gazebo reference="right_shank_link">
+			<material>Gazebo/White</material>
+		</gazebo>
+		<gazebo reference="right_ankle_link">
+			<material>Gazebo/Black</material>
+		</gazebo>
+		<gazebo reference="right_foot_link">
+			<material>Gazebo/FlatBlack</material>
+			<kp>1000000.0</kp>
+			<kd>100.0</kd>
+			<mu1>10000.0</mu1>
+			<mu2>10000.0</mu2>
+			<fdir1>1 0 0</fdir1>
+			<maxVel>1.0</maxVel>
+			<minDepth>0.00</minDepth>
+		</gazebo>
+		<gazebo reference="right_shoulder_pitch_link">
+			<material>Gazebo/White</material>
+		</gazebo>
+		<gazebo reference="right_upper_arm_link">
+			<material>Gazebo/White</material>
+		</gazebo>
+                <gazebo reference="right_middle_arm_link">
+			<material>Gazebo/White</material>
+		</gazebo>
+		<gazebo reference="right_lower_arm_link">
+			<material>Gazebo/White</material>
+		</gazebo>
+		<gazebo reference="neck_link">
+			<material>Gazebo/Black</material>
+		</gazebo>
+
+</robot>

@@ -1,0 +1,2014 @@
+<?xml version="1.0"?>
+<robot
+  name="kidsize" xmlns:xacro="http://www.ros.org/wiki/xacro">
+	<xacro:property name="pi" value="3.14159265359" />
+	<xacro:property name="deg" value="${pi/180}" />
+		<material name="black">
+			<color rgba="0.1 0.1 0.1 1" />
+		</material>
+		<material name="white">
+			<color rgba="0.8 0.8 0.8 1" />
+		</material>
+		<material name="clear">
+			<color rgba="1.0 1.0 1.0 0.0" />
+		</material>
+		<material name="orange">
+			<color rgba="${255/255} ${108/255} ${10/255} 1.0" />
+		</material>
+  <!--link name="dummy">
+   </link-->
+  <link
+    name="waist_link">
+    <inertial>
+      <origin
+        xyz="-0.010499 -4.8863E-05 0.35143"
+        rpy="0 0 0" />
+      <mass
+        value="0.16736" />
+      <inertia
+        ixx="0.00024686"
+        ixy="1.3146E-07"
+        ixz="-2.4647E-06"
+        iyy="8.0245E-05"
+        iyz="1.7402E-08"
+        izz="0.00028946" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/waist_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/waist_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <!--joint name="dummy_joint" type="fixed">
+    <origin
+      xyz="0 0 -0.028"
+      rpy="0 0 0" />
+     <parent link="dummy"/>
+     <child link="waist_link"/>
+   </joint-->
+  <link
+    name="trunk_link">
+    <inertial>
+      <origin
+        xyz="0.01024 0.00011325 0.070848"
+        rpy="0 0 0" />
+      <mass
+        value="1" />
+      <inertia
+        ixx="0.0011025"
+        ixy="2.5029E-06"
+        ixz="6.7048E-05"
+        iyy="0.00089946"
+        iyz="2.1953E-07"
+        izz="0.00071841" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/trunk_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/trunk_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="waist_yaw_joint"
+    type="revolute">
+    <origin
+      xyz="-0.00045 0 0.3865"
+      rpy="0 0 0" />
+    <parent
+      link="waist_link" />
+    <child
+      link="trunk_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="${-pi}"
+      upper="${pi}"
+      effort="100"
+      velocity="5" />
+    <dynamics
+      friction="0.7"
+      damping="0.1" />
+  </joint>
+  <link
+    name="left_shoulder_link">
+    <inertial>
+      <origin
+        xyz="-3.72604127105386E-06 0.0297911074033573 -0.00461915163355214"
+        rpy="0 0 0" />
+      <mass
+        value="0.00596009981158904" />
+      <inertia
+        ixx="1.26246219599389E-06"
+        ixy="-1.72427552349869E-11"
+        ixz="6.85742889803387E-12"
+        iyy="2.28404971724678E-06"
+        iyz="3.17827997088839E-07"
+        izz="2.37194480329819E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/left_shoulder_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/left_shoulder_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_shoulder_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="0 0.043997 0.10474"
+      rpy="0 0 0" />
+    <parent
+      link="trunk_link" />
+    <child
+      link="left_shoulder_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="${-pi}"
+      upper="${pi}"
+      effort="100"
+      velocity="5" />
+    <dynamics
+      friction="0.7"
+      damping="0.1" />
+  </joint>
+  <link
+    name="left_upper_arm_link">
+    <inertial>
+      <origin
+        xyz="0.000678411211435796 0.000489810124291307 -0.0191217777296809"
+        rpy="0 0 0" />
+      <mass
+        value="0.0510794115590112" />
+      <inertia
+        ixx="3.1313340207507E-05"
+        ixy="-6.57973357844028E-12"
+        ixz="-3.53618283019284E-07"
+        iyy="3.06157554760573E-05"
+        iyz="2.63047056443396E-10"
+        izz="9.80852784205324E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/left_upper_arm_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/left_upper_arm_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_upper_arm_roll_joint"
+    type="revolute">
+    <origin
+      xyz="0 0.04851 -0.011774"
+      rpy="0 0 0" />
+    <parent
+      link="left_shoulder_link" />
+    <child
+      link="left_upper_arm_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="${-pi}"
+      upper="${pi}"
+      effort="100"
+      velocity="5" />
+    <dynamics
+      friction="0.7"
+      damping="0.1" />
+  </joint>
+  <link
+    name="left_elbow_link">
+    <inertial>
+      <origin
+        xyz="-0.000489816928373502 0.0024374519516502 -0.0293208681909612"
+        rpy="0 0 0" />
+      <mass
+        value="0.0529778400197291" />
+      <inertia
+        ixx="0.000109530121626401"
+        ixy="2.36402125251114E-11"
+        ixz="-3.61965391083585E-10"
+        iyy="0.000110422928141888"
+        iyz="7.78807652504947E-06"
+        izz="1.08976885049728E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/left_botton_arm_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/left_botton_arm_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_elbow_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="0.00049 0.00049 -0.10025"
+      rpy="0 0 0" />
+    <parent
+      link="left_upper_arm_link" />
+    <child
+      link="left_elbow_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="${-pi}"
+      upper="${pi}"
+      effort="100"
+      velocity="5" />
+    <dynamics
+      friction="0.7"
+      damping="0.1" />
+  </joint>
+  <link
+    name="right_shoulder_link">
+    <inertial>
+      <origin
+        xyz="3.7260412035388E-06 -0.0297911074033573 -0.00363915163355155"
+        rpy="0 0 0" />
+      <mass
+        value="0.005960099811589" />
+      <inertia
+        ixx="1.26246219599387E-06"
+        ixy="-1.72427551985748E-11"
+        ixz="-6.85742905110232E-12"
+        iyy="2.28404971724675E-06"
+        iyz="-3.17827997088837E-07"
+        izz="2.37194480329818E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/right_shoulder_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/right_shoulder_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_shoulder_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="0 -0.044003 0.10376"
+      rpy="0 0 0" />
+    <parent
+      link="trunk_link" />
+    <child
+      link="right_shoulder_link" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="${-pi}"
+      upper="${pi}"
+      effort="100"
+      velocity="5" />
+    <dynamics
+      friction="0.7"
+      damping="0.1" />
+  </joint>
+  <link
+    name="right_upper_arm_link">
+    <inertial>
+      <origin
+        xyz="0.000678411211443852 -0.000490189875708882 -0.0191217777296777"
+        rpy="0 0 0" />
+      <mass
+        value="0.0510794115590111" />
+      <inertia
+        ixx="3.13133402075077E-05"
+        ixy="-6.57973359766917E-12"
+        ixz="-3.53618283010164E-07"
+        iyy="3.06157554760577E-05"
+        iyz="2.63047055845698E-10"
+        izz="9.80852784205294E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/right_upper_arm_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/right_upper_arm_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_upper_arm_roll_joint"
+    type="revolute">
+    <origin
+      xyz="0 -0.04851 -0.010794"
+      rpy="0 0 0" />
+    <parent
+      link="right_shoulder_link" />
+    <child
+      link="right_upper_arm_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="${-pi}"
+      upper="${pi}"
+      effort="100"
+      velocity="5" />
+    <dynamics
+      friction="0.7"
+      damping="0.1" />
+  </joint>
+  <link
+    name="right_elbow_link">
+    <inertial>
+      <origin
+        xyz="0.000489816928379138 -0.00243745195164802 -0.0293208681909606"
+        rpy="0 0 0" />
+      <mass
+        value="0.052977840019729" />
+      <inertia
+        ixx="0.0001095301216264"
+        ixy="2.36402135704461E-11"
+        ixz="3.61965404306589E-10"
+        iyy="0.000110422928141886"
+        iyz="-7.78807652505102E-06"
+        izz="1.0897688504973E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/right_bottom_arm_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/right_bottom_arm_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_elbow_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="-0.00049 -0.00049 -0.10025"
+      rpy="0 0 0" />
+    <parent
+      link="right_upper_arm_link" />
+    <child
+      link="right_elbow_link" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="${-pi}"
+      upper="${pi}"
+      effort="100"
+      velocity="5" />
+    <dynamics
+      friction="0.7"
+      damping="0.1" />
+  </joint>
+  <link
+    name="neck_link">
+    <inertial>
+      <origin
+        xyz="0.00201687473330259 -0.0012115472181778 0.036708354964159"
+        rpy="0 0 0" />
+      <mass
+        value="0.0480257488384161" />
+      <inertia
+        ixx="8.32535476251775E-06"
+        ixy="9.75804509458229E-08"
+        ixz="-9.52075626558979E-09"
+        iyy="1.34941975576473E-05"
+        iyz="4.47591758359128E-08"
+        izz="1.41502914655468E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/neck_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/neck_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="neck_yaw_joint"
+    type="revolute">
+    <origin
+      xyz="0.021 0.00048672 0.107"
+      rpy="0 0 0" />
+    <parent
+      link="trunk_link" />
+    <child
+      link="neck_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="${-pi}"
+      upper="${pi}"
+      effort="100"
+      velocity="5" />
+    <dynamics
+      friction="0.7"
+      damping="0.1" />
+  </joint>
+  <link
+    name="head_link">
+    <inertial>
+      <origin
+        xyz="0.00279758860877225 -0.000166576430221316 0.0369137134187916"
+        rpy="0 0 0" />
+      <mass
+        value="0.0547968386535072" />
+      <inertia
+        ixx="3.708393532027E-05"
+        ixy="1.27051933602407E-08"
+        ixz="-3.34075520714619E-07"
+        iyy="9.72906306189788E-06"
+        iyz="1.48193099247116E-08"
+        izz="3.49367049594159E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/head_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/head_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="head_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="0.01375 -0.00049 0.03849"
+      rpy="0 0 0" />
+    <parent
+      link="neck_link" />
+    <child
+      link="head_link" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="${-pi}"
+      upper="${pi}"
+      effort="100"
+      velocity="5" />
+    <dynamics
+      friction="0.7"
+      damping="0.1" />
+  </joint>
+  <link
+    name="left_hip_yaw_link">
+    <inertial>
+      <origin
+        xyz="-0.00211352320941255 4.88081478997038E-07 -0.0265544284135782"
+        rpy="0 0 0" />
+      <mass
+        value="0.0144640349261772" />
+      <inertia
+        ixx="1.95724733538057E-06"
+        ixy="4.58987327610197E-12"
+        ixz="6.50767372021941E-09"
+        iyy="5.96616991854585E-06"
+        iyz="-3.51749711365673E-10"
+        izz="5.96957701911896E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/left_hip_yaw_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/left_hip_yaw_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_hip_yaw_joint"
+    type="revolute">
+    <origin
+      xyz="5E-05 0.043997 0.3515"
+      rpy="0 0 0" />
+    <parent
+      link="waist_link" />
+    <child
+      link="left_hip_yaw_link" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="${-pi}"
+      upper="${pi}"
+      effort="100"
+      velocity="5" />
+    <dynamics
+      friction="0.7"
+      damping="0.1" />
+  </joint>
+  <link
+    name="left_hip_roll_link">
+    <inertial>
+      <origin
+        xyz="0.0240821846618702 0.000375718387425061 -0.0118862254520091"
+        rpy="0 0 0" />
+      <mass
+        value="0.0930179630649924" />
+      <inertia
+        ixx="2.44594850592089E-05"
+        ixy="-7.33758600797145E-07"
+        ixz="-2.98512780056426E-07"
+        iyy="7.10126175528167E-05"
+        iyz="-1.02692936689928E-07"
+        izz="6.18808778005977E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/left_hip_roll_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/left_hip_roll_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_hip_roll_joint"
+    type="revolute">
+    <origin
+      xyz="-0.04575 0 -0.04592"
+      rpy="0 0 0" />
+    <parent
+      link="left_hip_yaw_link" />
+    <child
+      link="left_hip_roll_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="${-pi}"
+      upper="${pi}"
+      effort="100"
+      velocity="5" />
+    <dynamics
+      friction="0.7"
+      damping="0.1" />
+  </joint>
+  <link
+    name="left_thigh_link">
+    <inertial>
+      <origin
+        xyz="3.51695302039302E-05 0.000384502459421676 -0.110700224525888"
+        rpy="0 0 0" />
+      <mass
+        value="0.0608305695796996" />
+      <inertia
+        ixx="8.45358036696472E-05"
+        ixy="-6.41631917623483E-10"
+        ixz="6.22630915145868E-08"
+        iyy="7.86582372896446E-05"
+        iyz="5.07778819497434E-07"
+        izz="1.38630750590701E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/left_thigh_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/left_thigh_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_hip_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="0.045253 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="left_hip_roll_link" />
+    <child
+      link="left_thigh_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="${-pi}"
+      upper="${pi}"
+      effort="100"
+      velocity="5" />
+    <dynamics
+      friction="0.7"
+      damping="0.1" />
+  </joint>
+  <link
+    name="left_shank_link">
+    <inertial>
+      <origin
+        xyz="0.00135328032358438 -9.71445146547012E-16 -0.0684049310334947"
+        rpy="0 0 0" />
+      <mass
+        value="0.0185165645195991" />
+      <inertia
+        ixx="3.5227906280466E-05"
+        ixy="-2.04289483564695E-20"
+        ixz="-3.5731593672538E-07"
+        iyy="2.86224717603839E-05"
+        iyz="-2.35182737318463E-19"
+        izz="8.29639288223421E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/left_shank_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/left_shank_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_knee_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="-0.00043078 -0.0002634 -0.14"
+      rpy="0 0 0" />
+    <parent
+      link="left_thigh_link" />
+    <child
+      link="left_shank_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="${-pi}"
+      upper="${pi}"
+      effort="100"
+      velocity="5" />
+    <dynamics
+      friction="0.7"
+      damping="0.1" />
+  </joint>
+  <link
+    name="left_ankle_link">
+    <inertial>
+      <origin
+        xyz="-0.0219569888159379 0.00038538235922847 0.0119419740261193"
+        rpy="0 0 0" />
+      <mass
+        value="0.0899432560542777" />
+      <inertia
+        ixx="2.38656072716007E-05"
+        ixy="-7.77630874358381E-07"
+        ixz="1.02521827360255E-07"
+        iyy="6.60530411092164E-05"
+        iyz="1.05011066744187E-07"
+        izz="5.73342777001997E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/left_ankle_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/left_ankle_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_ankle_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="-6.2501E-05 0 -0.14"
+      rpy="0 0 0" />
+    <parent
+      link="left_shank_link" />
+    <child
+      link="left_ankle_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="${-pi}"
+      upper="${pi}"
+      effort="100"
+      velocity="5" />
+    <dynamics
+      friction="0.7"
+      damping="0.1" />
+  </joint>
+  <link
+    name="left_foot_link">
+    <inertial>
+      <origin
+        xyz="0.046660793206198 0.0137594635413675 -0.023028116308786"
+        rpy="0 0 0" />
+      <mass
+        value="0.0356470366355454" />
+      <inertia
+        ixx="2.42742010000648E-05"
+        ixy="-1.8395096882967E-07"
+        ixz="-4.8220679118982E-07"
+        iyy="7.46265449790505E-05"
+        iyz="3.97748194719772E-07"
+        izz="9.7840186920826E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/left_foot_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/left_foot_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_ankle_roll_joint"
+    type="revolute">
+    <origin
+      xyz="-0.04476 0.00049 0"
+      rpy="0 0 0" />
+    <parent
+      link="left_ankle_link" />
+    <child
+      link="left_foot_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="${-pi}"
+      upper="${pi}"
+      effort="100"
+      velocity="5" />
+    <dynamics
+      friction="0.7"
+      damping="0.1" />
+  </joint>
+  <!--link
+    name="left_bottom_foot_fake_link">
+    <inertial>
+      <origin
+        xyz="0.0832407016442707 -0.0275030808874214 -0.0302963318842118"
+        rpy="0 0 0" />
+      <mass
+        value="0.0001" />
+      <inertia
+        ixx="1.04719755119654E-22"
+        ixy="-1.06581097908222E-67"
+        ixz="3.63206357723254E-51"
+        iyy="1.04719755119654E-22"
+        iyz="-3.03551380010738E-55"
+        izz="1.57079632679485E-22" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/left_bottom_foot_fake_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/left_bottom_foot_fake_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_bottom_foot_fake_joint"
+    type="fixed">
+    <origin
+      xyz="0.04476 -0.00049 -0.02556"
+      rpy="0 0 0" />
+    <parent
+      link="left_foot_link" />
+    <child
+      link="left_bottom_foot_fake_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="${-pi}"
+      upper="${pi}"
+      effort="10"
+      velocity="0.1" />
+    <dynamics
+      friction="1" />
+  </joint>
+  <link
+    name="left_front_foot_fake_link">
+    <inertial>
+      <origin
+        xyz="0.00423410164427042 -0.0435030808874215 -0.0372963318842121"
+        rpy="0 0 0" />
+      <mass
+        value="0.0001" />
+      <inertia
+        ixx="1.04719755119654E-22"
+        ixy="-1.06581097908222E-67"
+        ixz="3.63206357723254E-51"
+        iyy="1.04719755119654E-22"
+        iyz="-3.03551380010738E-55"
+        izz="1.57079632679485E-22" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/left_front_foot_fake_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/left_front_foot_fake_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_front_foot_fake_joint"
+    type="fixed">
+    <origin
+      xyz="0.079007 0.016 0.007"
+      rpy="0 0 0" />
+    <parent
+      link="left_bottom_foot_fake_link" />
+    <child
+      link="left_front_foot_fake_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="${-pi}"
+      upper="${pi}"
+      effort="10"
+      velocity="0.1" />
+    <dynamics
+      friction="1" />
+  </joint-->
+  <link
+    name="right_hip_yaw_link">
+    <inertial>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <mass
+        value="0.0144640349261772" />
+      <inertia
+        ixx="1.95724733538057E-06"
+        ixy="4.58987327610197E-12"
+        ixz="6.50767372021941E-09"
+        iyy="5.96616991854585E-06"
+        iyz="-3.51749711365673E-10"
+        izz="5.96957701911896E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/right_hip_yaw_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/right_hip_yaw_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_hip_yaw_joint"
+    type="revolute">
+    <origin
+      xyz="5E-05 -0.04401 0.3515"
+      rpy="0 0 0" />
+    <parent
+      link="waist_link" />
+    <child
+      link="right_hip_yaw_link" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="${-pi}"
+      upper="${pi}"
+      effort="100"
+      velocity="5" />
+    <dynamics
+      friction="0.7"
+      damping="0.1" />
+  </joint>
+  <link
+    name="right_hip_roll_link">
+    <inertial>
+      <origin
+        xyz="0.024081976127104 -0.00036936018306593 -0.0118862254520065"
+        rpy="0 0 0" />
+      <mass
+        value="0.0930179630649925" />
+      <inertia
+        ixx="2.4459470606564E-05"
+        ixy="7.3329869546593E-07"
+        ixz="-2.98127037426519E-07"
+        iyy="7.10117963442653E-05"
+        iyz="1.0307867932841E-07"
+        izz="6.18800421393998E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/right_hip_roll_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/right_hip_roll_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_hip_roll_joint"
+    type="revolute">
+    <origin
+      xyz="-0.04575 0 -0.04592"
+      rpy="0 0 0" />
+    <parent
+      link="right_hip_yaw_link" />
+    <child
+      link="right_hip_roll_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="${-pi}"
+      upper="${pi}"
+      effort="100"
+      velocity="5" />
+    <dynamics
+      friction="0.7"
+      damping="0.1" />
+  </joint>
+  <link
+    name="right_thigh_link">
+    <inertial>
+      <origin
+        xyz="9.14754809194412E-05 -0.000384502459423813 -0.110700196327749"
+        rpy="0 0 0" />
+      <mass
+        value="0.0608305695796996" />
+      <inertia
+        ixx="8.45357339916312E-05"
+        ixy="8.55753882403168E-10"
+        ixz="9.45372250016478E-08"
+        iyy="7.86582387237903E-05"
+        iyz="-5.07778482451333E-07"
+        izz="1.38631461712319E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/right_thigh_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/right_thigh_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_hip_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="0.045247 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="right_hip_roll_link" />
+    <child
+      link="right_thigh_link" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="${-pi}"
+      upper="${pi}"
+      effort="100"
+      velocity="5" />
+    <dynamics
+      friction="0.7"
+      damping="0.1" />
+  </joint>
+  <link
+    name="right_shank_link">
+    <inertial>
+      <origin
+        xyz="0.000890535102586326 -8.74300631892311E-16 -0.0684043200665534"
+        rpy="0 0 0" />
+      <mass
+        value="0.0185165645195991" />
+      <inertia
+        ixx="3.52282199488241E-05"
+        ixy="2.76811973081332E-20"
+        ixz="-3.45292653644865E-07"
+        iyy="2.8622471760384E-05"
+        iyz="-1.62430685259345E-19"
+        izz="8.29607921387611E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/right_shank_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/right_shank_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_knee_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="0.00013157 0.0002634 -0.14"
+      rpy="0 0 0" />
+    <parent
+      link="right_thigh_link" />
+    <child
+      link="right_shank_link" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="${-pi}"
+      upper="${pi}"
+      effort="100"
+      velocity="5" />
+    <dynamics
+      friction="0.7"
+      damping="0.1" />
+  </joint>
+  <link
+    name="right_ankle_link">
+    <inertial>
+      <origin
+        xyz="-0.0211710987076901 -0.000372435017864603 0.0118862254520089"
+        rpy="0 0 0" />
+      <mass
+        value="0.0930179630649924" />
+      <inertia
+        ixx="2.44594850592089E-05"
+        ixy="7.33758600796815E-07"
+        ixz="2.98512780055937E-07"
+        iyy="7.10126175528155E-05"
+        iyz="-1.02692936689923E-07"
+        izz="6.18808778005966E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/right_ankle_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/right_ankle_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_ankle_pitch_joint"
+    type="revolute">
+    <origin
+      xyz="0 0 -0.14"
+      rpy="0 0 0" />
+    <parent
+      link="right_shank_link" />
+    <child
+      link="right_ankle_link" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="${-pi}"
+      upper="${pi}"
+      effort="100"
+      velocity="5" />
+    <dynamics
+      friction="0.7"
+      damping="0.1" />
+  </joint>
+  <link
+    name="right_foot_link">
+    <inertial>
+      <origin
+        xyz="0.0466607932062022 -0.01425274691093 -0.0230281163087871"
+        rpy="0 0 0" />
+      <mass
+        value="0.0356470366355454" />
+      <inertia
+        ixx="2.42742010000649E-05"
+        ixy="1.83950968829657E-07"
+        ixz="-4.82206791190574E-07"
+        iyy="7.46265449790505E-05"
+        iyz="-3.97748194719387E-07"
+        izz="9.7840186920826E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/right_foot_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/right_foot_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_ankle_roll_joint"
+    type="revolute">
+    <origin
+      xyz="-0.045253 0 0"
+      rpy="0 0 0" />
+    <parent
+      link="right_ankle_link" />
+    <child
+      link="right_foot_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="${-pi}"
+      upper="${pi}"
+      effort="100"
+      velocity="5" />
+    <dynamics
+      friction="0.7"
+      damping="0.1" />
+  </joint>
+<!--link
+    name="right_bottom_foot_fake_link">
+    <inertial>
+      <origin
+        xyz="0.0826224182747095 0.0599769191125785 -0.0302963597863363"
+        rpy="0 0 0" />
+      <mass
+        value="0.0001" />
+      <inertia
+        ixx="1.04719755119654E-22"
+        ixy="-1.06581097908222E-67"
+        ixz="3.63206357723254E-51"
+        iyy="1.04719755119654E-22"
+        iyz="-3.03551380010738E-55"
+        izz="1.57079632679485E-22" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/right_bottom_fake_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/right_bottom_fake_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_bottom_foot_fake_joint"
+    type="fixed">
+    <origin
+      xyz="0.045253 0 -0.02556"
+      rpy="0 0 0" />
+    <parent
+      link="right_foot_link" />
+    <child
+      link="right_bottom_foot_fake_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="${-pi}"
+      upper="${pi}"
+      effort="10"
+      velocity="0.1" />
+    <dynamics
+      friction="1" />
+  </joint>
+  <link
+    name="right_front_foot_fake_link">
+    <inertial>
+      <origin
+        xyz="0.00410910164426952 0.0759769191125782 -0.037296359786336"
+        rpy="0 0 0" />
+      <mass
+        value="0.0001" />
+      <inertia
+        ixx="1.04719755119654E-22"
+        ixy="-1.06581097908222E-67"
+        ixz="3.63206357723254E-51"
+        iyy="1.04719755119654E-22"
+        iyz="-3.03551380010738E-55"
+        izz="1.57079632679485E-22" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/right_front_foot_fake_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://urdf/kidsize_model/robocup_robot/meshes/right_front_foot_fake_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_front_foot_fake_joint"
+    type="fixed">
+    <origin
+      xyz="0.078513 -0.016 0.007"
+      rpy="0 0 0" />
+    <parent
+      link="right_bottom_foot_fake_link" />
+    <child
+      link="right_front_foot_fake_link" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="${-pi}"
+      upper="${pi}"
+      effort="10"
+      velocity="0.1" />
+    <dynamics
+      friction="1" />
+  </joint-->
+
+  <joint name="camera_joint" type="fixed">
+    <axis xyz="0 1 0" />
+    <origin xyz="0.0 0.0 0.04" rpy="0 0 0"/>
+    <parent link="head_link"/>
+    <child link="camera_link"/>
+  </joint>
+
+  <!-- Camera -->
+  <link name="camera_link">
+    <collision>
+      <origin xyz="-0.0 0 0" rpy="0 1.5708 0"/>
+      <geometry>
+    <cylinder radius="0.0145" length="0.01"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="-0.0 0 0" rpy="0 1.5708 0"/>
+      <geometry>
+    <cylinder radius="0.0145" length="0.01"/>
+      </geometry>
+    </visual>
+
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+		<transmission name="right_hip_yaw_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+			<joint name="right_hip_yaw_joint" >
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="right_hip_yaw_joint">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="right_hip_roll_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="right_hip_roll_joint" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="right_hip_roll_joint">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="right_hip_pitch_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="right_hip_pitch_joint" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="right_hip_pitch_joint">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="right_knee_pitch_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="right_knee_pitch_joint" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="right_knee_pitch_joint">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="right_ankle_pitch_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="right_ankle_pitch_joint" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="right_ankle_pitch_joint">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="right_ankle_roll_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="right_ankle_roll_joint" >
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="right_ankle_roll_joint">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="left_hip_yaw_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="left_hip_yaw_joint" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="left_hip_yaw_joint">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="left_hip_roll_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="left_hip_roll_joint" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="left_hip_roll_joint">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="left_hip_pitch_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="left_hip_pitch_joint" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="left_hip_pitch_joint">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="left_knee_pitch_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="left_knee_pitch_joint" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="left_knee_pitch_joint">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="left_ankle_pitch_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="left_ankle_pitch_joint" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="left_ankle_pitch_joint">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="left_ankle_roll_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="left_ankle_roll_joint" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="left_ankle_roll_joint">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="right_shoulder_pitch_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="right_shoulder_pitch_joint" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="right_shoulder_pitch_joint">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="right_shoulder_roll_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="right_upper_arm_roll_joint" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="right_upper_arm_roll_joint">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+                <!--transmission name="right_middle_yaw_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="right_middle_yaw" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="right_middle_yaw">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission-->
+		<transmission name="right_elbow_pitch_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="right_elbow_pitch_joint" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="right_elbow_pitch_joint">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="left_shoulder_pitch_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="left_shoulder_pitch_joint" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="left_shoulder_pitch_joint">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="left_shoulder_roll_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="left_upper_arm_roll_joint" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="left_upper_arm_roll_joint">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+                <!--transmission name="left_middle_yaw_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="left_middle_yaw" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="left_middle_yaw">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission-->
+		<transmission name="left_elbow_pitch_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="left_elbow_pitch_joint" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="left_elbow_pitch_joint">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="neck_yaw_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="neck_yaw_joint" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="neck_yaw_joint">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+		<transmission name="head_pitch_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="head_pitch_joint" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="head_pitch_joint">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+
+                <transmission name="waist_yaw_transmission">
+			<type>transmission_interface/SimpleTransmission</type>
+            <joint name="waist_yaw_joint" >
+				<hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+
+   </joint>             
+			<actuator name="waist_yaw_joint">
+				<mechanicalReduction>1</mechanicalReduction>
+			</actuator>
+		</transmission>
+
+		<!-- Gazebo configuration -->
+
+		<gazebo>
+			<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+				<robotNamespace>/robot1</robotNamespace>
+				<legacyModeNS>true</legacyModeNS>
+			</plugin>
+		</gazebo>
+
+<gazebo reference="camera_link">
+<material>Gazebo/Black</material>
+    <sensor type="camera" name="camera1">
+      <visualize>1</visualize>
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>800</width>
+          <height>600</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.2</near>
+          <far>1000</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise is sampled independently per pixel on each frame.
+               That pixel's noise value is added to each of its color
+               channels, which at that point lie in the range [0,1]. -->
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+	<robotNamespace>/robot1</robotNamespace>
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>/camera</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>camera_link</frameName>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+</gazebo>
+
+		<!-- Gazebo links -->
+		<gazebo reference="trunk_link">
+			<material>Gazebo/White</material>
+			<!--turnGravityOff>false</turnGravityOff-->
+		</gazebo>
+                <gazebo reference="waist_link">
+			<material>Gazebo/White</material>
+			<!--turnGravityOff>false</turnGravityOff-->	
+		</gazebo>
+		<gazebo reference="left_hip_yaw_link">
+			<material>Gazebo/White</material>
+		</gazebo>
+		<gazebo reference="left_hip_roll_link">
+			<material>Gazebo/Black</material>
+		</gazebo>
+		<gazebo reference="left_thigh_link">
+			<material>Gazebo/White</material>
+		</gazebo>
+		<gazebo reference="left_shank_link">
+			<material>Gazebo/White</material>
+		</gazebo>
+		<gazebo reference="left_ankle_link">
+			<material>Gazebo/Black</material>
+		</gazebo>
+		<gazebo reference="left_foot_link">
+			<material>Gazebo/FlatBlack</material>
+			<kp>1000000.0</kp>
+			<kd>100.0</kd>
+			<mu1>10000.0</mu1>
+			<mu2>10000.0</mu2>
+			<fdir1>1 0 0</fdir1>
+			<maxVel>1.0</maxVel>
+			<minDepth>0.00</minDepth>
+		</gazebo>
+		<gazebo reference="left_shoulder_link">
+			<material>Gazebo/White</material>
+		</gazebo>
+		<gazebo reference="left_upper_arm_link">
+			<material>Gazebo/White</material>
+		</gazebo>
+                <!--gazebo reference="left_middle_arm_link">
+			<material>Gazebo/White</material>
+		</gazebo-->
+		<gazebo reference="left_elbow_link">
+			<material>Gazebo/White</material>
+		</gazebo>
+		<gazebo reference="right_hip_yaw_link">
+			<material>Gazebo/White</material>
+			<!--turnGravityOff>false</turnGravityOff-->
+		</gazebo>
+		<gazebo reference="right_hip_roll_link">
+			<material>Gazebo/Black</material>
+			<!--turnGravityOff>false</turnGravityOff-->
+		</gazebo>
+		<gazebo reference="right_thigh_link">
+			<material>Gazebo/White</material>
+			<!--turnGravityOff>false</turnGravityOff-->
+		</gazebo>
+		<gazebo reference="right_shank_link">
+			<material>Gazebo/White</material>
+			<!--turnGravityOff>false</turnGravityOff-->
+		</gazebo>
+		<gazebo reference="right_ankle_link">
+			<material>Gazebo/Black</material>
+			<!--turnGravityOff>false</turnGravityOff-->
+		</gazebo>
+		<gazebo reference="right_foot_link">
+			<material>Gazebo/FlatBlack</material>
+			<kp>1000000.0</kp>
+			<kd>100.0</kd>
+			<mu1>10000.0</mu1>
+			<mu2>10000.0</mu2>
+			<fdir1>1 0 0</fdir1>
+			<maxVel>1.0</maxVel>
+			<minDepth>0.00</minDepth>
+			<!--turnGravityOff>false</turnGravityOff-->
+		</gazebo>
+		<gazebo reference="right_shoulder_link">
+			<material>Gazebo/White</material>
+		</gazebo>
+		<gazebo reference="right_upper_arm_link">
+			<material>Gazebo/White</material>
+		</gazebo>
+                <!--gazebo reference="right_middle_arm_link">
+			<material>Gazebo/White</material>
+		</gazebo-->
+		<gazebo reference="right_elbow_link">
+			<material>Gazebo/White</material>
+		</gazebo>
+		<gazebo reference="neck_link">
+			<material>Gazebo/Black</material>
+		</gazebo>
+  <gazebo reference="trunk_link">
+    <gravity>true</gravity>
+    <sensor name="imu_sensor" type="imu">
+      <always_on>true</always_on>
+      <update_rate>100</update_rate>
+      <visualize>true</visualize>
+      <topic>__default_topic__</topic>
+      <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+        <topicName>imu</topicName>
+        <bodyName>imu_link</bodyName>
+        <updateRateHZ>60.0</updateRateHZ>
+        <gaussianNoise>0.0</gaussianNoise>
+        <xyzOffset>0 0 0</xyzOffset>
+        <rpyOffset>0 0 0</rpyOffset>
+        <frameName>imu_link</frameName>
+      </plugin>
+      <pose>0 0 0 0 0 0</pose>
+    </sensor>
+  </gazebo>
+</robot>

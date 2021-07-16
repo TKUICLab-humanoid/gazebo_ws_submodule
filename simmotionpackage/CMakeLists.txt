@@ -12,7 +12,9 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   tku_libs
   tku_msgs
+  simwalkinggait
 )
+find_package(Eigen3 REQUIRED )
 
 set(TKU_WK_LIBRARIES ${CATKIN_DEVEL_PREFIX}/lib/libsimwalkinggait_libs.so)
 set(TKU_LIBRARIES ${CATKIN_DEVEL_PREFIX}/lib/libtku_libs.so)
@@ -110,7 +112,7 @@ set(TKU_GZ_LIBRARIES ${CATKIN_DEVEL_PREFIX}/lib/libtku_gz_libs.so)
 catkin_package(
   INCLUDE_DIRS include
 #  LIBRARIES simmotionpackage
-#  CATKIN_DEPENDS roscpp std_msgs tku_libs tku_msgs
+#  CATKIN_DEPENDS roscpp std_msgs tku_libs tku_msgs 
 #  DEPENDS system_lib
 )
 
@@ -123,6 +125,9 @@ catkin_package(
 include_directories(
   include
   ${catkin_INCLUDE_DIRS}
+)
+include_directories(
+  ${Eigen3_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -138,9 +143,9 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
- #add_executable(${PROJECT_NAME} src/simmotionpackage.cpp src/Inverse_kinematic.cpp)
- add_executable(${PROJECT_NAME} src/simmotionpackage.cpp src/Inverse_kinematic.cpp)
- add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+ add_executable(${PROJECT_NAME} src/simmotionpackage.cpp src/Inverse_kinematic.cpp src/Feedback_Control.cpp src/ZMPProcess.cpp src/DefineDataStruct.cpp)
+ add_dependencies(${PROJECT_NAME} ${catkin_EXPORTED_TARGETS})
  target_link_libraries(${PROJECT_NAME}
    ${catkin_LIBRARIES}
    ${TKU_LIBRARIES}
