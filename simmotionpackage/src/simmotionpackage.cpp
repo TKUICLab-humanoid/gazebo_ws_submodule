@@ -7,8 +7,8 @@ extern BalanceControl balance;
 
 void SimMotionPackage::Savedata(const std_msgs::Bool &msg)
 {   
-    balance.saveData();
-    inversekinematic.saveData();
+    //balance.saveData();
+    //inversekinematic.saveData();
 
 }
 
