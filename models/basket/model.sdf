@@ -1,28 +1,19 @@
 <?xml version="1.0" ?>
 <sdf version="1.4">
-  <model name="FIRA_Ground">
-    <pose>0 0 0.0001  0 0 0</pose>
+  <model name="basket">
      <static>true</static>
     <link name="link">
       <collision name="collision">
         <geometry>
           <mesh> 
-            <uri>model://FIRA_Ground/field_0407.DAE</uri>
+            <uri>model://basket/basket.DAE</uri>
           </mesh>
         </geometry>
-        <surface>
-          <friction>
-            <ode>
-              <mu>100</mu>
-              <mu2>50</mu2>
-            </ode>
-          </friction>
-        </surface>
       </collision>
       <visual name="visual">
         <geometry>
           <mesh>
-            <uri>model://FIRA_Ground/field_0407.DAE</uri>
+            <uri>model://basket/basket.DAE</uri>
           </mesh>
         </geometry>
       </visual>
