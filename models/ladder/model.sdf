@@ -1,28 +1,20 @@
 <?xml version="1.0" ?>
 <sdf version="1.4">
-  <model name="FIRA_Ground">
-    <pose>0 0 0.0001  0 0 0</pose>
+  <model name="ladder">
+    <pose>0.160203 0.033734 0.077975  0 0 0</pose>
      <static>true</static>
     <link name="link">
       <collision name="collision">
         <geometry>
           <mesh> 
-            <uri>model://FIRA_Ground/field_0407.DAE</uri>
+            <uri>model://ladder/ladder.dae</uri>
           </mesh>
         </geometry>
-        <surface>
-          <friction>
-            <ode>
-              <mu>100</mu>
-              <mu2>50</mu2>
-            </ode>
-          </friction>
-        </surface>
       </collision>
       <visual name="visual">
         <geometry>
           <mesh>
-            <uri>model://FIRA_Ground/field_0407.DAE</uri>
+            <uri>model://ladder/ladder.dae</uri>
           </mesh>
         </geometry>
       </visual>
