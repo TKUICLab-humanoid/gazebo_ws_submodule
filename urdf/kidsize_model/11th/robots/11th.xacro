@@ -22,7 +22,7 @@
         xyz="-0.0088172 -4.3153E-08 -0.0020413"
         rpy="0 0 0" />
       <mass
-        value="0.5" />
+        value="0.22475" />
       <inertia
         ixx="0.00037837"
         ixy="1.6316E-10"
@@ -62,7 +62,7 @@
         xyz="0.0077094 2.1697E-05 0.11416"
         rpy="0 0 0" />
       <mass
-        value="1.3" />
+        value="0.26146" />
       <inertia
         ixx="0.0010729"
         ixy="2.0691E-07"
@@ -123,7 +123,7 @@
         xyz="-0.0080916 -0.00072376 0.036704"
         rpy="0 0 0" />
       <mass
-        value="0.2" />
+        value="0.047879" />
       <inertia
         ixx="8.2755E-06"
         ixy="1.0134E-07"
@@ -184,7 +184,7 @@
         xyz="0.00029663 -3.6886E-05 0.037704"
         rpy="0 0 0" />
       <mass
-        value="0.25" />
+        value="0.049548" />
       <inertia
         ixx="3.0661E-05"
         ixy="1.425E-10"
@@ -246,7 +246,7 @@
         xyz="0.0030363 0.036247 3.3909E-13"
         rpy="0 0 0" />
       <mass
-        value="0.004" />
+        value="0.0085293" />
       <inertia
         ixx="4.4633E-06"
         ixy="-3.5249E-07"
@@ -307,7 +307,7 @@
         xyz="-0.0021118 -2.0802E-07 -0.037458"
         rpy="0 0 0" />
       <mass
-        value="0.46" />
+        value="0.093248" />
       <inertia
         ixx="7.4077E-05"
         ixy="1.7432E-10"
@@ -368,7 +368,7 @@
         xyz="0.0007383 8.6844E-06 -0.047706"
         rpy="0 0 0" />
       <mass
-        value="0.24" />
+        value="0.047332" />
       <inertia
         ixx="1.3032E-05"
         ixy="-2.9073E-09"
@@ -429,7 +429,7 @@
         xyz="0.0076862 0.00892 -0.075914"
         rpy="0 0 0" />
       <mass
-        value="0.115" />
+        value="0.023059" />
       <inertia
         ixx="3.4222E-05"
         ixy="8.0645E-07"
@@ -490,7 +490,7 @@
         xyz="0.0030363 -0.036247 3.6568E-13"
         rpy="0 0 0" />
       <mass
-        value="0.04" />
+        value="0.0085293" />
       <inertia
         ixx="4.4633E-06"
         ixy="3.5249E-07"
@@ -551,7 +551,7 @@
         xyz="-0.0021118 -2.0802E-07 -0.037458"
         rpy="0 0 0" />
       <mass
-        value="0.46" />
+        value="0.093248" />
       <inertia
         ixx="7.4077E-05"
         ixy="1.7432E-10"
@@ -612,7 +612,7 @@
         xyz="0.0007327 2.0507E-07 -0.047732"
         rpy="0 0 0" />
       <mass
-        value="0.23" />
+        value="0.047295" />
       <inertia
         ixx="1.2988E-05"
         ixy="7.1062E-12"
@@ -673,7 +673,7 @@
         xyz="0.007686 -0.00892 -0.075914"
         rpy="0 0 0" />
       <mass
-        value="0.115" />
+        value="0.023059" />
       <inertia
         ixx="3.4222E-05"
         ixy="-8.0645E-07"
@@ -734,7 +734,7 @@
         xyz="-0.0021546 2.2293E-13 -0.034318"
         rpy="0 0 0" />
       <mass
-        value="0.09" />
+        value="0.018738" />
       <inertia
         ixx="3.9876E-06"
         ixy="3.1499E-20"
@@ -795,7 +795,7 @@
         xyz="0.024082 0.00037244 -0.011886"
         rpy="0 0 0" />
       <mass
-        value="0.46" />
+        value="0.093018" />
       <inertia
         ixx="2.4459E-05"
         ixy="-7.3376E-07"
@@ -856,7 +856,7 @@
         xyz="-1.422E-07 0.00050805 -0.086495"
         rpy="0 0 0" />
       <mass
-        value="0.34" />
+        value="0.068207" />
       <inertia
         ixx="5.7966E-05"
         ixy="-4.9275E-12"
@@ -917,7 +917,7 @@
         xyz="-1.3913E-12 2.7001E-13 -0.055223"
         rpy="0 0 0" />
       <mass
-        value="0.007" />
+        value="0.015114" />
       <inertia
         ixx="2.1026E-05"
         ixy="9.7515E-20"
@@ -978,7 +978,7 @@
         xyz="-0.021168 0.00037264 0.011886"
         rpy="0 0 0" />
       <mass
-        value="0.46" />
+        value="0.093018" />
       <inertia
         ixx="2.4459E-05"
         ixy="-7.333E-07"
@@ -1039,7 +1039,7 @@
         xyz="0.044554 0.0018445 -0.028159"
         rpy="0 0 0" />
       <mass
-        value="0.16" />
+        value="0.032328" />
       <inertia
         ixx="1.2045E-05"
         ixy="-5.316E-08"
@@ -1100,7 +1100,7 @@
         xyz="-0.0021546 3.5527E-13 -0.034318"
         rpy="0 0 0" />
       <mass
-        value="0.09" />
+        value="0.018738" />
       <inertia
         ixx="3.9876E-06"
         ixy="-1.0404E-18"
@@ -1161,7 +1161,7 @@
         xyz="0.024082 -0.00037264 -0.011886"
         rpy="0 0 0" />
       <mass
-        value="0.46" />
+        value="0.093018" />
       <inertia
         ixx="2.4459E-05"
         ixy="7.333E-07"
@@ -1222,7 +1222,7 @@
         xyz="1.422E-07 -0.00050805 -0.086495"
         rpy="0 0 0" />
       <mass
-        value="0.34" />
+        value="0.068207" />
       <inertia
         ixx="5.7966E-05"
         ixy="-4.9275E-12"
@@ -1283,7 +1283,7 @@
         xyz="5.7732E-13 -1.0925E-13 -0.055223"
         rpy="0 0 0" />
       <mass
-        value="0.07" />
+        value="0.015114" />
       <inertia
         ixx="2.1026E-05"
         ixy="-2.6068E-16"
@@ -1344,7 +1344,7 @@
         xyz="-0.021168 -0.00037244 0.011886"
         rpy="0 0 0" />
       <mass
-        value="0.46" />
+        value="0.093018" />
       <inertia
         ixx="2.4459E-05"
         ixy="7.3376E-07"
@@ -1405,7 +1405,7 @@
         xyz="0.044554 -0.0018441 -0.028159"
         rpy="0 0 0" />
       <mass
-        value="0.16" />
+        value="0.032328" />
       <inertia
         ixx="1.2045E-05"
         ixy="5.3184E-08"
@@ -1836,7 +1836,7 @@
   </gazebo> -->
 
 <gazebo reference="camera_link">
-<material>Gazebo/Black</material>
+  <material>Gazebo/DarkGrey</material>
     <sensor type="camera" name="camera1">
       <visualize>0</visualize>
       <update_rate>30.0</update_rate>
@@ -1879,29 +1879,34 @@
 </gazebo>
 
 		<!-- Gazebo links -->
-		<gazebo reference="trunk_link">
-			<material>Gazebo/White</material>
+    <gazebo reference="head_link">
+			<material>Gazebo/DarkGrey</material>
 		</gazebo>
-                <gazebo reference="waist_link">
-			<material>Gazebo/White</material>
+		<gazebo reference="trunk_link">
+			<material>Gazebo/DarkGrey</material>
+		</gazebo>
+    <gazebo reference="waist_link">
+			<material>Gazebo/DarkGrey</material>
 		</gazebo>
 		<gazebo reference="left_hip_yaw_link">
-			<material>Gazebo/White</material>
+			<material>Gazebo/DarkGrey</material>
 		</gazebo>
 		<gazebo reference="left_hip_roll_link">
-			<material>Gazebo/Black</material>
+			<material>Gazebo/FlatBlack</material>
 		</gazebo>
 		<gazebo reference="left_thigh_link">
-			<material>Gazebo/White</material>
+			<material>Gazebo/DarkGrey</material>
 		</gazebo>
 		<gazebo reference="left_shank_link">
-			<material>Gazebo/White</material>
+			<material>Gazebo/DarkGrey</material>
 		</gazebo>
 		<gazebo reference="left_ankle_link">
-			<material>Gazebo/Black</material>
+			<material>Gazebo/FlatBlack</material>
+      <mu1>100000.0</mu1>
+			<mu2>100000.0</mu2>
 		</gazebo>
 		<gazebo reference="left_foot_link">
-			<material>Gazebo/FlatBlack</material>
+			<material>Gazebo/DarkGrey</material>
 			<kp>1000000.0</kp>
 			<kd>100.0</kd>
 			<mu1>100000.0</mu1>
@@ -1911,34 +1916,42 @@
 			<minDepth>0.00</minDepth>
 		</gazebo>
 		<gazebo reference="left_shoulder_pitch_link">
-			<material>Gazebo/White</material>
+			<material>Gazebo/DarkGrey</material>
 		</gazebo>
 		<gazebo reference="left_upper_arm_link">
-			<material>Gazebo/White</material>
+			<material>Gazebo/DarkGrey</material>
+      <mu1>100000.0</mu1>
+			<mu2>100000.0</mu2>
 		</gazebo>
-                <gazebo reference="left_middle_arm_link">
-			<material>Gazebo/White</material>
+    <gazebo reference="left_middle_arm_link">
+			<material>Gazebo/FlatBlack</material>
+      <mu1>100000.0</mu1>
+			<mu2>100000.0</mu2>
 		</gazebo>
 		<gazebo reference="left_lower_arm_link">
-			<material>Gazebo/White</material>
+			<material>Gazebo/DarkGrey</material>
+      <mu1>100000.0</mu1>
+			<mu2>100000.0</mu2>
 		</gazebo>
 		<gazebo reference="right_hip_yaw_link">
-			<material>Gazebo/White</material>
+			<material>Gazebo/DarkGrey</material>
 		</gazebo>
 		<gazebo reference="right_hip_roll_link">
-			<material>Gazebo/Black</material>
+			<material>Gazebo/FlatBlack</material>
 		</gazebo>
 		<gazebo reference="right_thigh_link">
-			<material>Gazebo/White</material>
+			<material>Gazebo/DarkGrey</material>
 		</gazebo>
 		<gazebo reference="right_shank_link">
-			<material>Gazebo/White</material>
+			<material>Gazebo/DarkGrey</material>
 		</gazebo>
 		<gazebo reference="right_ankle_link">
-			<material>Gazebo/Black</material>
+			<material>Gazebo/FlatBlack</material>
+      <mu1>100000.0</mu1>
+			<mu2>100000.0</mu2>
 		</gazebo>
 		<gazebo reference="right_foot_link">
-			<material>Gazebo/FlatBlack</material>
+			<material>Gazebo/DarkGrey</material>
 			<kp>1000000.0</kp>
 			<kd>100.0</kd>
 			<mu1>100000.0</mu1>
@@ -1948,19 +1961,25 @@
 			<minDepth>0.00</minDepth>
 		</gazebo>
 		<gazebo reference="right_shoulder_pitch_link">
-			<material>Gazebo/White</material>
+			<material>Gazebo/DarkGrey</material>
 		</gazebo>
 		<gazebo reference="right_upper_arm_link">
-			<material>Gazebo/White</material>
+      <material>Gazebo/DarkGrey</material>
+      <mu1>100000.0</mu1>
+			<mu2>100000.0</mu2>
 		</gazebo>
-                <gazebo reference="right_middle_arm_link">
-			<material>Gazebo/White</material>
+    <gazebo reference="right_middle_arm_link">
+			<material>Gazebo/FlatBlack</material>
+      <mu1>100000.0</mu1>
+			<mu2>100000.0</mu2>
 		</gazebo>
 		<gazebo reference="right_lower_arm_link">
-			<material>Gazebo/White</material>
+			<material>Gazebo/DarkGrey</material>
+      <mu1>100000.0</mu1>
+			<mu2>100000.0</mu2>
 		</gazebo>
-		<gazebo reference="neck_link">
-			<material>Gazebo/Black</material>
+		<gazebo reference="neck_Link">
+			<material>Gazebo/FlatBlack</material>
 		</gazebo>
     <gazebo reference="trunk_link">
         <gravity>true</gravity>

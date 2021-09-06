@@ -1,28 +1,33 @@
 <?xml version="1.0" ?>
 <sdf version="1.4">
-  <model name="FIRA_Ground">
-    <pose>0 0 0.0001  0 0 0</pose>
-     <static>true</static>
+  <model name="ball">
     <link name="link">
+    <gravity>1</gravity>
+      <inertial>
+        <mass>0.01</mass>
+      </inertial>
       <collision name="collision">
         <geometry>
           <mesh> 
-            <uri>model://FIRA_Ground/field_0407.DAE</uri>
+            <uri>model://ball/ball.DAE</uri>
           </mesh>
         </geometry>
         <surface>
-          <friction>
+          <bounce>
+            <restitution_coefficient>0.2</restitution_coefficient>
+            <threshold>0</threshold>
+          </bounce>
+          <contact>
             <ode>
-              <mu>100</mu>
-              <mu2>50</mu2>
+              <max_vel>20</max_vel>
             </ode>
-          </friction>
+          </contact>
         </surface>
       </collision>
       <visual name="visual">
         <geometry>
           <mesh>
-            <uri>model://FIRA_Ground/field_0407.DAE</uri>
+            <uri>model://ball/ball.DAE</uri>
           </mesh>
         </geometry>
       </visual>

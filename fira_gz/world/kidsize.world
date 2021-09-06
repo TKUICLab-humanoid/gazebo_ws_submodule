@@ -12,12 +12,13 @@
     </physics>
     <gui>
       <camera name="user_camera">
-        <pose>0 0 0 1.57 1.57 1.57</pose>
+        <pose>2.25 -10 7.6 0 0.8 1.6</pose>
       </camera>
     </gui>
-    <include>
+    <!-- <include>
       <uri>model://ground_plane</uri>
-    </include>
+      <pose>1.75 0.15 0.001 0.0 0.0 1.5708</pose>
+    </include> -->
 
     <include>
       <uri>model://FIRA_Ground</uri>
@@ -26,6 +27,7 @@
     
     <include>
       <uri>model://aruco</uri>
+      <pose>6.188916 0.124447 0.02 0.583358 0.0 -1.578856</pose>
     </include>
 
     <!-- Global light source -->
@@ -35,18 +37,48 @@
 
     <include>
       <uri>model://yellow_box</uri>
-      <pose>-0.007403 -1.894870 0.023500 0 0 -0.000198</pose>
+      <pose>4.913946 -3.416375 0.1 0 0 -0.000028</pose>
     </include>
 
     <include>
       <uri>model://red_box</uri>
-      <pose>0.076577 -1.885190 0 0 -0.000028</pose>
+      <pose>4.913946 -3.416375 0.05 0 -0.000028</pose>
     </include>
 
     <include>
       <uri>model://blue_box</uri>
-      <pose>0.000071 -1.885190 0.1 0 -0.000304</pose>
+      <pose>4.913946 -3.416375 0.15 0 -0.000028</pose>
     </include>
    
+    <include>
+      <uri>model://lift_13</uri>
+      <pose>0.435530 -3.772069 0.275849 0 0.000098</pose>
+    </include>
+
+    <!-- <include>
+      <uri>model://basket</uri>
+      <pose>-2.682984 3.149764 0 0 1.562850</pose>
+    </include> -->
+
+    <!-- <include>
+      <uri>model://ballhandle</uri>
+      <pose>-1.955460 3.151620 0 0 0</pose>
+    </include> -->
+    <actor name="actor">
+     
+	  <link name="link">
+
+        <visual name="visual">
+         <geometry>
+           <mesh>
+             <uri>model://target/AR.DAE</uri>
+           </mesh>
+         </geometry>
+        </visual>
+       </link>
+
+       <plugin name="target_move" filename="libtarget_move.so"/>
+    </actor>
+
   </world>
 </sdf>

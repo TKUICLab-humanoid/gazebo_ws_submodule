@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <model name="ballhandle">
+    <link name="link">
+    <gravity>1</gravity>
+      <inertial>
+        <mass>0.01</mass>
+      </inertial>
+      <collision name="collision">
+        <geometry>
+          <mesh> 
+            <uri>model://handle/ballhandle.DAE</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model://handle/ballhandle.DAE</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+</sdf>

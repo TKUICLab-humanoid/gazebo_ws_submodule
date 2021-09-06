@@ -213,7 +213,7 @@ void WalkingGaitByLIPM::process()
         plot_once_ = true;
         parameterinfo->complan.walking_stop = true;
         ROS_INFO("Save&Reset\n");
-        //saveData();
+//        saveData();
     }
     else if(now_step_ == START_STEP_COUNT)
     {

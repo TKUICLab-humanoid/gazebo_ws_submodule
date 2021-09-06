@@ -7,8 +7,8 @@ extern BalanceControl balance;
 
 void SimMotionPackage::Savedata(const std_msgs::Bool &msg)
 {   
-    //balance.saveData();
-    //inversekinematic.saveData();
+    balance.saveData();
+    inversekinematic.saveData();
 
 }
 
@@ -328,6 +328,129 @@ void SimMotionPackage::SectorSend2GazeboFunction(const std_msgs::Int16 &msg)
     }
     SendSectorPackage.clear();
     ROS_INFO("End_LoadSector");
+}
+
+void SimMotionPackage::MotorSpeedFunction(const tku_msgs::SandHandSpeed &msg)
+{
+    ROS_INFO("ReadHandMotionStart");
+    char filename[10];
+    sprintf(filename,"%d",msg.sector);
+    char pathend[20] = "/sector/";
+    char pathend2[20] = ".ini";
+    char path[200];
+    int packagecnt;
+    int cnt = 3;
+    uint8_t H,L;
+    vector<unsigned int> handspeedpackage;
+
+    strcpy(path, tool->parameterPath.c_str());
+    strcat(pathend, filename);
+    strcat(path, pathend);
+    strcat(path, pathend2);
+    fstream fin;
+    fin.open(path, ios::in);
+    if(!fin)
+    {
+        ROS_INFO("Filename Error!!");
+    }
+    else
+    {
+        try
+        {
+            packagecnt = tool->readvalue(fin, "PackageCnt", 0);
+            handspeedpackage.push_back(packagecnt);
+            handspeedpackage.push_back(tool->readvalue(fin, "Package", 2));
+            ROS_INFO("mode = %d",handspeedpackage[1]);
+            for(int i = 1; i < packagecnt; i++)
+            {
+                handspeedpackage.push_back(tool->readvalue(fin, "|", 3));
+            }
+        }
+        catch(exception e)
+        {
+        }
+    }
+    ROS_INFO("End_LoadSector");
+
+    L = msg.speed & 0xFF;
+    H = msg.speed>>8 & 0xFF;
+
+    handspeedpackage[18] = L;
+    handspeedpackage[19] = H;
+
+    handspeedpackage[117] = L;
+    handspeedpackage[118] = H;
+
+    ofstream OutFile(path);
+    ROS_INFO("SendhandspeedBegin");
+    OutFile << "PackageCnt = ";
+    OutFile << handspeedpackage[0];
+    OutFile << "\n";
+    OutFile << "Package = ";
+    for(int i = 1; i < handspeedpackage[0] + 1; i++)   //[0]&[1] is headpackage so +2 to save last package 
+    {
+        OutFile << handspeedpackage[i];
+        // ROS_INFO("%d",handspeedpackage[i]);
+        OutFile <<"|| ";
+    }
+    ROS_INFO("SendhandspeedEnd");
+    OutFile.close();
+
+    handspeedpackage.clear();
+}
+
+void SimMotionPackage::SingleMotorSend2GazeboFunction(const tku_msgs::SingleMotorData &msg)
+{
+    ROS_INFO("SendSingleMotorPackage");
+
+    uint8_t Angle_H,Angle_L,Speed_H,Speed_L,checksum = 0;
+    int position;
+    int cnt = 0;
+    position = abs(msg.Position);
+    if(msg.Position < 0)
+    {
+        Angle_L = position & 0xFF;
+        Angle_H = (position >>8 & 0xFF)+128;
+    }
+    else
+    {
+        Angle_L = position & 0xFF;
+        Angle_H = position >>8 & 0xFF;
+    }
+    Speed_L = msg.Speed & 0xFF;
+    Speed_H = msg.Speed>>8 & 0xFF;
+
+    SendSectorPackage.push_back(243);
+    
+
+    for(cnt = 0; cnt < (msg.ID - 1); cnt++)
+    {
+        this->sector_data.speed[cnt].L_D = 0;
+        this->sector_data.speed[cnt].H_D = 0;
+        this->sector_data.angle[cnt].L_D = 0;
+        this->sector_data.angle[cnt].H_D = 0;
+    }
+    this->sector_data.speed[cnt].L_D = Speed_L;
+    this->sector_data.speed[cnt].H_D = Speed_H;
+    this->sector_data.angle[cnt].L_D = Angle_L;
+    this->sector_data.angle[cnt].H_D = Angle_H;
+
+    for(int i = cnt+1; i < 21; i++)
+    {
+        this->sector_data.speed[i].L_D = 0;
+        this->sector_data.speed[i].H_D = 0;
+        this->sector_data.angle[i].L_D = 0;
+        this->sector_data.angle[i].H_D = 0;
+    }
+
+    for(int i = 0; i < 21; i++)
+    {
+        ROS_INFO("speed = %d\tangle = %d", this->sector_data.speed[i].toDec(), this->sector_data.angle[i].toDec());
+    }
+    SectorControlFuntion(SendSectorPackage[0], this->sector_data);
+
+    SendSectorPackage.clear();
+    ROS_INFO("Execute is finsih\n");
 }
 
 bool SimMotionPackage::InterfaceReadDataFunction(tku_msgs::ReadMotion::Request &Motion_req, tku_msgs::ReadMotion::Response &Motion_res)

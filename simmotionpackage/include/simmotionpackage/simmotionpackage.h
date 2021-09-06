@@ -19,7 +19,8 @@
 #include <sensor_msgs/Imu.h>
 #include "tku_msgs/SensorSet.h"
 #include "tku_msgs/SensorPackage.h"
-
+#include "tku_msgs/SandHandSpeed.h"
+#include "tku_msgs/SingleMotorData.h"
 
 
 enum class HeadMotorID {neck_yaw = 1, head_pitch};
@@ -270,10 +271,12 @@ public:
 		imu_sub	= nh.subscribe("/imu", 10, &SimMotionPackage::getImuData, this);
 		SensorSet_sub = nh.subscribe("/sensorset", 100, &SimMotionPackage::SensorSetFunction, this);
 		Savedata_sub = nh.subscribe("/package/save", 100, &SimMotionPackage::Savedata, this);
-		ExecuteCallBack_pub = nh.advertise<std_msgs::Bool>("/package/executecallback", 1000);
+   		motorspeed_subscribe = nh.subscribe("/package/motorspeed", 1000, &SimMotionPackage::MotorSpeedFunction, this);
+		SingleMotorData_subscribe = nh.subscribe("/package/SingleMotorData", 1000, &SimMotionPackage::SingleMotorSend2GazeboFunction, this);
+    	ExecuteCallBack_pub = nh.advertise<std_msgs::Bool>("/package/executecallback", 1000);
 	    InterfaceCallBack_pub = nh.advertise<std_msgs::Bool>("/package/motioncallback", 1000);
 		Sensorpackage_pub = nh.advertise<tku_msgs::SensorPackage>("/package/sensorpackage", 1000);
-
+		
 
         InterfaceReadData_ser = nh.advertiseService("/package/InterfaceReadSaveMotion", &SimMotionPackage::InterfaceReadDataFunction, this);
 		InterfaceCheckSector_ser = nh.advertiseService("/package/InterfaceCheckSector", &SimMotionPackage::InterfaceCheckSectorFunction, this);
@@ -293,6 +296,8 @@ public:
 	void Savedata(const std_msgs::Bool &msg);
 	void getImuData(const sensor_msgs::Imu &msg);
 	void SensorSetFunction(const tku_msgs::SensorSet &msg);
+	void MotorSpeedFunction(const tku_msgs::SandHandSpeed &msg);
+	void SingleMotorSend2GazeboFunction(const tku_msgs::SingleMotorData &msg);
 
 
 	bool InterfaceReadDataFunction(tku_msgs::ReadMotion::Request &Motion_req, tku_msgs::ReadMotion::Response &Motion_res);
@@ -314,6 +319,8 @@ public:
 	ros::Subscriber imu_sub;
     ros::Subscriber SensorSet_sub;
     ros::Subscriber Savedata_sub;
+	ros::Subscriber motorspeed_subscribe;
+	ros::Subscriber SingleMotorData_subscribe;
 
 
 	ros::ServiceServer InterfaceReadData_ser;

@@ -153,6 +153,8 @@ add_definitions(-std=c++11)
 #add_dependencies(pub_ang ${catkin_EXPORTED_TARGETS})
 #target_link_libraries(pub_ang ${catkin_LIBRARIES})
 
+add_library(target_move SHARED src/target_move.cc)
+target_link_libraries(target_move ${GAZEBO_libraries})
 #if (${gazebo_VERSION_MAJOR} LESS 6)
 #   #These two
 #  include(FindBoost)
