@@ -22,6 +22,13 @@
         .button{
             width: 1500px;
         }
+        body{
+			width: auto;
+			min-width: 1300px;
+			height: 1000px;
+			overflow: visible;
+			background-size: cover;
+		}
     </style>
 
 </head>
@@ -29,36 +36,30 @@
 <body>
     <!-- NAV BAR -->
     <ul>
-        <li><a target="_blank" class="navbarright" href="WalkingInterface.html">Walking Interface</a></li>
-        <li><a target="_blank" class="navbarright" href="ImageProcessInterface.html">Humanoid Interface</a></li>
-        <li><a target="_blank" style="text-decoration: underline;" class="navbarright"
-                href="MotionControlInterface.html">Motion Controller</a></li>
-        <li><a target="_blank" class="navbarright" href="index.html">Home</a></li>
-        <li class="logo">
+        <li><a target="_blank" class="navbarright" href="WalkingInterface.html">Walking</a></li>
+        <li><a target="_blank" style="text-decoration: underline;" class="navbarright" href="MotionControlInterface.html">Motion</a></li>
+        <li><a target="_blank" class="navbarright" href="ImageProcessInterface.html">ImageProcess</a></li>
+        <li><a target="_blank" class="navbarright" href="PIDcontroll.html">PIDcontroll</a></li>
+        <li class="logo" style="width: 226px;">
             <a target="_blank" href="index.html" class="logo"><img id="logoimg"
                     src="./resources/TKU_ICLab/iclablogo-02.png"></a>
         </li>
     </ul>
     <br />
 
-    <p id="addressDisplay1" style="color:#F9F900; display:inline; font-size: 20px;">
-		localhost
-	</p>
-	<p id="addressDisplay2" style="color:#F9F900; display:none; font-size: 20px;">
-		172.17.121.10
-	</p>
-	<p id="connected" style="color:#00D600; display:none; font-size: 20px;">
-		&nbspConnected
-	</p>
+    <p id="connected" style="color:#00D600; display:none; font-size: 20px;">
+        Connected
+    </p>
 
     <form id="childform" name="childform">
         <div id="container">
-			<div style="margin-top: 6px; margin-left: 180px;"> 
+			<div style="margin-left: 180px;"> 
 				<input type="text" id="filename" name="filename" value="NewFile.ini" style="width: 179px;">
-				<input type="button" id="SaveButton" value="Save" onclick="Save();" style="width:80px;" disabled="disabled">
+				<input type="button" id="SaveButton" value="Save" style="width:80px;" disabled="disabled">
 				<input type="button" id="ReadButton" value="Read" onclick="Read();" style="width:80px;" disabled="disabled">
-				<input type="button" id="SaveStandButton" value="SaveStand" onclick="SaveStand();" style="width:80px;" disabled="disabled">
+				<input type="button" id="SaveStandButton" value="SaveStand" style="width:80px;" disabled="disabled">
 				<input type="button" id="ReadStandButton" value="ReadStand" onclick="ReadStand();" style="width:80px;" disabled="disabled">
+                <input type="button" id="resetButton" value="reset" onclick="resetfunction();" style="width:80px;" disabled="disabled">
 			</div>
 
             <div style="width: 800px; margin-top: 16px; margin-bottom: 16px; margin-left: 180px;">
@@ -66,9 +67,9 @@
                 Sector: <input type="text" id="Sector" value=-1 style="width:50px;">
                 <input type="button" id="SendButton" value="Send" onclick="Send();" style="width:80px;" disabled="disabled">
                 <input type="checkbox" id="Locked29" value="Locked" onclick="Locked();" checked>Locked 29
-                <input type="button" id="executeButton" value="execute" onclick="execute();" style="width:80px; margin-left:50px;" disabled="disabled">
+                <input type="checkbox" id="Lockedstand" value="LockedStand" onclick="Locked2()" checked>Locked Stand
+                <input type="button" id="executeButton" value="execute" onclick="execute();" style="width:80px; margin-left:5px;" disabled="disabled">
                 <input type="button" id="standButton" value="stand" onclick="stand();" style="width:80px;" disabled="disabled">
-                <input type="button" id="resetButton" value="reset" onclick="resetfunction();" style="width:80px;" disabled="disabled">
             </div>
 
 			<div style="margin-left: 180px;">
@@ -79,9 +80,12 @@
 				<input type="button" id="MergeButton" value="Merge" onclick="Merge();" style="width:80px;" disabled="disabled">
             </div>
 
+            
+
 			<div id="label" style="width: 900px; margin-left:180px; margin-top:10px;"></div>
 			<div id="stand_label" style="width: 900px; margin-left:180px; margin-top:10px;"></div>
 
+            
             <div style="float: left; width: 1010px;">
                 
 				<div id="leftbox" style="margin-left: 30px; margin-top:50px;">
@@ -296,16 +300,42 @@
                         <div id="AbsoluteSpeedTable" style="width: 1150px;"></div>
                     </div>
                 </div>
+                
+            </div>
+            
+            <div id="addarea" style="margin-left:180px;">
+                <div>
+                    ID:<input type="text" id="chooseID" value=-1 style="width:50px;">
+                    set_ID: <input type="text" id="resetID" value=-1 style="width:50px;">
+                    add_value:<input type="text" id="addvalue" value=-1 style="width:50px">
+                    <input type="button" id="add" value="addvalue" onclick="addreduce(addvalue.value);" style="width:80px;">
+                    
+                    
+                </div>
+                <div>
+                    <input type="button" id="add_reduce_5" value="add_5" onclick="addreduce(this.value);" style="width:80px;">
+                    <input type="button" id="add_reduce_10" value="add_10" onclick="addreduce(this.value);" style="width:80px;">
+                    <input type="button" id="add_reduce_100" value="add_100" onclick="addreduce(this.value);" style="width:80px;">
+                    <div>
+                        <input type="button" id="add_reduce_5" value="reduce_5" onclick="addreduce(this.value);" style="width:80px;">
+                        <input type="button" id="add_reduce_10" value="reduce_10" onclick="addreduce(this.value);" style="width:80px;">
+                        <input type="button" id="add_reduce_100" value="reduce_100" onclick="addreduce(this.value);" style="width:80px;">
+                        <div>
+                            <input type="button" id="add_reduce" value="resetmotor" onclick="addreduce(this.value);" style="width:80px;">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+        
         <div id="rightarea">
             <div id="head">
                 <table>
                     <tr>
                         <td>
-                            <select style="height:25px; margin-right: 5px;" id="addressSelect" onchange="changeDisplay()">
-                                <option value="localhost">localhost</option>
+                            <select style="height:25px; margin-right: 5px;" id="addressSelect">
                                 <option value="172.17.121.10">172.17.121.10</option>
+                                <option value="localhost">localhost</option>
                             </select>
                         </td>
                         <td>
@@ -315,13 +345,26 @@
                 </table>
             </div>
             <div id="version">
-                ver 2021.03.25
+                ver 2021.04.30
             </div>
             <div id="robotpic">
                 <img src="./picture/Robot11.png" style="margin-left: 60px;width: 100%;height: 100%; border: solid black 2px;">
             </div>
         </div>
+        
     </form>
 </body>
-
+<!--彈出提醒-->
+<dialog id="infoModal">
+    <p>確認是否儲存!!!!!</p>
+    <input type="button" id="savestanddata" value="Yes" onclick="SaveStand();" style="width:80px;">
+    <input type="button" id="nosavedata1" value="no" style="width:80px;">
+</dialog>
+<dialog id="infoModal2">
+    <p>確認是否儲存!!!!!</p>
+    <input type="button" id="savedata" value="Yes" onclick="Save();" style="width:80px;">
+    <input type="button" id="nosavedata2" value="no" style="width:80px;">
+</dialog>
+<script type="text/javascript" src="./js/Interface2.js"></script>
+<!----------->
 </html>

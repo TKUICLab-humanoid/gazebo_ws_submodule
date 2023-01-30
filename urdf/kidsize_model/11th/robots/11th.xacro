@@ -405,7 +405,7 @@
     name="left_middle_yaw"
     type="revolute">
     <origin
-      xyz="0.00575 0 -0.060331"
+      xyz="0.00575 0 -0.0813313389328264"
       rpy="0 0 0" />
     <parent
       link="left_upper_arm_link" />
@@ -466,7 +466,7 @@
     name="left_elbow_pitch"
     type="revolute">
     <origin
-      xyz="0 0 -0.06075"
+      xyz="0.0205664048868521 0.0208407070595002 -0.0542500000000001"
       rpy="0 0 0" />
     <parent
       link="left_middle_arm_link" />
@@ -649,7 +649,7 @@
     name="right_middle_yaw"
     type="revolute">
     <origin
-      xyz="0.00575 0 -0.060331"
+      xyz="0.00575 0 -0.0813313389328277"
       rpy="0 0 0" />
     <parent
       link="right_upper_arm_link" />
@@ -710,7 +710,7 @@
     name="right_elbow_pitch"
     type="revolute">
     <origin
-      xyz="0 0 -0.06075"
+      xyz="0.0205664048868521 -0.0204325027735236 -0.0542500000000002"
       rpy="0 0 0" />
     <parent
       link="right_middle_arm_link" />

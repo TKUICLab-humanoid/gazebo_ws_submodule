@@ -16,7 +16,7 @@
       </camera>
     </gui>
     <!-- <include>
-      <uri>model://ground_plane</uri>
+      <uri>model://mar_ground</uri>
       <pose>1.75 0.15 0.001 0.0 0.0 1.5708</pose>
     </include> -->
 
@@ -64,7 +64,8 @@
       <uri>model://ballhandle</uri>
       <pose>-1.955460 3.151620 0 0 0</pose>
     </include> -->
-    <actor name="actor">
+    
+    <!-- <actor name="actor">
      
 	  <link name="link">
 
@@ -78,7 +79,7 @@
        </link>
 
        <plugin name="target_move" filename="libtarget_move.so"/>
-    </actor>
+    </actor> -->
 
   </world>
 </sdf>
